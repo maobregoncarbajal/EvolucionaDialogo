@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<beComuns>
+  <beComun>
+    <Codigo>01</Codigo>
+    <Descripcion>Nuevas</Descripcion>
+  </beComun>
+  <beComun>
+    <Codigo>02</Codigo>
+    <Descripcion>Establecidas</Descripcion>
+  </beComun>
+</beComuns>

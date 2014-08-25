@@ -1,0 +1,1023 @@
+
+/* ESTILOS GENERALES*/
+.bienvenida
+{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 14px;
+    color: #e4122f;
+}
+
+.bienvenida_evaluada
+{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 14px;
+    color: #262626;
+}
+
+.logeo
+{
+    font-family: Arial;
+    font-size: 13px;
+    color: #262626;
+    font-weight: bold;
+}
+
+.logeo_evaluada
+{
+    font-family: Arial;
+    font-size: 13px;
+    color: #00acee;
+    font-weight: bold;
+}
+
+.enviar_aprobacion
+{
+    font-family: Arial;
+    font-size: 15px;
+    color: #6a288a;
+    font-weight: bold;
+    float: right;
+}
+
+#content2
+{
+    height: 100%;
+    width: 1120px;
+}
+
+#resumen
+{
+    /*background-image:url("../Images/chica_fondo.jpg");*/
+    background-color: Red;
+}
+
+.variables
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+    font-weight: bold;
+}
+
+
+/* ESTILOS PARA FORMULARIOS */
+.tituloPantalla
+{
+    font-family: Arial;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+}
+
+#tituloForm
+{
+    margin-left: 75px;
+}
+
+.textoEtiquetas
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    font-weight: bold;
+}
+.texto
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+}
+.texto_descripciones
+{
+    font-family: Arial;
+    font-size: 13px;
+    color: #92278f;
+    font-weight: bold;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.texto_mensaje
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+    font-weight: bold;
+}
+
+.texto_negrita
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+.descripcion
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #262626;
+    text-decoration: none;
+    padding-bottom: 11px;
+}
+
+.inputtext
+{
+    background-color: #f2f3f5;
+    border: solid 1px #778391;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+}
+
+.combo
+{
+    background-color: #dfe0de;
+    border: solid 1px #778391;
+    font-family: Arial;
+    font-size: 11px;
+    color: #262626;
+}
+
+
+.button
+{
+    background-color: #00acee;
+    border: solid 1px #009cd1;
+    font-family: Arial;
+    font-size: 12px;
+    color: White;
+    cursor: pointer;
+}
+
+.checkList
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+}
+
+.mensajes
+{
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: Red;
+}
+
+
+/* ESTILOS PARA CABECERA*/
+
+.cabecera
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #d5d5d5;
+}
+.fondoSubTitulo
+{
+    background-image: url("/Images/botones.png");
+    width: 300px;
+    height: 25px;
+    text-align: left;
+    font-family: Arial;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+}
+.subTituloAlineado
+{
+    float: right;
+    text-align: right;
+}
+
+/*ESTILOS PARA SUBTITULOS*/
+
+.subTitulo
+{
+    font-family: Arial;
+    font-size: 20px;
+    color: #00acee;
+    font-weight: bold;
+}
+
+.subTituloMorado
+{
+    font-family: Arial;
+    font-size: 20px;
+    color: #92278f;
+    font-weight: bold;
+}
+
+/* ESTILO HIPERVINCULO*/
+
+.link
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #00acee !important;
+    font-weight: bold;
+}
+.link_dialogo
+{
+    font-family: Arial;
+    font-size: 14px;
+    color: #00acee;
+    font-weight: bold;
+}
+
+/* ESTILO GRILLA*/
+.cabecera
+{
+    background-color: #8F479A;
+    border: solid 1px #ffffff;
+    color: White;
+    font-family: Arial;
+    font-size: 11px;
+}
+.cabeceraGris
+{
+    background-color: #778391;
+    border: solid 1px #ffffff;
+    color: White;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.grilla
+{
+    background-color: #D3E6FD;
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    border: solid 1px #ffffff;
+}
+
+.grilla_alternativa
+{
+    background-color: #E6E6E6;
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    border: solid 1px #ffffff;
+}
+
+.footer
+{
+    background-color: White;
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+}
+
+
+/* ESTILO GRILLA RESUMEN DE PROCESOS*/
+
+#subtitulos
+{
+    /*background-color:url(Image/titulo.jpg);*/
+    width: 200px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #92278f;
+    height: 27px;
+    margin-left: 13px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.subtitulos
+{
+    /*background-color:url(Image/titulo.jpg);*/
+    width: 200px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #92278f;
+    height: 27px;
+    margin-left: 14px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+.subtitulos_texto
+{
+    /*background-color:url(Image/titulo.jpg);*/
+    width: 200px;
+    font-family: Arial;
+    font-size: 15px;
+    color: #6d6e71;
+    height: 27px;
+    margin-left: 13px;
+    padding-top: 5px;
+}
+
+
+#descripcion
+{
+    /*background-color:url(Image/titulo.jpg);*/
+    width: 300px;
+    font-family: Arial;
+    font-size: 15px;
+    color: #6d6e71;
+    height: 27px;
+    margin-left: 13px;
+    padding-top: 5px;
+}
+
+#subtitulosDialogo
+{
+    /*background-color:url(Image/titulo.jpg);*/
+    margin-top: 17px;
+    width: 200px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #6d6e71;
+    height: 27px;
+    margin-left: 13px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+.texto_procesos
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.cabecera_procesos
+{
+    background-color: #8F479A;
+    border: solid 1px #ffffff;
+    color: White;
+    font-family: Arial;
+    font-size: 11px;
+    height:30px;
+}
+
+.grilla_procesos
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    border: solid 1px #ffffff;
+    text-decoration: none;
+}
+
+.grilla_alternativa_procesos
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    border: solid 1px #ffffff;
+    text-decoration: none;
+}
+
+.footer_procesos
+{
+    background-color: White;
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    text-align: left;
+    height: 45px;
+}
+
+.subTituloPlomo_procesos
+{
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    height: 30px;
+    width: 210px !important;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #90318e;
+    display: inline-block;
+}
+
+.subTituloPlomo_procesos2
+{
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-left: 6px;
+    height: 30px;
+    background-color: #61225d;
+}
+
+.#divVarEnfoque
+{
+    text-align: center;
+    width: 10px;
+    height: 10px;
+    background-color: #6a288a;
+    vertical-align: top;
+    margin-top: 3px;
+}
+
+.textoVarEnfoque_hija
+{
+    font-family: Arial;
+    font-size: 11px;
+    font-weight: bold;
+    color: #778391;
+}
+
+.textoVarEnfoque
+{
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #00acee;
+}
+/*variable enfoque*/
+#tdPlan1.override
+{
+    width: 100%; /* cambia eso! */
+}
+#tdPlan1.override div
+{
+    overflow: scroll;
+    height: 120px; /* cambia eso! */
+}
+#tdPlan2.override
+{
+    width: 100%; /* cambia eso! */
+}
+#tdPlan2.override div
+{
+    overflow: scroll;
+    height: 120px; /* cambia eso! */
+}
+
+.trVarEnfoques
+{
+    background-color: #faf5fb;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+}
+.trAlternoVarEnfoques
+{
+    background-color: #d9ebf9;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+}
+
+/*plan de accion criticas */
+
+.titulo_critica
+{
+    margin-top: 20px;
+    width: 200px;
+    font-family: Arial;
+    font-size: 12px;
+    color: #00acee;
+    height: 15px;
+    margin-left: 5px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.espaciado_dataList
+{
+    margin-right: 12px;
+}
+
+.predialogo
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    margin-left: 25px;
+}
+
+.paginacion
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.textbox
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #778391;
+    border: solid 1px #778391;
+    margin-left: 25px;
+}
+
+.divVarPlan
+{
+    text-align: center;
+    width: 7px;
+    height: 7px;
+    background-color: #6a288a; /*vertical-align:top;*/
+    margin-left: 25px;
+    padding-top: 4px;
+    margin-top: 3px; /*	margin-top:17px;*/
+    padding-left: 5px;
+    margin-bottom: 1px;
+}
+
+
+/* estilo grilla plan anual */
+
+.cabecera_plan
+{
+    background-color: #c8c8c8;
+    color: #6a288a;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.grilla_plan
+{
+    background-color: #d9ebf9;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    width: 210px;
+    height: 20px;
+    margin-top: 3px;
+    vertical-align: middle;
+    border-style: solid;
+    border-color: Black;
+    border-width: 1px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.grilla_alternativa_plan
+{
+    background-color: #ebebed;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    width: 210px;
+    margin-top: 3px;
+    vertical-align: middle;
+    border-style: solid;
+    border-color: Black;
+    border-width: 1px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.subtituloPlan
+{
+    font-family: Arial;
+    font-size: 14px;
+    color: #6a288a;
+    font-weight: bold;
+}
+
+#imagen_plan
+{
+    padding-right: 15px;
+}
+
+
+/*retroalimentacion*/
+
+.pregunta
+{
+    font-family: Arial;
+    font-size: 14px;
+    color: #b076b2;
+    font-weight: bold;
+}
+
+.text_retro
+{
+    background-color: #f2f3f5;
+    border: solid 1px #778391;
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+}
+
+
+/*indicadores*/
+
+.radio_indicadores
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    font-weight: bold;
+    text-align: right;
+}
+
+.subtitulo
+{
+    font-family: Arial;
+    font-size: 14px;
+    color: #6a288a;
+    font-weight: bold;
+}
+
+.cabecera_indicadores
+{
+    background-color: #778391;
+    color: White;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.grilla_indicadores
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    background-color: #ecf7fc;
+    width: 500px;
+}
+
+.grilla_alterna_indicadores
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    background-color: #faf5f9;
+    width: 500px;
+}
+
+.link2
+{
+    font-family: Arial;
+    font-size: 14px;
+    color: #6a288a;
+    font-weight: bold;
+    margin-left: 36px;
+}
+
+/* criticas */
+
+fondo_variables
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: White;
+    background-color: #90318f;
+}
+
+.inputtext_criticas
+{
+    background-color: #f2f3f5;
+    border: solid 1px #778391;
+    font-family: Arial;
+    font-size: 12px;
+    width: 200px;
+    color: #778391;
+}
+
+.paginacion
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #778391;
+    text-decoration: none;
+}
+
+
+pre
+{
+    width: 240px;
+    white-space: pre; /* CSS 2.0 */
+    white-space: pre-wrap; /* CSS 2.1 */
+    white-space: pre-line; /* CSS 3.0 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -hp-pre-wrap; /* HP */
+    word-wrap: break-word; /* IE 5+ */
+    overflow: hidden;
+}
+
+
+
+/* estilo en construcción*/
+
+.construccion
+{
+    font-family: Arial;
+    font-size: 20px;
+    color: #6a288a;
+    font-weight: bold;
+}
+
+.construccion2
+{
+    font-family: Arial;
+    font-size: 15px;
+    color: #00acee;
+    font-weight: bold;
+}
+
+.texto_morado_brand
+{
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: #92278f;
+}
+
+.variables_indicadores
+{
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    color: #00ACEE;
+}
+
+
+.texto_campania
+{
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    color: #6a288a;
+    text-align: center;
+    height: 35px;
+    width: auto;
+}
+
+
+.texto_mail
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #6a288a;
+}
+
+
+/*
+visitas
+*/
+
+.cabecera_visitaResumen
+{
+    font-family: Arial;
+    font-size: 15px;
+    color: #92278f;
+    font-weight: bold;
+}
+
+.opcionVisitaSelecionada
+{
+    background-color: #90318e;
+    color: White;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.opcionVisita
+{
+    background-color: #dededc;
+    color: #778391;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logeoBienvenida
+{
+    font-family: Arial;
+    font-size: 13px;
+    color: Gray;
+    font-weight: bold;
+}
+
+.claseSelectedLink
+{
+    text-decoration: none !important;
+    font-weight: bolder;
+}
+
+.divResumenProceso
+{
+    float: left;
+    border-right: solid 2px #bf90c1;
+    text-align: left;
+    height: 250px;
+    width: 220px;
+}
+
+.grillaResumenProceso
+{
+    margin-left: 5px;
+}
+
+.footer_procesos table
+{
+    margin-top: 10px;
+}
+
+.footer_procesos table td
+{
+    margin: 5px;
+}
+
+.btnMenu a
+{
+    font-weight: bolder;
+}
+
+.roundedDiv
+{
+    border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-color:Black;
+    border-style:solid;
+}
+
+.divFiltroPeriodo
+{
+    height: 110px;
+    width: 250px;
+    margin-right: auto;
+    margin-left: 15px;
+    border-color: Black;
+    border-width: 1px;
+}
+
+.divFiltroPeriodo2
+{
+    height: 100px;
+    margin-right: auto;
+    margin-left: 15px;
+    border-color: Black;
+    border-width: 1px;
+}
+
+.divFiltroPeriodo3
+{
+    height: 130px;
+    width: 350px;
+    margin-right: auto;
+    margin-left: 15px;
+    border-color: Black;
+    border-width: 1px;
+}
+
+
+.divFiltroPeriodo4
+{
+    height: 130px;
+    width: 350px;
+    margin-right: auto;
+    margin-left: 35px;
+    border-color: Black;
+    border-width: 1px;
+    margin-top: 40px;
+}
+
+.dialogoHeader TD
+{ 
+    vertical-align:top !important;
+}
+
+.nombreRolLogueado
+{    
+	font-family:Arial;
+    font-size:12px;
+    color:#6d6e71;
+    margin-left:123px;
+}
+
+.texto_Negro
+{
+    font-weight:bolder;
+    font-size:12px;
+    font-family:Arial;
+}
+
+.linksAcciones
+{
+    color:Black;
+    font-size:12px;
+    font-family:Arial;
+}
+
+.textoAntesEquipo
+{
+	font-family:Arial;
+    width:550px !important;
+}
+
+.logeoRol
+{
+	font-family:Arial;
+	font-size:11px;
+	color:Gray;
+	
+}
+
+.inicioVision
+{
+	float: left; font-size: 24pt; margin-top: 75px;
+	color:#92278f;
+}
+
+
+.cabecera_procesos th
+{
+    font-weight:bolder;
+    font-size:14px;
+}
+
+.grilla_procesos td
+{
+    margin-left:5px;
+}
+
+.grillaPaginada tHead tr td
+{
+    font-weight:bolder;
+    font-size:14px;
+    
+    background-color: #8F479A;
+    border: solid 1px #ffffff;
+    color: White;
+    font-family: Arial;
+    height:30px;
+}
+
+.dataTables_paginate
+{
+    margin-top:5px;    
+}
+
+.dataTables_paginate span
+{
+    margin:5px;
+}
+
+.paginate_active
+{
+    cursor:default;
+    text-decoration:none;
+}
+
+.paginate_button
+{
+    cursor: pointer;
+    text-decoration:underline;
+}
+
+.first, .last, .next, .previous 
+{
+    text-decoration:none;
+}
+
+.grilla_procesos td
+{
+    font-family: Arial;
+    font-size: 11px;
+    color: #00acee;
+    font-weight: bold;
+}
+    
+.cabecera_indicadores th
+{
+    height:25px;
+}
+
+.texto_Derecha
+{
+    text-align:right;
+}
+
+.hrPunteado  
+{
+	 width: 100%;
+     margin: 0px; 
+     text-align: left; 
+     height: 1px; 
+     color: #fff !important;
+     background-color: #fff !important;
+     border: 1px dotted #c5c5c5;
+     border-style: none none dotted; 
+}

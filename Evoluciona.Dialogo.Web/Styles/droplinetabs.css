@@ -1,0 +1,181 @@
+.droplinetabs
+{
+    /*border-bottom: 1px solid gray; underline across bottom of main tabs*/
+}
+
+.droplinetabs ul
+{
+    font: bold 11px Arial;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+
+.droplinetabs li
+{
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    font-family: Arial;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.droplinetabs a
+{
+    float: left;
+    color: Black; /*background: #c76023 url(leftedge.gif) no-repeat left top; default background color of tabs, left corner image*/
+    margin: 0 2px 0 0;
+    padding: 0 0 2px 2px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-family: Arial;
+}
+
+.droplinetabs a:link, .droplinetabs a::visited, .droplinetabs a:active
+{
+    color: Black;
+}
+
+.droplinetabs a span
+{
+    float: none;
+}
+
+.droplinetabs a:hover
+{
+    /*background-color: #b05016; background color of tabs onMouseover*/ /*color: Black;*/
+}
+
+/* Sub level menus*/
+.droplinetabs ul li ul
+{
+    position: absolute;
+    z-index: 100;
+    left: 38px;
+    top: 250px;
+    visibility: collapse;
+    display: none;
+    font: normal 10px Arial;
+}
+
+/* Sub level menu links style */
+.droplinetabs ul li ul li a
+{
+    font: normal 10px Arial;
+    padding: 3px;
+    padding-right: 8px;
+    margin: 0;
+    font-weight: bold; /*background: #c76023; sub menu background color */
+}
+
+.droplinetabs ul li ul li a span
+{
+    /*background: #c76023; sub menu background color */
+}
+
+.droplinetabs ul li ul li a:hover
+{
+    /*sub menu links' background color onMouseover. Add rounded edges in capable browsers */ /*background: #714421;*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.default
+{
+    color: Red !important;
+    font: bold 11px Arial;
+}
+/*para visitas*/
+
+.droplinetabsV
+{
+    /*border-bottom: 1px solid gray; underline across bottom of main tabs*/
+}
+
+.droplinetabsV ul
+{
+    font: bold 11px Arial;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+
+.droplinetabsV li
+{
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.droplinetabsV a
+{
+    float: left;
+    color: Black; /*background: #c76023 url(leftedge.gif) no-repeat left top; default background color of tabs, left corner image*/
+    margin: 0 2px 0 0;
+    padding: 0 0 2px 2px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.droplinetabsV a:link, .droplinetabs a::visited, .droplinetabs a:active
+{
+    color: Black;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.droplinetabsV a span
+{
+    float: none;
+}
+
+.droplinetabsV a:hover
+{
+    /*background-color: #b05016; background color of tabs onMouseover*/ /*color: Black;*/
+}
+
+/* Sub level menus*/
+.droplinetabsV ul li ul
+{
+    position: absolute;
+    z-index: 100;
+    left: 38px;
+    top: 290px;
+    visibility: collapse;
+    display: none;
+    font: normal 10px Arial;
+}
+
+/* Sub level menu links style */
+.droplinetabsV ul li ul li a
+{
+    font: normal 10px Arial;
+    padding: 3px;
+    padding-right: 8px;
+    margin: 0;
+    font-weight: bold; /*background: #c76023; sub menu background color */
+}
+
+.droplinetabsV ul li ul li a span
+{
+    /*background: #c76023; sub menu background color */
+}
+
+.droplinetabsV ul li ul li a:hover
+{
+    /*sub menu links' background color onMouseover. Add rounded edges in capable browsers */ /*background: #714421;*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}

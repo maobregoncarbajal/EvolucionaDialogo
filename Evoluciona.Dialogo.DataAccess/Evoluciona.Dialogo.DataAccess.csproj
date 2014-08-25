@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{23170882-C24F-4C9C-B7B2-EA52D2B08E36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Evoluciona.Dialogo.DataAccess</RootNamespace>
+    <AssemblyName>Evoluciona.Dialogo.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DaAccionesAcordadas.cs" />
+    <Compile Include="DaAcuerdo.cs" />
+    <Compile Include="DaAdmin.cs" />
+    <Compile Include="DaAltas.cs" />
+    <Compile Include="DaCargaAdam.cs" />
+    <Compile Include="DaCompetencia.cs" />
+    <Compile Include="DaConbade.cs" />
+    <Compile Include="DaCondiciones.cs" />
+    <Compile Include="DaConexion.cs" />
+    <Compile Include="DaConfiguracion.cs" />
+    <Compile Include="DaCritica.cs" />
+    <Compile Include="DaCronogramaPdM.cs" />
+    <Compile Include="DaDataMart.cs" />
+    <Compile Include="DaDescripcionZonaAlternativa.cs" />
+    <Compile Include="DaDirectoraVentas.cs" />
+    <Compile Include="DaEncuesta.cs" />
+    <Compile Include="DaEncuestaDialogo.cs" />
+    <Compile Include="DaEncuestaPregunta.cs" />
+    <Compile Include="DaEncuestaReporte.cs" />
+    <Compile Include="DaEvaluadorProgreso.cs" />
+    <Compile Include="DaEvento.cs" />
+    <Compile Include="DaEventosAlertas.cs" />
+    <Compile Include="DaEvoluciona.cs" />
+    <Compile Include="DaFfvvBase.cs" />
+    <Compile Include="DaFuenteVentas.cs" />
+    <Compile Include="DaGerenteRegion.cs" />
+    <Compile Include="DaGerenteZona.cs" />
+    <Compile Include="DaGrupoGps.cs" />
+    <Compile Include="DaHomeMatriz.cs" />
+    <Compile Include="DaIndicadores.cs" />
+    <Compile Include="DaInteraccion.cs" />
+    <Compile Include="DaIteraccionVisita.cs" />
+    <Compile Include="DaLet.cs" />
+    <Compile Include="DaLogueo.cs" />
+    <Compile Include="DaLogExt.cs" />
+    <Compile Include="DaMatriz.cs" />
+    <Compile Include="DaMatrizAdmin.cs" />
+    <Compile Include="DaMedicionCompetencia.cs" />
+    <Compile Include="DaMenu.cs" />
+    <Compile Include="DaMenuAdmin.cs" />
+    <Compile Include="DaPais.cs" />
+    <Compile Include="DaPeriodo.cs" />
+    <Compile Include="DaPlanAccion.cs" />
+    <Compile Include="DaPlanAnual.cs" />
+    <Compile Include="DaPreguntaAcuerdo.cs" />
+    <Compile Include="DaPreguntaRetroalimentacion.cs" />
+    <Compile Include="DaProceso.cs" />
+    <Compile Include="DaRegion.cs" />
+    <Compile Include="DaRepDialogos.cs" />
+    <Compile Include="DaReporte.cs" />
+    <Compile Include="DaReportes.cs" />
+    <Compile Include="DaResumenProceso.cs" />
+    <Compile Include="DaResumenVisita.cs" />
+    <Compile Include="DaRetroalimentacion.cs" />
+    <Compile Include="DaRol.cs" />
+    <Compile Include="DaTimeLine.cs" />
+    <Compile Include="DaTipoEvento.cs" />
+    <Compile Include="DaUsuario.cs" />
+    <Compile Include="DaVariableEnfoque.cs" />
+    <Compile Include="DaVariablePais.cs" />
+    <Compile Include="DaVisitaEvoluviona.cs" />
+    <Compile Include="DaVisitaIndicadores.cs" />
+    <Compile Include="DaWsDirectorio.cs" />
+    <Compile Include="DaZona.cs" />
+    <Compile Include="DaZonaAlternativa.cs" />
+    <Compile Include="DaAlbama.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evoluciona.Dialogo.BusinessEntity\Evoluciona.Dialogo.BusinessEntity.csproj">
+      <Project>{da1deecc-0cf9-431d-a09c-9b5d6ce3686a}</Project>
+      <Name>Evoluciona.Dialogo.BusinessEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evoluciona.Dialogo.Helpers\Evoluciona.Dialogo.Helpers.csproj">
+      <Project>{f1099cb7-16b0-4369-b953-e4b23f4893fe}</Project>
+      <Name>Evoluciona.Dialogo.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

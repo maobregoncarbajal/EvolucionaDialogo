@@ -1,0 +1,411 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteAdmin.master.cs"
+    Inherits="Evoluciona.Dialogo.Web.Admin.SiteAdmin" %>
+<%@ Import Namespace="Evoluciona.Dialogo.Web.Helpers" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="../Styles/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/general.css?v4" rel="stylesheet" type="text/css" />
+    <link href="../Styles/Matriz.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/Menu.css?v4" rel="stylesheet" type="text/css" />
+    <link href="../Styles/SimpleMenu.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/droplinetabs.css" rel="stylesheet" type="text/css" />
+    <link href="../JQueryTheme/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery-1.6.2.min.js"
+        type="text/javascript"></script>
+
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery-ui-1.8.16.custom.min.js"
+        type="text/javascript"></script>
+
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/AdapterUtils.js"
+        type="text/javascript"></script>
+
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/MenuAdapter.js"
+        type="text/javascript"></script>
+
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.window.min.js"
+        type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            jQuery(".btnMenu > a").click(function (event) {
+
+                var operacionesMnu = jQuery("#menuOperaciones > .btnMenu > ul");
+                var liParent = jQuery(this).parent();
+
+                operacionesMnu.css("visibility", "collapse");
+                operacionesMnu.css("display", "none");
+
+                var subMenu = liParent.find("ul");
+                subMenu.css("visibility", "visible");
+                subMenu.css("display", "block");
+
+                jQuery("#menuOperaciones a").css("color", "Black");
+
+                var index = jQuery("#menuOperaciones .btnMenu").index(liParent);
+                SeleccionarLinks(index + 1, false);
+
+                event.preventDefault();
+            });
+        });
+
+        function SeleccionarLinks(indexMenu, indexSubMenu, hacerClick) {
+            var menuActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ")");
+            menuActual.children("a").css("color", "Red");
+
+            if (hacerClick) {
+                var mnuOperacionActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ") > ul");
+
+                mnuOperacionActual.css("visibility", "visible");
+                mnuOperacionActual.css("display", "block");
+
+                var ulActual = jQuery("#menuOperaciones > .btnMenu:eq(" + (indexMenu - 1).toString() + ") > ul > li > a").eq(indexSubMenu - 1);
+
+                ulActual.removeAttr("class");
+                ulActual.attr("class", "default");
+            }
+        }
+    </script>
+    <style type="text/css">
+        /* rules for navigation menu */
+        /* ========================================== */
+
+        ul#navmenuCoorporativo,
+        ul#navmenuPais,
+        ul#navmenuEvaluciona,
+        ul.sub1, ul.sub2, ul.sub3 {
+            list-style-type: none;
+            font-size: 12px;
+        }
+
+            ul#navmenuCoorporativo li,
+            ul#navmenuPais li,
+            ul#navmenuEvaluciona li {
+                width: 100px;
+                text-align: center;
+                position: relative;
+                float: left;
+                margin-right: 4px;
+            }
+
+            ul#navmenuCoorporativo a,
+            ul#navmenuPais a,
+            ul#navmenuEvaluciona a {
+                text-decoration: none;
+                display: block;
+                width: 100px;
+                height: 25px;
+                line-height: 25px;
+                background-color: #BA93C8;
+                border: 1px solid #CCCCCC;
+                border-radius: 5px;
+                color: #000000;
+            }
+
+            ul#navmenuCoorporativo .sub1 li,
+            ul#navmenuPais .sub1 li,
+            ul#navmenuEvaluciona .sub1 li {
+            }
+
+            ul#navmenuCoorporativo .sub1 a,
+            ul#navmenuPais .sub1 a,
+            ul#navmenuEvaluciona .sub1 a {
+                margin-top: 5px;
+            }
+
+            ul#navmenuCoorporativo .sub2 a,
+            ul#navmenuPais .sub2 a,
+            ul#navmenuEvaluciona .sub2 a {
+                margin-left: 3px;
+            }
+
+            ul#navmenuCoorporativo .sub3 a,
+            ul#navmenuPais .sub3 a,
+            ul#navmenuEvaluciona .sub3 a {
+                margin-left: 3px;
+            }
+
+            ul#navmenuCoorporativo li:hover > a,
+            ul#navmenuPais li:hover > a,
+            ul#navmenuEvaluciona li:hover > a {
+                /*background-color: #CFC;*/
+                background-color: #3E147E;
+                color: #FFFFFF;
+            }
+
+            ul#navmenuCoorporativo li:hover a:hover,
+            ul#navmenuPais li:hover a:hover,
+            ul#navmenuEvaluciona li:hover a:hover {
+                background-color: #3E147E;
+                /*background-color: #FF0;*/
+                color: #FFFFFF;
+            }
+
+            ul#navmenuCoorporativo ul.sub1,
+            ul#navmenuPais ul.sub1,
+            ul#navmenuEvaluciona ul.sub1 {
+                display: none;
+                position: absolute;
+                top: 26px;
+                left: 0px;
+            }
+
+            ul#navmenuCoorporativo ul.sub2,
+            ul#navmenuPais ul.sub2,
+            ul#navmenuEvaluciona ul.sub2 {
+                display: none;
+                position: absolute;
+                top: 0px;
+                left: 101px;
+            }
+
+
+            ul#navmenuCoorporativo ul.sub3,
+            ul#navmenuPais ul.sub3,
+            ul#navmenuEvaluciona ul.sub3 {
+                display: none;
+                position: absolute;
+                top: 0px;
+                left: 101px;
+            }
+
+
+            ul#navmenuCoorporativo li:hover .sub1,
+            ul#navmenuPais li:hover .sub1,
+            ul#navmenuEvaluciona li:hover .sub1 {
+                display: block;
+            }
+
+            ul#navmenuCoorporativo .sub1 li:hover .sub2,
+            ul#navmenuPais .sub1 li:hover .sub2,
+            ul#navmenuEvaluciona .sub1 li:hover .sub2 {
+                display: block;
+            }
+
+
+            ul#navmenuCoorporativo .sub2 li:hover .sub3,
+            ul#navmenuPais .sub2 li:hover .sub3,
+            ul#navmenuEvaluciona .sub2 li:hover .sub3 {
+                display: block;
+            }
+
+
+        .darrow {
+            font-size: 10px;
+            position: absolute;
+            top: 10px;
+            right: 0px;
+        }
+
+        .rarrow {
+            font-size: 10px;
+            position: absolute;
+            top: 13px;
+            right: 0px;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="margin-left: auto; margin-right: auto; padding: 0; background-color: #e0e0e0; text-align: center; width: 1100px">
+            <div style="width: 100%; height: 110px; background-color: White">
+                <div style="width: 800px; height: 80px; float: right; padding: 20px 0px 0px 0px">
+                    <table style="width: 100%; height: 100%; font-size: small">
+                        <tr>
+                            <td align="right" style="font-family: Arial">
+                                <br />
+                                <asp:Panel ID="panAdmin" runat="server">
+                                    <asp:Label Text="" ID="lblDescripcionAdmin" runat="server" Font-Bold="True"></asp:Label>
+                                    <asp:Image ImageUrl="" runat="server" ID="imgImagenPais" />&nbsp;
+                                <asp:Label Text="" ID="lblNombrePais" runat="server" Font-Bold="True" />
+                                </asp:Panel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                                <div style="float: right; z-index: 1; position: absolute;" runat="server" id="menuCoorporativo">
+                                    <ul id="navmenuCoorporativo">
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Default.aspx">Resumenes</a></li>
+                                        <li><a href="#">Reportes</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="#">Diálogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/SeguimientoStatus.aspx">Generales</a></li>
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/RepAntNeg.aspx">Proceso</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Variables.aspx">Ranking</a></li>
+                                        <li><a href="#">Configuración</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Configuracion.aspx">Iniciar Diálogos</a></li>
+                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/CronogramaPdM.aspx">Cronograma PDM</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Matriz/NivCompetencia.aspx">Matriz</a></li>
+                                        <li><a href="#">Usuarios</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Usuarios.aspx">Administradores</a></li>
+                                                <li><a href="#">Dialogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="#">Encuesta</a><span class="rarrow">&#9654;</span>
+                                                            <ul class="sub3">
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Crear.aspx">Crear</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Preguntas.aspx">Preguntas</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Reporte.aspx">Reporte</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Mantenimiento</a><span class="rarrow">&#9654;</span>
+                                                            <ul class="sub3">
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantDv.aspx">D. Venta</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGr.aspx">G. Region</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGz.aspx">G. Zona</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/Masivo/Altas.aspx">Altas Masivas</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Login.aspx">Cerrar Sesión</a></li>
+                                    </ul>
+                                </div>
+                                <div style="float: right; z-index: 1; position: absolute;" runat="server" id="menuPais">
+                                    <ul id="navmenuPais">
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Default.aspx">Resúmenes</a></li>
+                                        <li><a href="#">Reportes</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="#">Diálogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/SeguimientoStatus.aspx">Generales</a></li>
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/RepAntNeg.aspx">Proceso</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Variables.aspx">Ranking</a></li>
+                                        <li><a href="#">Configuración</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Configuracion.aspx">Iniciar Dialogos</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Matriz/NivCompetencia.aspx">Matriz</a></li>
+                                        <li><a href="#">Usuarios</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Usuarios.aspx">Administradores</a></li>
+                                                <li><a href="#">Dialogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="#">Encuesta</a><span class="rarrow">&#9654;</span>
+                                                            <ul class="sub3">
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Crear.aspx">Crear</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Preguntas.aspx">Preguntas</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Encuestas/Reporte.aspx">Reporte</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Mantenimiento</a><span class="rarrow">&#9654;</span>
+                                                            <ul class="sub3">
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantDv.aspx">D. Venta</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGr.aspx">G. Región</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGz.aspx">G. Zona</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Login.aspx">Cerrar Sesión</a></li>
+                                    </ul>
+                                </div>
+                                <div style="float: right; z-index: 1; position: absolute;" runat="server" id="menuEvaluciona">
+                                    <ul id="navmenuEvaluciona">
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Default.aspx">Resumenes</a></li>
+                                        <li><a href="#">Reportes</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="#">Diálogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/SeguimientoStatus.aspx">Generales</a></li>
+                                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Reportes/RepAntNeg.aspx">Proceso</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Usuarios</a><span class="darrow">&#9660;</span>
+                                            <ul class="sub1">
+                                                <li><a href="#">Dialogos</a><span class="rarrow">&#9654;</span>
+                                                    <ul class="sub2">
+                                                        <li><a href="#">Mantenimiento</a><span class="rarrow">&#9654;</span>
+                                                            <ul class="sub3">
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantDv.aspx">D. Venta</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGr.aspx">G. Region</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantGz.aspx">G. Zona</a></li>
+                                                                <li><a href="<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/Reasignaciones.aspx">Reasignaciones</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Admin/Login.aspx">Cerrar Sesión</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="width: 220px; height: 80px; float: left; padding: 20px 0px 0px 0px">
+                    <table style="width: 100%; height: 100%; font-size: small">
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="<%=Utils.RelativeWebRoot%>Images/titulo_evoluciona.jpg"
+                                    alt="" width="200px" height="61px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 100%; background-color: White; text-align: left">
+                <table>
+                    <tr>
+                        <td>
+                            <span class="logeoBienvenida">¡Bienvenida(o)! &nbsp;&nbsp;</span>
+                            <asp:Label runat="server" ID="lblUserLogeado" Text="Usuario" CssClass="logeo"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label Text="text" runat="server" ID="lblRolLogueado" CssClass="logeoRol" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: 100%; background-color: White;">
+                <img src="<%=Utils.RelativeWebRoot%>Images/separator.jpg"
+                    width="100%" height="5px" alt="separador" />
+                <br />
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div style="width: 100%; background-color: White;">
+                <br />
+                <img src="<%=Utils.RelativeWebRoot%>Images/separator.jpg"
+                    width="100%" height="5px" alt="separador" />
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

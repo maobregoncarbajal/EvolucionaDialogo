@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA1DEECC-0CF9-431D-A09C-9B5D6CE3686A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Evoluciona.Dialogo.BusinessEntity</RootNamespace>
+    <AssemblyName>Evoluciona.Dialogo.BusinessEntity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BeAccionesAcordadas.cs" />
+    <Compile Include="BeAcuerdo.cs" />
+    <Compile Include="BeAdmin.cs" />
+    <Compile Include="BeAltas.cs" />
+    <Compile Include="BeAnalisisStatusRanking.cs" />
+    <Compile Include="BeChartCampanha.cs" />
+    <Compile Include="BeColaborador.cs" />
+    <Compile Include="BeCompetencia.cs" />
+    <Compile Include="BeComun.cs" />
+    <Compile Include="BeCondiciones.cs" />
+    <Compile Include="BeCriticas.cs" />
+    <Compile Include="BeCronogramaMatriz.cs" />
+    <Compile Include="BeCronogramaPdM.cs" />
+    <Compile Include="BeCuadranteUsuario.cs" />
+    <Compile Include="BeDatosVisitaReporte.cs" />
+    <Compile Include="BeDescripcionZonaAlternativa.cs" />
+    <Compile Include="BeDetalleInformacion.cs" />
+    <Compile Include="BeDirectoraVentas.cs" />
+    <Compile Include="BeEncuesta.cs" />
+    <Compile Include="BeEncuestaDialogo.cs" />
+    <Compile Include="BeEncuestaFfvv.cs" />
+    <Compile Include="BeEncuestaPregunta.cs" />
+    <Compile Include="BeEncuestaReporte.cs" />
+    <Compile Include="BeEncuestaRespuesta.cs" />
+    <Compile Include="BeEvento.cs" />
+    <Compile Include="BeEventosAlertas.cs" />
+    <Compile Include="BeEvoluciona.cs" />
+    <Compile Include="BeFfvvBase.cs" />
+    <Compile Include="BeFichaPersonal.cs" />
+    <Compile Include="BeFuenteVentas.cs" />
+    <Compile Include="BeGerenteRegion.cs" />
+    <Compile Include="BeGerenteZona.cs" />
+    <Compile Include="BeGerenteZonaPaginacion.cs" />
+    <Compile Include="BeGridColumns.cs" />
+    <Compile Include="BeGrupoGps.cs" />
+    <Compile Include="BeInteraccion.cs" />
+    <Compile Include="BeIteraccionVisita.cs" />
+    <Compile Include="BeJqGridFilter.cs" />
+    <Compile Include="BeJqGridRule.cs" />
+    <Compile Include="BeLet.cs" />
+    <Compile Include="BeMatrizZona.cs" />
+    <Compile Include="BeMatrizZonaVariables.cs" />
+    <Compile Include="BeMenuAdmin.cs" />
+    <Compile Include="BeNivelesCompetencia.cs" />
+    <Compile Include="BePais.cs" />
+    <Compile Include="BePlanAccion.cs" />
+    <Compile Include="BePlanAnual.cs" />
+    <Compile Include="BeProceso.cs" />
+    <Compile Include="BeRegion.cs" />
+    <Compile Include="BeRepDialogos.cs" />
+    <Compile Include="BeReporteUsoTiempo.cs" />
+    <Compile Include="BeResultadoMatriz.cs" />
+    <Compile Include="BeResumenProceso.cs" />
+    <Compile Include="BeResumenVisita.cs" />
+    <Compile Include="BeRetroalimentacion.cs" />
+    <Compile Include="BeRol.cs" />
+    <Compile Include="BeSeguimientoStatus.cs" />
+    <Compile Include="BeSeguimientoStatusDetalle.cs" />
+    <Compile Include="BeTablaMapeo.cs" />
+    <Compile Include="BeTimeLine.cs" />
+    <Compile Include="BeTipoEvento.cs" />
+    <Compile Include="BeTomaAccion.cs" />
+    <Compile Include="BeUsuario.cs" />
+    <Compile Include="BeUsuarioLineamiento.cs" />
+    <Compile Include="BeVariableCausa.cs" />
+    <Compile Include="BeVariableEnfoque.cs" />
+    <Compile Include="BeVariablePais.cs" />
+    <Compile Include="BeVerCondiciones.cs" />
+    <Compile Include="BeVisitaIndicador.cs" />
+    <Compile Include="BeZona.cs" />
+    <Compile Include="BeZonaAlternativa.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evoluciona.Dialogo.Helpers\Evoluciona.Dialogo.Helpers.csproj">
+      <Project>{f1099cb7-16b0-4369-b953-e4b23f4893fe}</Project>
+      <Name>Evoluciona.Dialogo.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

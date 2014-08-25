@@ -1,0 +1,252 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Principal.master.cs"
+    Inherits="Evoluciona.Dialogo.Web.Principal" %>
+
+<%@ Import Namespace="Evoluciona.Dialogo.Web.Helpers" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server" class="no-js">
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title></title>
+    <link href="Styles/reset.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/general.css?v4" rel="stylesheet" type="text/css" />
+    <link href="Styles/Menu.css?v4" rel="stylesheet" type="text/css" />
+    <link href="Styles/SimpleMenu.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/droplinetabs.css" rel="stylesheet" type="text/css" />
+    <link href="JQueryTheme/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/jquery.window.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="Images/favicon.ico" />
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/jquery-1.6.2.min.js"></script>
+
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/jquery-ui-1.8.16.custom.min.js"></script>
+
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/AdapterUtils.js"></script>
+
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/MenuAdapter.js"></script>
+
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/jquery.window.min.js"></script>
+
+        <script type="text/javascript" src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Jscripts/modernizr.custom.13229.js"></script>
+    </asp:ContentPlaceHolder>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="background-color: #e0e0e0; text-align: center; width: 1100px; margin-left: auto; margin-right: auto;">
+            <div style="width: 100%; height: 150px; background-color: White">
+                <div style="float: right; width: 450px; height: 100px;">
+                    <table style="width: 100%; height: 100%; font-size: small">
+                        <tr>
+                            <td align="right" style="font-family: Arial">
+                                <asp:Image ImageUrl="" runat="server" ID="imgImagenPais" />&nbsp;
+                            <asp:Label Text="[Pais]" ID="lblNombrePais" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="staticMenu" style="width: 100%">
+                                    <ul style="text-align: right">
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Inicio.aspx">Inicio</a></li>
+                                        <%--<li><a href="<%=Utils.RelativeWebRoot%>Calendario/Default.aspx">Calendario</a></li>--%>
+                                        <%--<li><a href="<%=Utils.RelativeWebRoot%>Desempenio/Buscador.aspx">Buscador</a></li>--%>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>EnConstruccion.aspx">Cambiar
+                                        Clave</a></li>
+                                        <li><a href="<%=Utils.RelativeWebRoot%>Ayuda.aspx">Ayuda</a></li>
+                                        <li>
+                                            <asp:LinkButton Text="Cerrar Sesión" runat="server" OnClick="lnkCerrarSesion_Click"
+                                                ID="lnkCerrarSesion" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="float: right">
+                                    <asp:Menu ID="mnuOpciones" runat="server" Orientation="Horizontal" OnMenuItemClick="mnuOpciones_MenuItemClick"
+                                        CssSelectorClass="SimpleEntertainmentMenu">
+                                    </asp:Menu>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="logeoRol" style="text-align: right">
+                                <asp:Label runat="server" ID="lblFechaEvaluacion" Text=""></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="width: 500px; height: 100px; text-align: left; top: 40px; padding-top: 20px;">
+                    <table width="100%" border='0' cellpadding='0' style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td>
+                                <img src="<%=Utils.RelativeWebRoot%>Images/titulo_evoluciona.jpg"
+                                    alt="" align="bottom" width="200px" height="61px" /><br />
+                                <br />
+                                <span class="logeoBienvenida">¡Bienvenida(o)! &nbsp;&nbsp;</span>
+                                <asp:Label runat="server" ID="lblUserLogeado" Text="Usuario" CssClass="logeo"></asp:Label>
+                                <br />
+                                <br />
+                                <div style="margin-left: 110px;">
+                                    <asp:Label Text="text" runat="server" ID="lblRolLogueado" CssClass="logeoRol" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 100%; background-color: White; min-height: 500px">
+                <img src="<%=Utils.RelativeWebRoot%>Images/separator.jpg"
+                    width="95%" height="5px" alt="separador" />
+                <br />
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div style="display: none">
+                <label runat="server" id="lblSesion"></label>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+
+                var tiempo = "<%=System.Configuration.ConfigurationManager.AppSettings["tiempoEspera"]%>";
+                setInterval("actualizar()", tiempo);
+
+                jQuery(".btnMenu > a").click(function (event) {
+
+                    var operacionesMnu = jQuery("#menuOperaciones > .btnMenu > ul");
+                    var liParent = jQuery(this).parent();
+
+                    operacionesMnu.css("visibility", "collapse");
+                    operacionesMnu.css("display", "none");
+
+                    var subMenu = liParent.find("ul");
+                    subMenu.css("visibility", "visible");
+                    subMenu.css("display", "block");
+
+                    jQuery("#menuOperaciones a").css("color", "Black");
+
+                    var index = jQuery("#menuOperaciones .btnMenu").index(liParent);
+                    SeleccionarLinks(index + 1, false);
+
+                    event.preventDefault();
+                });
+
+                jQuery(".lnkButtonVer").click(function (event) {
+
+                    var hostName = window.location.hostname;
+                    var pathname = "http://" + hostName + GetPortNumber() + "/Desempenio/Consultas/" + GetCurrentPageName();
+                    var periodoSeleccionado = jQuery(".cboPeriodos:first").val();
+
+                    pathname += "_Consulta.aspx?periodo=" + periodoSeleccionado;
+
+                    jQuery.window({
+                        showModal: true,
+                        modalOpacity: 0.5,
+                        title: "HISTORICO",
+                        url: pathname,
+                        width: 1000,
+                        height: 580,
+                        minimizable: false,
+                        bookmarkable: false
+                    });
+
+                    event.preventDefault();
+                });
+
+                UbicarSubMenus();
+
+                jQuery(window).resize(function () {
+                    UbicarSubMenus();
+                });
+            });
+
+            function actualizar() {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "<%= Page.ResolveClientUrl("~/VerificarSesion.aspx") %>",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta == true) {
+                            alert("El tiempo de sesión ha terminado.");
+                            window.location = '/default.aspx';
+                        }
+                    }
+                });
+            }
+
+            function MostrarAvance(valor) {
+
+                jQuery("#progressbar").progressbar({
+                    value: valor,
+                    width: 100,
+                    heigth: 20
+                });
+
+                jQuery("#lblPorcentaje").text(valor.toString() + "%");
+            }
+
+            function GetCurrentPageName() {
+                var sPath = window.location.pathname;
+                var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+                return sPage.substring(0, sPage.lastIndexOf('.'));
+            }
+
+            function GetPortNumber() {
+                var url = window.location.href;
+                var url_parts = url.split('/');
+                var domain_name_parts = url_parts[2].split(':');
+
+                var adicional = "";
+
+                if (url_parts[3] != "Desempenio")
+                    adicional = url_parts[3];
+
+                if (domain_name_parts.length == 1)
+                    return "/" + adicional;
+                else
+                    return ":" + domain_name_parts[1] + adicional;
+            }
+
+            function UbicarSubMenus() {
+
+                var operacionesMnu = jQuery("#menuOperaciones > .btnMenu > ul");
+                if (operacionesMnu.length > 0) {
+
+                    var topActual = jQuery(".btnMenu a:first").offset().top;
+                    var nuevoTop = Math.max((topActual + 16), 291);
+                    operacionesMnu.css("top", nuevoTop.toString() + "px");
+                }
+            }
+
+            function SeleccionarLinks(indexMenu, indexSubMenu, hacerClick) {
+                var menuActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ")");
+                menuActual.children("a").css("color", "Red");
+
+                if (hacerClick) {
+                    var mnuOperacionActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ") > ul");
+
+                    mnuOperacionActual.css("visibility", "visible");
+                    mnuOperacionActual.css("display", "block");
+
+                    var ulActual = jQuery("#menuOperaciones > .btnMenu:eq(" + (indexMenu - 1).toString() + ") > ul > li > a").eq(indexSubMenu - 1);
+
+                    ulActual.removeAttr("class");
+                    ulActual.attr("class", "default");
+                }
+            }
+        </script>
+    </form>
+</body>
+</html>

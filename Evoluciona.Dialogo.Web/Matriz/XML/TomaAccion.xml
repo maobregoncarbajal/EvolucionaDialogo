@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<beComuns>
+  <beComun>
+    <Codigo>01</Codigo>
+    <Descripcion>Plan de Mejora</Descripcion>
+  </beComun>
+  <beComun>
+    <Codigo>02</Codigo>
+    <Descripcion>Reasignación</Descripcion>
+  </beComun>
+  <beComun>
+    <Codigo>03</Codigo>
+    <Descripcion>Rotación Saludable</Descripcion>
+  </beComun>
+</beComuns>

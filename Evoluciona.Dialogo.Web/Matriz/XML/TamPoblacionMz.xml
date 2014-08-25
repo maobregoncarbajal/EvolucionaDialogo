@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<beComuns>
+  <beComun>
+    <Codigo>Pequenho</Codigo>
+    <Descripcion>0.33</Descripcion>
+  </beComun>
+  <beComun>
+    <Codigo>Mediano</Codigo>
+    <Descripcion>0.66</Descripcion>
+  </beComun>
+  <beComun>
+    <Codigo>Grande</Codigo>
+    <Descripcion>1</Descripcion>
+  </beComun>
+</beComuns>

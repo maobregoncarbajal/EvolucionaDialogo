@@ -1,0 +1,328 @@
+﻿.foo {} /* W3C CSS validator likes CSS files to start with a class rather than a comment. Soooooo.... */
+
+/* This style sheet is intended to contain RARELY CHANGED rules used when the Menu control adapter is enabled. */
+/* These rules correspond to the "pure CSS menu" technique that have been evolving over the past several years. */ 
+/* See WhitePaper.aspx for details. */
+
+ul.AspNet-Menu 
+{
+    position: relative;
+}
+
+
+ul.AspNet-Menu, 
+ul.AspNet-Menu ul
+{
+    margin: 0;
+    padding: 0;
+    display: block;
+
+}
+
+ul.AspNet-Menu li
+{
+    position: relative;
+    list-style: none;
+    float: left;
+    display:inline;
+}
+
+ul.AspNet-Menu li a,
+ul.AspNet-Menu li span
+{
+    display: block;
+    text-decoration: none;
+}
+
+ul.AspNet-Menu ul
+{
+    position: absolute;
+    visibility: hidden;    
+}
+
+/* Add more rules here if your menus have more than three (3) tiers */
+ul.AspNet-Menu li:hover ul ul,
+ul.AspNet-Menu li.AspNet-Menu-Hover ul ul
+{
+    visibility: hidden;
+}
+
+/* Add more rules here if your menus have more than three (3) tiers */
+ul.AspNet-Menu li:hover ul,
+ul.AspNet-Menu li li:hover ul,
+ul.AspNet-Menu li li li:hover ul,
+ul.AspNet-Menu li.AspNet-Menu-Hover ul,
+ul.AspNet-Menu li li.AspNet-Menu-Hover ul,
+ul.AspNet-Menu li li li.AspNet-Menu-Hover ul
+{
+    visibility: visible;
+}
+
+.AspNet-Menu-Vertical ul.AspNet-Menu li
+{
+    width: 100%;
+}
+
+
+
+/* Estilos para los Menus*/
+
+.staticMenu
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.staticMenu ul
+{
+    list-style-type: none;
+    text-align: center;
+}
+
+.staticMenu li
+{
+    display: inline;
+    text-align: center;
+    margin: 0 5px 0 0;
+    font-family:Arial;
+}
+
+.staticMenu li a
+{
+    /*padding: 2px 7px 2px 7px;*/
+    color: #666;
+    text-decoration: none;
+    font-family:Arial;
+}
+
+.staticMenu li a:hover
+{
+    text-decoration:underline;
+}
+
+.itemMenuPrincipal
+{
+	font-family:Arial;
+    margin: 10,0,0,0;
+    text-align: center;
+    color: Black;
+    background: url("../Images/comp_bkg.jpg");
+}
+
+.itemMenuPrincipalHover
+{
+	font-family:Arial;
+    margin: 10,0,0,0;
+    background: url("../Images/mnuPrincipal_Hover.jpg");
+}
+
+.menuPrincipal
+{
+    color: Black;
+    font-family:Arial;
+}
+
+.contentPage
+{
+    clear: left;
+    margin: 50px 0 0 45px;
+}
+
+.contentPage b
+{
+    float: left;
+}
+
+.tituloSeguimiento
+{
+    font-family:Arial;
+    font-weight: bolder;
+    font-size: 8pt;
+    color: Gray;
+}
+
+.spacedTable tr > td
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+tr.grilla_procesos > td, tr.grilla_alternativa_procesos > td
+{
+    padding-top: 2px;
+    padding-bottom: 3px;
+}
+
+.btnAceptarStyle
+{
+    width:70px;
+    height:35px;
+    border:0;
+    background-image:url("../Images/aceptar.jpg");
+    cursor:pointer;
+}
+
+.btnGuardarStyle
+{
+    width:70px;
+    height:35px;
+    border:0;
+    background-image:url("../Images/guardar.jpg");
+    font-weight:bolder;
+    cursor:pointer;
+}
+.btnGonsultarDialogoStyle
+{
+    width:70px;
+    height:20px;
+    border:0;
+    background-image:url("../Images/consultarDialogo.jpg");
+    font-weight:bolder;
+    cursor:pointer;
+}
+
+.btnLnkStyle
+{
+    padding: 3px 4px;
+    background: #AEACED;
+    color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	font: normal 10px Arial;
+}
+
+
+.btnLnkStyleBoton
+{
+    padding: 8px 9px;
+    background: #AEACED;
+    color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	font: normal 13px Arial;
+}
+
+
+.btnLnkStyleBotonPequenho
+{
+    padding: 3px 4px;
+    background: #AEACED;
+    color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	font: normal 10px Arial;
+}
+
+
+.lnkButtonVer
+{
+	padding: 3px 4px;
+    background: #AEACED;
+    color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	font: normal 10px Arial;
+}
+
+
+.linkPDF
+{
+    padding: 3px 4px;
+    background: #AEACED;
+    color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font: normal 10px Arial;
+}
+
+.cboPeriodos {
+	background-color: #dfe0de;
+    border: solid 1px #778391;
+    font-family: Arial;
+    font-size: 11px;
+    color: #262626;
+}
+
+
+.btnEnviarAprobacionStyle
+{
+    width:245px;
+    height:35px;
+    border:0;
+    background-image:url("../Images/boton_enviar_aprobacion.jpg");
+    cursor:pointer;
+}
+.btnBuscarStyle
+{
+    width:70px;
+    height:35px;
+    border:0;
+    background-image:url("../Images/buscar.jpg");
+    cursor:pointer;
+}
+
+.tablaInicio a
+{
+    color:Black;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.divInicio
+{
+    margin-left: auto; 
+    margin-right: auto; 
+    display:none;
+}
+
+.textoGray11
+{
+	font-size:11px;
+	font-family:Arial;
+	color:Gray;
+}
+.textoAvance
+{
+	font-size:12px;
+	font-family:Arial;
+	color:Black;
+	font-weight:bold;
+}
+.textoVolverResumen
+{
+	font-size:12px;
+	font-family:Arial;
+	color:Black;
+	font-weight:bold;
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ConsultaPlanDesarrollo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pAnioCurso" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCub" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPlanDesarrolloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPlanDesarrolloResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPorcentajeAvanceCompetencia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pAnioCurso" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCUB" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPorcentajeAvanceCompetenciaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPorcentajeAvanceCompetenciaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaPlanDesarrolloSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPlanDesarrollo" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPlanDesarrolloSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPlanDesarrolloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPorcentajeAvanceCompetenciaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPorcentajeAvanceCompetencia" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPorcentajeAvanceCompetenciaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPorcentajeAvanceCompetenciaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsInterfaceFFVVSoap">
+    <wsdl:operation name="ConsultaPlanDesarrollo">
+      <wsdl:input message="tns:ConsultaPlanDesarrolloSoapIn" />
+      <wsdl:output message="tns:ConsultaPlanDesarrolloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPorcentajeAvanceCompetencia">
+      <wsdl:input message="tns:ConsultaPorcentajeAvanceCompetenciaSoapIn" />
+      <wsdl:output message="tns:ConsultaPorcentajeAvanceCompetenciaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsInterfaceFFVVSoap" type="tns:WsInterfaceFFVVSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaPlanDesarrollo">
+      <soap:operation soapAction="http://tempuri.org/ConsultaPlanDesarrollo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPorcentajeAvanceCompetencia">
+      <soap:operation soapAction="http://tempuri.org/ConsultaPorcentajeAvanceCompetencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsInterfaceFFVVSoap12" type="tns:WsInterfaceFFVVSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaPlanDesarrollo">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaPlanDesarrollo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPorcentajeAvanceCompetencia">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaPorcentajeAvanceCompetencia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsInterfaceFFVV">
+    <wsdl:port name="WsInterfaceFFVVSoap" binding="tns:WsInterfaceFFVVSoap">
+      <soap:address location="http://evoluciona.somosbelcorp.com/WsInterfaceFFVV.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsInterfaceFFVVSoap12" binding="tns:WsInterfaceFFVVSoap12">
+      <soap12:address location="http://evoluciona.somosbelcorp.com/WsInterfaceFFVV.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,142 @@
+﻿/* tables */
+.tablesorter
+{
+	border-collapse: collapse;
+}
+
+.tablesorter th
+{
+	height: 20px;
+	padding: 3px 5px 3px 5px;
+	border: 1.5px solid #A2ACB1;
+	vertical-align:middle;
+	font-weight: bold;
+	color: white;
+}
+
+.tablesorter td
+{
+	border: 1.5px solid #A2ACB1;
+	vertical-align: middle;
+	text-align: center;
+	padding: 5px 5px 5px 5px;
+}
+
+.tablesorter a
+{
+	color: #586777;
+	padding : 0px;
+	margin: 0px;
+}
+
+.tablesorter .pgr
+{
+	border:0px;
+}
+
+
+.tablesorter .pgr table
+{
+	margin: 5px 0;
+}
+
+.tablesorter .pgr td
+{
+	border-width: 0;
+	padding: 0 6px;
+	/*border-left: solid 1px #666;*/
+	color: #666666;
+	line-height: 12px;
+	background: #fff;
+	text-align: right;	
+}
+
+.tablesorter .pgr a
+{
+	color: #999999;
+	/*text-decoration: none;*/
+}
+
+.tablesorter .pgr a:hover
+{
+	color: #000;
+	text-decoration: none;
+}
+
+.tablesorter .pgr a:visited
+{
+	color: #999999;
+	text-decoration: none;
+}
+
+.tablesorter .pgr span
+{
+	color: #5C1D6C;
+	font-weight:bold;
+}
+
+
+
+
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #5E1E6F;
+	
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F5EBF4;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #772D8A;
+}
+
+div.tablesorterPager {
+	padding: 10px 0 10px 0;
+	background-color: #D6D2C2;
+	text-align: center;
+}
+div.tablesorterPager span {
+	padding: 0 5px 0 5px;
+}
+div.tablesorterPager input.prev {
+	width: auto;
+	margin-right: 10px;
+}
+div.tablesorterPager input.next {
+	width: auto;
+	margin-left: 10px;
+}
+div.tablesorterPager input {
+	font-size: 8px;
+	width: 50px;
+	border: 1px solid #330000;
+	text-align: center;
+}
+

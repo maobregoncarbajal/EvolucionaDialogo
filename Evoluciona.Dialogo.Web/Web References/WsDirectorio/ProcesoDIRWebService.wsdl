@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="urn:procesoDIRWebServiceResultado.beans.ws.dir.ssicc.belcorp.biz" xmlns:tns2="urn:clienteDIRWebService.beans.ws.dir.ssicc.belcorp.biz" xmlns:impl="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" targetNamespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:clienteDIRWebService.beans.ws.dir.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:procesoDIRWebServiceResultado.beans.ws.dir.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ClienteDIRWebService">
+        <xsd:sequence>
+          <xsd:element name="CUB" nillable="true" type="soapenc:string" />
+          <xsd:element name="CUBJefe" nillable="true" type="soapenc:string" />
+          <xsd:element name="apeMat" nillable="true" type="soapenc:string" />
+          <xsd:element name="apePat" nillable="true" type="soapenc:string" />
+          <xsd:element name="cargo" nillable="true" type="soapenc:string" />
+          <xsd:element name="codCargo" nillable="true" type="soapenc:string" />
+          <xsd:element name="codCliente" nillable="true" type="soapenc:string" />
+          <xsd:element name="codGrupoFuncional" nillable="true" type="soapenc:string" />
+          <xsd:element name="codNovedad" nillable="true" type="soapenc:string" />
+          <xsd:element name="codPais" nillable="true" type="soapenc:string" />
+          <xsd:element name="codPerfil" nillable="true" type="soapenc:string" />
+          <xsd:element name="codPlanilla" nillable="true" type="soapenc:string" />
+          <xsd:element name="codRegion" nillable="true" type="soapenc:string" />
+          <xsd:element name="codRol" nillable="true" type="soapenc:string" />
+          <xsd:element name="codZona" nillable="true" type="soapenc:string" />
+          <xsd:element name="codigoPeriodo" nillable="true" type="soapenc:string" />
+          <xsd:element name="desGrupoFuncional" nillable="true" type="soapenc:string" />
+          <xsd:element name="desRegion" nillable="true" type="soapenc:string" />
+          <xsd:element name="desRelContractual" nillable="true" type="soapenc:string" />
+          <xsd:element name="desZona" nillable="true" type="soapenc:string" />
+          <xsd:element name="estado" nillable="true" type="soapenc:string" />
+          <xsd:element name="estadoCargo" nillable="true" type="soapenc:string" />
+          <xsd:element name="fecIngreso" nillable="true" type="soapenc:string" />
+          <xsd:element name="fechaFin" nillable="true" type="soapenc:string" />
+          <xsd:element name="fechaInicio" nillable="true" type="soapenc:string" />
+          <xsd:element name="genero" nillable="true" type="soapenc:string" />
+          <xsd:element name="jefeDirecto" nillable="true" type="soapenc:string" />
+          <xsd:element name="mailBelcorp" nillable="true" type="soapenc:string" />
+          <xsd:element name="nombres" nillable="true" type="soapenc:string" />
+          <xsd:element name="nroDoc" nillable="true" type="soapenc:string" />
+          <xsd:element name="perfil" nillable="true" type="soapenc:string" />
+          <xsd:element name="puestoOrg" nillable="true" type="soapenc:string" />
+          <xsd:element name="rol" nillable="true" type="soapenc:string" />
+          <xsd:element name="telefCasa" nillable="true" type="soapenc:string" />
+          <xsd:element name="telefMovil" nillable="true" type="soapenc:string" />
+          <xsd:element name="usuarioRed" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService">
+      <xsd:import namespace="urn:procesoDIRWebServiceResultado.beans.ws.dir.ssicc.belcorp.biz" />
+      <xsd:import namespace="urn:clienteDIRWebService.beans.ws.dir.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_tns2_ClienteDIRWebService">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns2:ClienteDIRWebService[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:procesoDIRWebServiceResultado.beans.ws.dir.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:clienteDIRWebService.beans.ws.dir.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ProcesoDIRWebServiceResultado">
+        <xsd:sequence>
+          <xsd:element name="clienteDIRWebService" nillable="true" type="impl:ArrayOf_tns2_ClienteDIRWebService" />
+          <xsd:element name="codigo" nillable="true" type="soapenc:string" />
+          <xsd:element name="mensaje" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerClientesDirectorioResponse">
+    <wsdl:part name="obtenerClientesDirectorioReturn" type="tns1:ProcesoDIRWebServiceResultado" />
+  </wsdl:message>
+  <wsdl:message name="buscarClientesDirectorioRequest">
+    <wsdl:part name="codigoPais" type="soapenc:string" />
+    <wsdl:part name="usuarioRed" type="soapenc:string" />
+    <wsdl:part name="codigoCUB" type="soapenc:string" />
+  </wsdl:message>
+  <wsdl:message name="buscarClientesDirectorioResponse">
+    <wsdl:part name="buscarClientesDirectorioReturn" type="tns1:ProcesoDIRWebServiceResultado" />
+  </wsdl:message>
+  <wsdl:message name="obtenerClientesDirectorioRequest">
+    <wsdl:part name="codigoPais" type="soapenc:string" />
+    <wsdl:part name="codigoRegion" type="soapenc:string" />
+    <wsdl:part name="codigoZona" type="soapenc:string" />
+    <wsdl:part name="codigoTipoCargo" type="soapenc:string" />
+    <wsdl:part name="codigoPeriodo" type="soapenc:string" />
+    <wsdl:part name="estadoCargo" type="soapenc:string" />
+  </wsdl:message>
+  <wsdl:portType name="ProcesoDIRWebServiceImpl">
+    <wsdl:operation name="obtenerClientesDirectorio" parameterOrder="codigoPais codigoRegion codigoZona codigoTipoCargo codigoPeriodo estadoCargo">
+      <wsdl:input name="obtenerClientesDirectorioRequest" message="impl:obtenerClientesDirectorioRequest" />
+      <wsdl:output name="obtenerClientesDirectorioResponse" message="impl:obtenerClientesDirectorioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="buscarClientesDirectorio" parameterOrder="codigoPais usuarioRed codigoCUB">
+      <wsdl:input name="buscarClientesDirectorioRequest" message="impl:buscarClientesDirectorioRequest" />
+      <wsdl:output name="buscarClientesDirectorioResponse" message="impl:buscarClientesDirectorioResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProcesoDIRWebServiceSoapBinding" type="impl:ProcesoDIRWebServiceImpl">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="obtenerClientesDirectorio">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="obtenerClientesDirectorioRequest">
+        <wsdlsoap:body use="encoded" namespace="http://impl.ws.dir.ssicc.belcorp.biz" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="obtenerClientesDirectorioResponse">
+        <wsdlsoap:body use="encoded" namespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarClientesDirectorio">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="buscarClientesDirectorioRequest">
+        <wsdlsoap:body use="encoded" namespace="http://impl.ws.dir.ssicc.belcorp.biz" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="buscarClientesDirectorioResponse">
+        <wsdlsoap:body use="encoded" namespace="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProcesoDIRWebServiceImplService">
+    <wsdl:port name="ProcesoDIRWebService" binding="impl:ProcesoDIRWebServiceSoapBinding">
+      <wsdlsoap:address location="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoDIRWebService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

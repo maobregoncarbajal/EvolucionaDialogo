@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Enlaces>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Pais>GT</Pais>
+    <Tipo>1</Tipo>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>SV</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PA</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PE</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su DNI)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>EC</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CL</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>BO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>RD</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>AR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>DV</Rol>
+    <Tipo>1</Tipo>
+    <Pais>MX</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_dv</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas Regionales</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PE</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su DNI)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PA</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>SV</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>GT</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>MX</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>AR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>RD</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>PR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>BO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CL</Pais>
+    <!--<Url></Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>EC</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>1</Tipo>
+    <Pais>CO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogodvgr_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice sus diálogos con todas sus Gerentas de Zona</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PE</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su DNI)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PA</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>SV</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>GT</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>MX</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>AR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>RD</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>BO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CL</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>EC</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GR</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gr</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Director de Venta</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PE</Pais>
+    <!--<Url></Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su DNI)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PA</Pais>
+    <!--<Url></Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>SV</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>GT</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>MX</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>AR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>RD</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>PR</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>BO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CL</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>EC</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+  <Enlace>
+    <Rol>GZ</Rol>
+    <Tipo>2</Tipo>
+    <Pais>CO</Pais>
+    <!--<Url>https://es.surveymonkey.com/s/3dialogogrgz_gz</Url>
+		<EnunciadoInicial>Por favor podría ingresar al link a responder la encuesta cuando</EnunciadoInicial>
+		<EnunciadoFinal>finalice su diálogo con su Gerenta Regional</EnunciadoFinal>
+		<Comentario>(Recuerde que su usuario y contraseña es su Número de Cédula)</Comentario>-->
+    <Url></Url>
+    <EnunciadoInicial></EnunciadoInicial>
+    <EnunciadoFinal></EnunciadoFinal>
+    <Comentario></Comentario>
+  </Enlace>
+</Enlaces>

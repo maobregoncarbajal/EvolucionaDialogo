@@ -1,0 +1,206 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Visitas.master.cs" Inherits="Evoluciona.Dialogo.Web.Visitas" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Plan de Visitas</title>
+    <link href="Styles/Menu.css?v3" rel="stylesheet" type="text/css" />
+    <link href="Styles/SimpleMenu.css?v3" rel="stylesheet" type="text/css" />
+    <link href="Styles/droplinetabs.css?v3" rel="stylesheet" type="text/css" />
+    <link href="Styles/ui-lightness/jquery-ui-1.8.14.custom.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/jquery.window.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/reset2.css" rel="stylesheet" type="text/css" />
+
+    <script src="../Jscripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+
+    <script src="../Jscripts/AdapterUtils.js" type="text/javascript"></script>
+
+    <script src="../Jscripts/MenuAdapter.js" type="text/javascript"></script>
+
+    <script src="../Jscripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+
+    <script src="../Jscripts/jquery.window.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery(".btnMenu > a").click(function (event) {
+
+                var liParent = jQuery(this).parent();
+                var operacionesMnu = jQuery("#menuOperaciones > .btnMenu > ul");
+
+                operacionesMnu.css("visibility", "collapse");
+                operacionesMnu.css("display", "none");
+
+                liParent.find("ul").css("visibility", "visible");
+                liParent.find("ul").css("display", "block");
+
+                jQuery("#menuOperaciones a").css("color", "Black");
+                jQuery("#menuOperaciones a").css("font-family", "Arial");
+                jQuery("#menuOperaciones a").css("font-weight", "bold");
+                jQuery("#menuOperaciones a").css("font-size", "11px");
+
+                var index = jQuery("#menuOperaciones .btnMenu").index(liParent);
+                SeleccionarLinks(index + 1, false);
+
+                event.preventDefault();
+            });
+
+            UbicarSubMenus();
+
+            jQuery(".lnkButtonVer").click(function (event) {
+
+                var hostName = window.location.hostname;
+                var pathname = "http://" + hostName + GetPortNumber() + "/Visita/Consultas/" + GetCurrentPageName();
+                var periodoSeleccionado = jQuery(".cboPeriodos:first").val();
+
+                pathname += "_Consulta.aspx?periodo=" + periodoSeleccionado;
+
+                jQuery.window({
+                    showModal: true,
+                    modalOpacity: 0.5,
+                    title: "HISTORICO",
+                    url: pathname,
+                    width: 1000,
+                    height: 580,
+                    minimizable: false,
+                    bookmarkable: false
+                });
+
+                event.preventDefault();
+            });
+        });
+
+        function UbicarSubMenus() {
+
+            var operacionesMnu = jQuery("#menuOperaciones > .btnMenu > ul");
+            if (operacionesMnu.length > 0) {
+
+                var topActual = jQuery(".btnMenu a:first").offset().top;
+                var nuevoTop = Math.max((topActual + 16), 259);
+                operacionesMnu.css("top", nuevoTop.toString() + "px");
+            }
+        }
+
+        function SeleccionarLinks(indexMenu, indexSubMenu, hacerClick) {
+            var menuActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ")");
+            menuActual.children("a").css("color", "Red");
+            menuActual.children("a").css("font-family", "Arial");
+            menuActual.children("a").css("font-size", "11px");
+            menuActual.children("a").css("font-weight", "bold");
+
+            if (hacerClick) {
+                var mnuOperacionActual = jQuery("#menuOperaciones > .btnMenu:nth-child(" + indexMenu + ") > ul");
+
+                mnuOperacionActual.css("visibility", "visible");
+                mnuOperacionActual.css("display", "block");
+
+                var ulActual = jQuery("#menuOperaciones > .btnMenu:eq(" + (indexMenu - 1).toString() + ") > ul > li > a").eq(indexSubMenu - 1);
+
+                ulActual.removeAttr("class");
+                ulActual.attr("class", "default");
+            }
+        }
+        function GetCurrentPageName() {
+            var sPath = window.location.pathname;
+            var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+            return sPage.substring(0, sPage.lastIndexOf('.'));
+        }
+
+        function GetPortNumber() {
+            var url = window.location.href;
+            var url_parts = url.split('/');
+            var domain_name_parts = url_parts[2].split(':');
+
+            var adicional = "";
+
+            if (url_parts[3] != "Visita")
+                adicional = url_parts[3];
+
+            if (domain_name_parts.length == 1)
+                return "/" + adicional;
+            else
+                return ":" + domain_name_parts[1] + adicional;
+        }
+    </script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="background-color: #e0e0e0; text-align: center; width: 1100px; margin-left: auto; margin-right: auto;">
+            <div style="width: 100%; height: 150px; background-color: White">
+                <div style="float: right; width: 450px; height: 100px;">
+                    <table style="width: 100%; height: 100%; font-size: small; margin: 0; padding: 0; border: 0;">
+                        <tr>
+                            <td align="right" style="font-family: Arial; margin: 0; padding: 0; border: 0;">
+                                <asp:Image ImageUrl="" runat="server" ID="imgImagenPais" />&nbsp;
+                            <asp:Label Text="[Pais]" ID="lblNombrePais" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="margin: 0; padding: 0; border: 0;">
+                                <div class="staticMenu" style="width: 100%">
+                                    <ul style="text-align: right">
+                                        <li><a href="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Inicio.aspx">Inicio</a></li>
+                                        <%--<li><a href="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Calendario/Default.aspx">Calendario</a></li>--%>
+                                        <%--<li><a href="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Desempenio/Buscador.aspx">Buscador</a></li>--%>
+                                        <li><a href="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>EnConstruccion.aspx">Cambiar
+                                        Clave</a></li>
+                                        <li><a href="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Ayuda.aspx">Ayuda</a></li>
+                                        <li>
+                                            <asp:LinkButton Text="Cerrar Sesión" runat="server" OnClick="lnkCerrarSesion_Click"
+                                                ID="lnkCerrarSesion" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="margin: 0; padding: 0; border: 0;">
+                                <div style="float: right">
+                                    <asp:Menu ID="mnuOpciones" runat="server" Orientation="Horizontal" OnMenuItemClick="mnuOpciones_MenuItemClick"
+                                        CssSelectorClass="SimpleEntertainmentMenu" Width="100%">
+                                    </asp:Menu>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="logeoRol" style="text-align: right; margin: 0; padding: 0; border: 0;">
+                                <asp:Label runat="server" ID="lblFechaEvaluacion" Text=""></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="width: 500px; height: 150px; text-align: left; top: 40px; padding-top: 20px;">
+                    <table width="100%" border='0' cellpadding='0' style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td style="margin: 0; padding: 0; border: 0;">
+                                <img src="<%=Evoluciona.Dialogo.Web.Helpers.Utils.RelativeWebRoot%>Images/titulo_evoluciona.jpg"
+                                    alt="" align="bottom" width="200px" height="61px" /><br />
+                                <br />
+                                <span class="logeoBienvenida">¡Bienvenida(o)! &nbsp;&nbsp;</span>
+                                <asp:Label runat="server" ID="lblUserLogeado" Text="Usuario" CssClass="logeo"></asp:Label>
+                                <br />
+                                <br />
+                                <div style="margin-left: 110px;">
+                                    <asp:Label Text="Usuario" runat="server" ID="lblRolUsuario" CssClass="logeoRol" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 100%; background-color: White; min-height: 500px">
+                <img src="/Images/separator.jpg" width="200%" height="5px" alt="separador" style=" 
+                    width: 5050px;
+                    
+                "/>
+                <br />
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
