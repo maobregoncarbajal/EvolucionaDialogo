@@ -92,7 +92,7 @@
         .botonAprobar {
             top: 4px;
             position: relative;
-            left: -245px;
+            left: -167px;
         }
     </style>
 </asp:Content>

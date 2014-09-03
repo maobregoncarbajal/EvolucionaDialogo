@@ -95,7 +95,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
             {
                 lblNuevas.Text = NmbrEvld;
             }
-
+            CargarPeriodosFiltro();
             cboPeriodosFiltro.SelectedValue = Session["periodoActual"].ToString().PadRight(8, ' ');
             CargarGerentes();
         }
@@ -636,6 +636,17 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 NoValidar = "si";
             }
         }
+
+        private void CargarPeriodosFiltro()
+        {
+
+            var blPeriodos = new BlPeriodos();
+            cboPeriodosFiltro.DataTextField = "Descripcion";
+            cboPeriodosFiltro.DataValueField = "Codigo";
+            cboPeriodosFiltro.DataSource = blPeriodos.ObtenerListaDePeriodos(Constantes.CeroCero);
+            cboPeriodosFiltro.DataBind();
+        }
+
 
         private void CargarGerentes()
         {

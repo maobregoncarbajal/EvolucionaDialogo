@@ -15,7 +15,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
     public class MatrizAdmin : IHttpHandler
     {
         #region Variables
-        private readonly BlMatrizAdmin _matrizAdminBL = new BlMatrizAdmin();
+        private readonly BlMatrizAdmin _matrizAdminBl = new BlMatrizAdmin();
         #endregion
 
         public void ProcessRequest(HttpContext context)
@@ -107,7 +107,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
                 pais = context.Request["pais"].Trim();
             }
 
-            List<BeCronogramaMatriz> entidades = _matrizAdminBL.ListaCronogramaMatriz(pais);
+            var entidades = _matrizAdminBl.ListaCronogramaMatriz(pais);
 
             return entidades;
         }
@@ -115,9 +115,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
         private void DeleteCronograma(HttpContext context)
         {
 
-            int idCronogramaMatriz = Int32.Parse(context.Request["id"]);
+            var idCronogramaMatriz = Int32.Parse(context.Request["id"]);
 
-            bool estado = _matrizAdminBL.DeleteCronogramaMatriz(idCronogramaMatriz);
+            var estado = _matrizAdminBl.DeleteCronogramaMatriz(idCronogramaMatriz);
 
             context.Response.Write(JsonConvert.SerializeObject(estado));
 
@@ -144,7 +144,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
             obj.EsUltimo = true;
 
-            bool estado = _matrizAdminBL.UpdateCronogramaMatriz(obj);
+            var estado = _matrizAdminBl.UpdateCronogramaMatriz(obj);
 
             context.Response.Write(JsonConvert.SerializeObject(estado));
 
@@ -170,7 +170,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
             obj.EsUltimo = true;
 
-            bool estado = _matrizAdminBL.InsertCronogramaMatriz(obj);
+            var estado = _matrizAdminBl.InsertCronogramaMatriz(obj);
 
             context.Response.Write(JsonConvert.SerializeObject(estado));
 
@@ -179,10 +179,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
         private void CargarPaises(HttpContext context)
         {
-            string tipoAdmin = context.Request["tipo"];
-            string codigoPais = context.Request["codPais"];
+            var tipoAdmin = context.Request["tipo"];
+            var codigoPais = context.Request["codPais"];
 
-            var matrizAdminBL = new BlMatrizAdmin();
+            var matrizAdminBl = new BlMatrizAdmin();
             var entidades = new List<BeComun>();
 
 
@@ -190,13 +190,13 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             switch (tipoAdmin)
             {
                 case Constantes.RolAdminCoorporativo:
-                    entidades = matrizAdminBL.ObtenerPaises();
+                    entidades = matrizAdminBl.ObtenerPaises();
                     break;
                 case Constantes.RolAdminPais:
-                    entidades.Add(matrizAdminBL.ObtenerPais(codigoPais));
+                    entidades.Add(matrizAdminBl.ObtenerPais(codigoPais));
                     break;
                 case Constantes.RolAdminEvaluciona:
-                    entidades.Add(matrizAdminBL.ObtenerPais(codigoPais));
+                    entidades.Add(matrizAdminBl.ObtenerPais(codigoPais));
                     break;
             }
 
@@ -215,11 +215,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
         private void SelectCronograma(HttpContext context)
         {
-            int id = Int32.Parse(context.Request["id"]);
+            var id = Int32.Parse(context.Request["id"]);
 
-            var matrizAdminBL = new BlMatrizAdmin();
+            var matrizAdminBl = new BlMatrizAdmin();
 
-            var entidades = matrizAdminBL.SelectCronograma(id);
+            var entidades = matrizAdminBl.SelectCronograma(id);
 
 
             context.Response.Write(JsonConvert.SerializeObject(entidades));
@@ -227,9 +227,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
         private void ObtenerFechaServer(HttpContext context)
         {
-            var matrizAdminBL = new BlMatrizAdmin();
+            var matrizAdminBl = new BlMatrizAdmin();
 
-            var entidades = matrizAdminBL.ObtenerFechaServer();
+            var entidades = matrizAdminBl.ObtenerFechaServer();
 
             context.Response.Write(JsonConvert.SerializeObject(entidades));
         }
@@ -242,12 +242,12 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
         {
             try
             {
-                string codpais = context.Request["codpais"];
-                string anio = context.Request["anio"];
-                string usuario = context.Request["usuario"];
-                string maximo = context.Request["maximo"];
-                string minimo = context.Request["minimo"];
-                string competencia = context.Request["competencia"];
+                var codpais = context.Request["codpais"];
+                var anio = context.Request["anio"];
+                var usuario = context.Request["usuario"];
+                var maximo = context.Request["maximo"];
+                var minimo = context.Request["minimo"];
+                var competencia = context.Request["competencia"];
 
                 var blma = new BlMatrizAdmin();
                 var benc = new BeNivelesCompetencia
@@ -274,8 +274,8 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var bl = new BlMatrizAdmin();
-                string codPais = context.Request["codPais"];
-                string anio = context.Request["anio"];
+                var codPais = context.Request["codPais"];
+                var anio = context.Request["anio"];
 
                 var nivelesCompetencia = bl.ObtenerNivelesCompetencia(codPais, anio, 1);
 
@@ -296,8 +296,8 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var bl = new BlCondiciones();
-                string codPais = context.Request["codPais"];
-                string tipoCondicion = context.Request["tipoCondicion"];
+                var codPais = context.Request["codPais"];
+                var tipoCondicion = context.Request["tipoCondicion"];
                 const int estado = -1;
 
                 var listCondiciones = bl.ObtenerCondiciones(codPais, tipoCondicion, estado);
@@ -315,11 +315,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var be = (List<BeCondiciones>)JsonConvert.DeserializeObject(context.Request["condiciones"], typeof(List<BeCondiciones>));
-                string usuario = context.Request["usuario"];
+                var usuario = context.Request["usuario"];
 
                 var bl = new BlCondiciones();
 
-                bool insertado = bl.ActualizarCondiciones(be, usuario);
+                var insertado = bl.ActualizarCondiciones(be, usuario);
                 context.Response.Write(JsonConvert.SerializeObject(insertado));
             }
             catch (Exception ex)
@@ -333,9 +333,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var bl = new BlCondicionesDetalle();
-                string tipoCondicion = context.Request["tipoCondicion"];
-                string numeroCondicionLineamiento = context.Request["numeroCondicionLineamiento"];
-                string prefijoIsoPais = context.Request["prefijoIsoPais"];
+                var tipoCondicion = context.Request["tipoCondicion"];
+                var numeroCondicionLineamiento = context.Request["numeroCondicionLineamiento"];
+                var prefijoIsoPais = context.Request["prefijoIsoPais"];
 
                 var listCondicionesDetalle = bl.ObtenerCondicionesDetalle(prefijoIsoPais, tipoCondicion, numeroCondicionLineamiento);
 
@@ -354,9 +354,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
                 var bld = new BlCondicionesDetalle();
 
                 var bed = (List<BeCondicionesDetalle>)JsonConvert.DeserializeObject(context.Request["condicionesDetalle"], typeof(List<BeCondicionesDetalle>));
-                string usuario = context.Request["usuario"];
+                var usuario = context.Request["usuario"];
 
-                bool insertado = bld.ActualizarCondicionesDetalle(bed, usuario);
+                var insertado = bld.ActualizarCondicionesDetalle(bed, usuario);
                 context.Response.Write(JsonConvert.SerializeObject(insertado));
             }
             catch (Exception ex)
@@ -374,10 +374,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var bl = new BlGrupoGps();
-                string codPais = context.Request["pPais"];
+                var codPais = context.Request["pPais"];
 
 
-                List<BeGrupoGps> listGruposGps = bl.ObtenerGruposGps(codPais);
+                var listGruposGps = bl.ObtenerGruposGps(codPais);
 
                 context.Response.Write(JsonConvert.SerializeObject(listGruposGps));
             }
@@ -392,11 +392,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             try
             {
                 var bl = new BlGrupoGps();
-                string codPais = context.Request["pPais"];
-                string xml = context.Request["pXml"];
+                var codPais = context.Request["pPais"];
+                var xml = context.Request["pXml"];
 
 
-                int resul = bl.GrabarGruposGps(codPais, xml);
+                var resul = bl.GrabarGruposGps(codPais, xml);
 
                 context.Response.Write(JsonConvert.SerializeObject(resul));
             }
@@ -409,9 +409,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
 
         private void obtenerPaisConFuenteVentas(HttpContext context)
         {
-            var matrizAdminBL = new BlMatrizAdmin();
+            var matrizAdminBl = new BlMatrizAdmin();
 
-            List<BeComun> entidades = matrizAdminBL.ObtenerPaisConFuenteVentas();
+            var entidades = matrizAdminBl.ObtenerPaisConFuenteVentas();
 
             if (entidades.Count > 0)
             {

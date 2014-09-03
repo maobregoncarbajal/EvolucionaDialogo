@@ -1,4 +1,6 @@
 ﻿
+
+
 namespace Evoluciona.Dialogo.Web.Reportes
 {
     using BusinessEntity;
@@ -12,10 +14,12 @@ namespace Evoluciona.Dialogo.Web.Reportes
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+    using Helpers;
 
     public partial class rptUsoTiempo : Page
     {
         private BeUsuario objUsuario;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,7 +52,7 @@ namespace Evoluciona.Dialogo.Web.Reportes
             DataTable dtReuniones = new DataTable();
             List<BeReporteUsoTiempo> datosReuniones = daReporte.ObtenerDatosReunionReporte(objUsuario.codigoUsuario, objUsuario.codigoRol);
 
-            dtReuniones = GenericListToDataTable(datosReuniones);
+            dtReuniones = Utils.GenericListToDataTable(datosReuniones);
 
             if (dtReuniones.Rows.Count > 0)
             {
@@ -58,7 +62,7 @@ namespace Evoluciona.Dialogo.Web.Reportes
                 DataTable dtTotales = new DataTable();
                 List<BeReporteUsoTiempo> totalesReuniones = daReporte.ObtenerTotalesReunionReporte(objUsuario.codigoUsuario);
 
-                dtTotales = GenericListToDataTable(totalesReuniones);
+                dtTotales = Utils.GenericListToDataTable(totalesReuniones);
                 dgTotales.DataSource = totalesReuniones;
                 ltTotales.Text = CastDataTable(dgTotales, dtTotales, cabecera, "", 100, "", 2);
             }
@@ -69,63 +73,6 @@ namespace Evoluciona.Dialogo.Web.Reportes
             }
         }
 
-        public static DataTable GenericListToDataTable(object list)
-        {
-            DataTable dt = null;
-            Type listType = list.GetType();
-            if (listType.IsGenericType)
-            {
-                //determine the underlying type the List<> contains
-                Type elementType = listType.GetGenericArguments()[0];
-
-                //create empty table -- give it a name in case
-                //it needs to be serialized
-                dt = new DataTable(elementType.Name + "List");
-
-                //define the table -- add a column for each public
-                //property or field
-                MemberInfo[] miArray = elementType.GetMembers(
-                    BindingFlags.Public | BindingFlags.Instance);
-                foreach (MemberInfo mi in miArray)
-                {
-                    if (mi.MemberType == MemberTypes.Property)
-                    {
-                        PropertyInfo pi = mi as PropertyInfo;
-                        dt.Columns.Add(pi.Name, pi.PropertyType);
-                    }
-                    else if (mi.MemberType == MemberTypes.Field)
-                    {
-                        FieldInfo fi = mi as FieldInfo;
-                        dt.Columns.Add(fi.Name, fi.FieldType);
-                    }
-                }
-
-                //populate the table
-                IList il = list as IList;
-                foreach (object record in il)
-                {
-                    int i = 0;
-                    object[] fieldValues = new object[dt.Columns.Count];
-                    foreach (DataColumn c in dt.Columns)
-                    {
-                        MemberInfo mi = elementType.GetMember(c.ColumnName)[0];
-                        if (mi.MemberType == MemberTypes.Property)
-                        {
-                            PropertyInfo pi = mi as PropertyInfo;
-                            fieldValues[i] = pi.GetValue(record, null);
-                        }
-                        else if (mi.MemberType == MemberTypes.Field)
-                        {
-                            FieldInfo fi = mi as FieldInfo;
-                            fieldValues[i] = fi.GetValue(record);
-                        }
-                        i++;
-                    }
-                    dt.Rows.Add(fieldValues);
-                }
-            }
-            return dt;
-        }
 
         public string CastDataTable(DataGrid dg, DataTable dt, ArrayList alCabecera, string strTitulo, int numItems, string cultura, int tipo)
         {

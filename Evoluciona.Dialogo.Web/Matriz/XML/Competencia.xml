@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<beComuns>
+<BeComuns>
   <!--<beComun>
     <Codigo>01</Codigo>
     <Descripcion>NO DESARROLLADA</Descripcion>
   </beComun>-->
-  <beComun>
+  <BeComun>
     <Codigo>01</Codigo>
     <Descripcion>EN DESARROLLO</Descripcion>
-  </beComun>
-  <beComun>
+  </BeComun>
+  <BeComun>
     <Codigo>02</Codigo>
     <Descripcion>DESARROLLADA</Descripcion>
-  </beComun>
-  <beComun>
+  </BeComun>
+  <BeComun>
     <Codigo>03</Codigo>
     <Descripcion>DESTACADA</Descripcion>
-  </beComun>
-</beComuns>
+  </BeComun>
+</BeComuns>

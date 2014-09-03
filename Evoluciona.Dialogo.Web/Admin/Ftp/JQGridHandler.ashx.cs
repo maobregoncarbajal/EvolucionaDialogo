@@ -181,7 +181,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Ftp
 
 
 
-            DataTable data = Utils.ToDataTable(entidades);
+            DataTable data = Utils.ConvertToDataTable(entidades);
 
             string fileName = string.Format("{0}.{1}", "FFVV_base_evoluciona" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"),
                                             tipo);

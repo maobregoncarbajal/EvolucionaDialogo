@@ -1,16 +1,15 @@
 ﻿
-using System.Web;
+using Evoluciona.Dialogo.BusinessLogic.Tareas;
 using Quartz;
 
 namespace Evoluciona.Dialogo.Web
 {
-
-
     public class TareaAlertas : IJob
     {
-        public void Execute(JobExecutionContext context)
+        public void Execute(IJobExecutionContext context)
         {
-            HttpContext.Current.Response.Redirect("~/Admin/Tareas/TareaAlertas.aspx");
+            var blTareaAlertas = new BLTareaAlertas();
+            blTareaAlertas.IniciarProcesoNotificaciones();
         }
     }
 }

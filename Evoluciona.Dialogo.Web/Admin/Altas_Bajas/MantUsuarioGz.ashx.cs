@@ -216,7 +216,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             var entidades = ListaGz(context);
 
-            var data = Utils.ToDataTable(entidades);
+            var data = Utils.ConvertToDataTable(entidades);
 
             data.Columns.Remove("intIDGerenteZona");
             data.Columns.Remove("bitEstado");

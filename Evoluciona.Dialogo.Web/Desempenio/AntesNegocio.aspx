@@ -301,17 +301,6 @@
                         <asp:DropDownList runat="server" ID="cboPeriodosFiltro" Width="80px" Style="margin-left: 7px;"
                             CssClass="combo" OnSelectedIndexChanged="cboPeriodosFiltro_SelectedIndexChanged"
                             AutoPostBack="True">
-                            <asp:ListItem Value="2014 II">2014 II</asp:ListItem>
-                            <asp:ListItem Value="2014 I">2014 I</asp:ListItem>
-                            <asp:ListItem Value="2013 III">2013 III</asp:ListItem>
-                            <asp:ListItem Value="2013 II ">2013 II </asp:ListItem>
-                            <asp:ListItem Value="2013 I  ">2013 I  </asp:ListItem>
-                            <asp:ListItem Value="2012 III">2012 III</asp:ListItem>
-                            <asp:ListItem Value="2012 II ">2012 II </asp:ListItem>
-                            <asp:ListItem Value="2012 I  ">2012 I  </asp:ListItem>
-                            <asp:ListItem Value="2011 III">2011 III</asp:ListItem>
-                            <asp:ListItem Value="2011 II ">2011 II </asp:ListItem>
-                            <asp:ListItem Value="2011 I  ">2011 I  </asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>

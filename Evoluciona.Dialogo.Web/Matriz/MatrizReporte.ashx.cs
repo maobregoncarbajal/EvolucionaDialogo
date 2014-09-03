@@ -305,7 +305,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
             {
                 var path = context.Server.MapPath(@"~/Matriz/XML/") + context.Request["fileName"];
 
-                var entidades = Utils.XmlToObjectList<BeComun>(path, "//beComuns/beComun");
+                var entidades = Utils.XmlToObjectList<BeComun>(path, "//BeComuns/BeComun");
 
                 var adicional = context.Request["adicional"];
 
@@ -530,8 +530,8 @@ namespace Evoluciona.Dialogo.Web.Matriz
 
             var path = context.Server.MapPath(@"~/Matriz/XML/");
 
-            var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//beComuns/beComun");
-            var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//beComuns/beComun");
+            var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//BeComuns/BeComun");
+            var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//BeComuns/BeComun");
 
             switch (rolEvaluado)
             {
@@ -829,7 +829,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
 
                 var path = context.Server.MapPath(@"~/Matriz/XML/");
 
-                var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//beComuns/beComun");
+                var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//BeComuns/BeComun");
 
                 var entidad = _matrizBl.ObtenerCuadranteUsuario(codPais, codigoUsuario, Convert.ToInt32(idRol), anho, periodo, niveles);
 
@@ -1034,7 +1034,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
 
                     var path = context.Server.MapPath(@"~/Matriz/XML/TomaAccion.xml");
 
-                    var entidades = Utils.XmlToObjectList<BeComun>(path, "//beComuns/beComun");
+                    var entidades = Utils.XmlToObjectList<BeComun>(path, "//BeComuns/BeComun");
 
                     entidad.NombreTomaAccion = NombreCodXML(entidades, entidad.TomaAccion);
 
@@ -1101,7 +1101,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
                 var estadoActivo = context.Request["estadoActivo"];
                 var codTomaAccion = context.Request["codTomaAccion"];
                 var path = context.Server.MapPath(@"~/Matriz/XML/");
-                var tomaAcciones = Utils.XmlToObjectList<BeComun>(path + "TomaAccion.xml", "//beComuns/beComun");
+                var tomaAcciones = Utils.XmlToObjectList<BeComun>(path + "TomaAccion.xml", "//BeComuns/BeComun");
 
                 var entidades = new List<BeTomaAccion>();
 
@@ -1141,7 +1141,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
                 var periodo = context.Request["periodo"];
                 var path = context.Server.MapPath(@"~/Matriz/XML/");
 
-                var tomaAcciones = Utils.XmlToObjectList<BeComun>(path + "TomaAccion.xml", "//beComuns/beComun");
+                var tomaAcciones = Utils.XmlToObjectList<BeComun>(path + "TomaAccion.xml", "//BeComuns/BeComun");
                 var entidades = _matrizBl.ListarCalibraciones(codPais, periodo, tomaAcciones);
 
                 context.Response.Write(JsonConvert.SerializeObject(entidades));
@@ -1334,7 +1334,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
                 }
             }
 
-            var data = Utils.ToDataTable(entidades);
+            var data = Utils.ConvertToDataTable(entidades);
 
             var fileName = string.Format("{0}.{1}", "DetalleInformacion" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"),
                                             tipo);
@@ -1619,7 +1619,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
                     }
                 }
 
-                dtData = Utils.ToDataTable(entidades);
+                dtData = Utils.ConvertToDataTable(entidades);
                 dtData.TableName = "Detalle de Información"; //titulo
                 dtData.Namespace = _filtros; // texto filtros
                 //Ocultar columnas
@@ -1680,8 +1680,8 @@ namespace Evoluciona.Dialogo.Web.Matriz
                     {
                         var path = context.Server.MapPath(@"~/Matriz/XML/");
 
-                        var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//beComuns/beComun");
-                        var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//beComuns/beComun");
+                        var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//BeComuns/BeComun");
+                        var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//BeComuns/BeComun");
 
                         pdf.pdfMatriz(strFilePath, data, niveles, tamVentas, tipoColaborador, _filtros);
 
@@ -1712,8 +1712,8 @@ namespace Evoluciona.Dialogo.Web.Matriz
                     {
                         var path = context.Server.MapPath(@"~/Matriz/XML/");
 
-                        var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//beComuns/beComun");
-                        var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//beComuns/beComun");
+                        var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//BeComuns/BeComun");
+                        var tamVentas = Utils.XmlToObjectList<BeComun>(path + "TamVenta.xml", "//BeComuns/BeComun");
 
                         book = edw.CreateWorkbookMatriz(formato, data, niveles, tamVentas, tipoColaborador, _filtros);
                     }
@@ -1746,7 +1746,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
             var entidades = ListaDetalleInformacion(context);
 
             var path = context.Server.MapPath(@"~/Matriz/XML/");
-            var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//beComuns/beComun");
+            var niveles = Utils.XmlToObjectList<BeComun>(path + "Competencia.xml", "//BeComuns/BeComun");
 
             var id = Guid.NewGuid().ToString();
             var strFolder = context.Server.MapPath(@"~/Matriz/TempReportes/");
@@ -1845,7 +1845,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
                 be.Cuadrante = _cuadrante;
             }
 
-            var data = Utils.ToDataTable(rpteResultados);
+            var data = Utils.ConvertToDataTable(rpteResultados);
 
             var fileName = string.Format("{0}.{1}", "DetalleInformacion" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"),
                 tipo);
@@ -2593,7 +2593,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
             {
                 var path = context.Server.MapPath(@"~/Matriz/XML/") + context.Request["fileName"];
 
-                var entidades = Utils.XmlToObjectList<BeComun>(path, "//beComuns/beComun");
+                var entidades = Utils.XmlToObjectList<BeComun>(path, "//BeComuns/BeComun");
 
                 var adicional = context.Request["adicional"];
 
@@ -2658,10 +2658,10 @@ namespace Evoluciona.Dialogo.Web.Matriz
                 Benchmark = Constantes.Benchmark
             };
             var path = context.Server.MapPath(@"~/Matriz/XML/");
-            var tamPoblacionMz = Utils.XmlToObjectList<BeComun>(path + "TamPoblacionMz.xml", "//beComuns/beComun");
-            var tamVentaMz = Utils.XmlToObjectList<BeComun>(path + "TamVentaMz.xml", "//beComuns/beComun");
-            var ranGap = Utils.XmlToObjectList<BeComun>(path + "RanGap.xml", "//beComuns/beComun");
-            var ranFacGap = Utils.XmlToObjectList<BeComun>(path + "RanFacGap.xml", "//beComuns/beComun");
+            var tamPoblacionMz = Utils.XmlToObjectList<BeComun>(path + "TamPoblacionMz.xml", "//BeComuns/BeComun");
+            var tamVentaMz = Utils.XmlToObjectList<BeComun>(path + "TamVentaMz.xml", "//BeComuns/BeComun");
+            var ranGap = Utils.XmlToObjectList<BeComun>(path + "RanGap.xml", "//BeComuns/BeComun");
+            var ranFacGap = Utils.XmlToObjectList<BeComun>(path + "RanFacGap.xml", "//BeComuns/BeComun");
 
             foreach (var item in tamPoblacionMz)
             {
@@ -2755,7 +2755,7 @@ namespace Evoluciona.Dialogo.Web.Matriz
 
 
 
-            var data = Utils.ToDataTable(rpteResultadoMz);
+            var data = Utils.ConvertToDataTable(rpteResultadoMz);
 
             var fileName = string.Format("{0}.{1}", "DetalleInformacionMz" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"), "xls");
             var strFilePath = strFolder + id + fileName;

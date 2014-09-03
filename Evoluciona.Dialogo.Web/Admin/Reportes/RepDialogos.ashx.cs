@@ -95,7 +95,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             var strFolder = context.Server.MapPath(@"~/Admin/Reportes/");
             const string tipo = "xls";
             var entidades = ListaReporte(context);
-            var tabla = Utils.ToDataTable(entidades);
+            var tabla = Utils.ConvertToDataTable(entidades);
             var tipoReporte = context.Request["tipoReporte"];
             var dtRc = RemoverColumnas(tabla, tipoReporte);
             var data = OrdenarColumnas(dtRc, tipoReporte);

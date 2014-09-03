@@ -26,30 +26,30 @@
         var url = '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGz.ashx';
         var grid = $("#list");
         var pais = $("#<%=hfPais.ClientID %>").val();
-        var paisSelect = "";
-        var regionSelect = "";
+        var paisSearch = "";
+        var regionSearch = "";
         var listPaises = funPaises();
-        var paisEdit = "";
         var lastSel = -1;
 
+        var paisEdit = "";
+        var regionEdit = "";
 
         jQuery(document).ready(function () {
-            
 
-            
-        var resetRegionesValues = function () {
-            grid.setColProp('vchCodigoRegion', { editoptions: { value: {} } });
-        };
 
-        var editGridRowOptions = {
-            recreateForm: true,
-        };
-       
-        grid.jqGrid({
-            colNames: ['intIDGerenteZona', 'ID GerenteRegion ', 'País', 'Doc. Identidad', 'Nombre Completo', 'Correo Electrónico', 'CUB', 'C. Planilla', 'C. Región', 'C. Zona', 'G. Región', 'Observación'],
-            colModel: [
-                { name: 'intIDGerenteZona', index: 'intIDGerenteZona', stype: 'text', editable: true, sorttype: 'int', hidden: true },
-                { name: 'intIDGerenteRegion', index: 'intIDGerenteRegion', width: 100, align: "right", editable: true, hidden: true },
+            var editGridRowOptions = {
+                recreateForm: true,
+                viewPagerButtons: false,
+                onClose: function () {
+
+                }
+            };
+
+            grid.jqGrid({
+                colNames: ['intIDGerenteZona', 'ID GerenteRegion ', 'País', 'Doc. Identidad', 'Nombre Completo', 'Correo Electrónico', 'CUB', 'C. Planilla', 'C. Región', 'C. Zona', 'G. Región', 'Observación'],
+                colModel: [
+                    { name: 'intIDGerenteZona', index: 'intIDGerenteZona', stype: 'text', editable: true, sorttype: 'int', hidden: true },
+                    { name: 'intIDGerenteRegion', index: 'intIDGerenteRegion', width: 100, align: "right", editable: true, hidden: true },
                 {
                     name: 'chrPrefijoIsoPais',
                     index: 'chrPrefijoIsoPais',
@@ -62,30 +62,40 @@
                     editoptions: {
                         value: listPaises,
                         dataInit: function (elem) {
-                            var v = $(elem).val();
-                            grid.setColProp('vchCodigoRegion', { editoptions: { value: funRegiones(v) } });
-                        }
+                            paisEdit = $(elem).val();
+                            funRegiones(paisEdit);
+                        },
+                        dataEvents: [
+                            {
+                                type: 'change',
+                                fn: function (e) {
+                                    paisEdit = $(e.target).val();
+                                    funCambiarRegionEdit(paisEdit);
+                                    funCambiarZonaEdit(paisEdit, regionEdit);
+                                }
+                            }
+                        ],
                     },
                     searchoptions: {
                         value: $.extend({ "": "Todos" }, listPaises),
                         dataEvents: [
                             {
                                 type: 'change',
-                                fn: function(e) {
-                                    paisSelect = $(e.target).val();
-                                    funCambiarRegionSelect(paisSelect);
-                                    funLimpiarZonaSelect();
+                                fn: function (e) {
+                                    paisSearch = $(e.target).val();
+                                    funCambiarRegionSearch(paisSearch);
+                                    funLimpiarZonaSearch();
 
                                 }
                             }
                         ],
                     }
                 },
-                { name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140, editable: true },
-                { name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true, editable: true },
-                { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
-                { name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false, editable: true },
-                { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
+                    { name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140, editable: true },
+                    { name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true, editable: true },
+                    { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
+                    { name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false, editable: true },
+                    { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
                 {
                     name: 'vchCodigoRegion',
                     index: 'vchCodigoRegion',
@@ -96,19 +106,27 @@
                     edittype: 'select',
                     stype: 'select',
                     editoptions: {
-                        value: [],
-                        dataInit: function(elem) {
-                            funRegiones("");
-                        }
+                        dataInit: function (elem) {
+                            funZonas(paisEdit, regionEdit);
+                        },
+                        dataEvents: [
+                            {
+                                type: 'change',
+                                fn: function (e) {
+                                    regionEdit = $(e.target).val();
+                                    funCambiarZonaEdit(paisEdit, regionEdit);
+                                }
+                            }
+                        ],
                     },
                     searchoptions: {
                         value: { "": "Todos" },
                         dataEvents: [
                             {
                                 type: 'change',
-                                fn: function(e) {
-                                    regionSelect = $(e.target).val();
-                                    funCambiarZonaSelect(paisSelect, regionSelect);
+                                fn: function (e) {
+                                    regionSearch = $(e.target).val();
+                                    funCambiarZonaSearch(paisSearch, regionSearch);
                                 }
                             }
                         ]
@@ -123,123 +141,157 @@
                     editable: true,
                     edittype: 'select',
                     stype: 'select',
-                    editoptions: {
-                        value: listPaises
-                    },
                     searchoptions: {
                         value: { "": "Todos" }
                     }
                 },
                 { name: 'NombreGerenteRegion', index: 'NombreGerenteRegion', width: 165, align: "right", sortable: true, editable: false },
                 { name: 'vchObservacion', index: 'vchObservacion', width: 90, align: "right", sortable: false, editable: true }
-            ],
-            onSelectRow: function (id) {
-                if (id && id !== lastSel) {
-                    if (lastSel != -1) {
-                        resetRegionesValues();
-                        grid.restoreRow(lastSel);
+                ],
+                onSelectRow: function (id) {
+                    paisEdit = grid.jqGrid('getCell', id, 'chrPrefijoIsoPais');
+                    regionEdit = grid.jqGrid('getCell', id, 'vchCodigoRegion');
+                },
+                url: url + '?accion=load&pais=' + pais,
+                datatype: 'json',
+                mtype: 'GET',
+                editurl: url,
+                rowNum: 10,
+                ignoreCase: true,
+                rowList: [10, 20, 30],
+                pager: '#pager',
+                viewrecords: true,
+                sortorder: "desc",
+                caption: "",
+                height: '100%',
+                width: 1100,
+                forceFit: false,
+                shrinkToFit: false,
+                autowidth: false,
+                fixed: false
+            });
+
+            grid.jqGrid('navGrid', '#pager', { edit: true, add: false, del: false, search: false }, editGridRowOptions);
+            grid.jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false });
+        });
+
+        function funPaises() {
+            var parametrosPais = { accion: 'loadPaises', 'pais': pais };
+            var listObjPais = Evoluciona.Ajax(url, parametrosPais, false);
+            var paises = {};
+
+            $.each(listObjPais, function (i, v) {
+                paises[v.Codigo] = v.Codigo;
+            });
+
+            return paises;
+        }
+
+        function funRegiones(varPaisEdit) {
+            grid.jqGrid('setColProp', 'vchCodigoRegion', {
+                editoptions: {
+                    dataUrl: url + '?accion=loadRegiones&pais=' + varPaisEdit,
+                    buildSelect: function (data) {
+                        var s = '<select id="gs_Estado">';
+                        var listData = JSON.parse(data);
+                        $.each(listData, function (index, value) {
+                            s += "<option value='" + value.CodRegion + "'>" + value.CodRegion + "</option>";
+                        });
+
+                        return s + "</select>";
                     }
-                    lastSel = id;
                 }
-            },
-            url: url + '?accion=load&pais=' + pais,
-            datatype: 'json',
-            mtype: 'GET',
-            editurl: url,
-            rowNum: 10,
-            ignoreCase: true,
-            rowList: [10, 20, 30],
-            pager: '#pager',
-            viewrecords: true,
-            sortorder: "desc",
-            caption: "",
-            height: '100%',
-            width: 1100,
-            forceFit: false,
-            shrinkToFit: false,
-            autowidth: false,
-            fixed: false
-        });
+            });
+        }
 
-        grid.jqGrid('navGrid', '#pager', { edit: true, add: false, del: false, search: false }, editGridRowOptions);
-        grid.jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false });
-    });
-
-    function funPaises() {
-        var parametrosPais = { accion: 'loadPaises', 'pais': pais };
-        var listObjPais = Evoluciona.Ajax(url, parametrosPais, false);
-        var paises = {};
-
-        $.each(listObjPais, function (i, v) {
-            paises[v.Codigo] = v.Codigo;
-        });
-
-        return paises;
-    }
-
-    function funRegiones(varPaisEdit) {
-        var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisEdit };
-        var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
-        var regiones = {};
-
-        $.each(listObjRegion, function (i, v) {
-            regiones[v.CodRegion] = v.CodRegion;
-        });
+        function funCambiarRegionSearch(varPaisSearch) {
+            var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisSearch };
+            var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
+            var newOptions = "<option value=\"\">Todos</option>";
 
 
-        return regiones;
-        //grid.jqGrid('setColProp', 'vchCodigoRegion', { editoptions: { value: regiones } });
-    }
+            $.each(listObjRegion, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.CodRegion + "\">" + v.CodRegion + "</option>";
+            });
 
-    function funZonas() {
-        var parametrosZona = { accion: 'loadZonas', 'pais': pais, 'region': '00' };
-        var listObjZona = Evoluciona.Ajax(url, parametrosZona, false);
-        var zonas = {};
+            $('#gs_vchCodigoRegion').find('option').remove().end();
+            $('#gs_vchCodigoRegion').html(newOptions);
 
-        $.each(listObjZona, function (i, v) {
-            zonas[v.codZona] = v.codZona;
-        });
+        }
 
-        return zonas;
-    }
-
-    function funCambiarRegionSelect(varPaisSelect) {
-        var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisSelect };
-        var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
-        var newOptions = "<option value=\"\">Todos</option>";
+        function funCambiarRegionEdit(varPaisEdit) {
+            var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisEdit };
+            var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
+            var newOptions = "";
 
 
-        $.each(listObjRegion, function (i, v) {
-            newOptions += "<option role=\"option\" value=\"" + v.CodRegion + "\">" + v.CodRegion + "</option>";
-        });
+            $.each(listObjRegion, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.CodRegion + "\">" + v.CodRegion + "</option>";
+            });
 
-        $('#gs_vchCodigoRegion').find('option').remove().end();
-        $('#gs_vchCodigoRegion').html(newOptions);
-
-    }
-
-    function funCambiarZonaSelect(varpaisSelect, varRegionSelect) {
-        var parametrosZona = { accion: 'loadZonas', 'pais': varpaisSelect, 'region': varRegionSelect };
-        var listObjZona = Evoluciona.Ajax(url, parametrosZona, false);
-        var newOptions = "<option value=\"\">Todos</option>";
+            $('select#vchCodigoRegion.FormElement').find('option').remove().end();
+            $('select#vchCodigoRegion.FormElement').html(newOptions);
 
 
-        $.each(listObjZona, function (i, v) {
-            newOptions += "<option role=\"option\" value=\"" + v.codZona + "\">" + v.codZona + "</option>";
-        });
+            regionEdit = $('select#vchCodigoRegion.FormElement').val();
 
-        $('#gs_vchCodigoZona').find('option').remove().end();
-        $('#gs_vchCodigoZona').html(newOptions);
+        }
 
-    }
+        function funZonas(varPaisEdit, varRegionEdit) {
+            grid.jqGrid('setColProp', 'vchCodigoZona', {
+                editoptions: {
+                    dataUrl: url + '?accion=loadZonas&pais=' + varPaisEdit + '&region=' + varRegionEdit,
+                    buildSelect: function (data) {
+                        var s = '<select id="gs_Estado">';
+                        var listData = JSON.parse(data);
+                        $.each(listData, function (index, value) {
+                            s += "<option value='" + value.codZona + "'>" + value.codZona + "</option>";
+                        });
 
-    function funLimpiarZonaSelect() {
+                        return s + "</select>";
+                    }
+                }
+            });
 
-        var newOptions = "<option value=\"\">Todos</option>";
-        $('#gs_vchCodigoZona').find('option').remove().end();
-        $('#gs_vchCodigoZona').html(newOptions);
+        }
 
-    }
+        function funCambiarZonaSearch(varPaisSearch, varRegionSearch) {
+            var parametrosZona = { accion: 'loadZonas', 'pais': varPaisSearch, 'region': varRegionSearch };
+            var listObjZona = Evoluciona.Ajax(url, parametrosZona, false);
+            var newOptions = "<option value=\"\">Todos</option>";
+
+
+            $.each(listObjZona, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.codZona + "\">" + v.codZona + "</option>";
+            });
+
+            $('#gs_vchCodigoZona').find('option').remove().end();
+            $('#gs_vchCodigoZona').html(newOptions);
+
+        }
+
+        function funCambiarZonaEdit(varPaisEdit, varRegionEdit) {
+            var parametrosZona = { accion: 'loadZonas', 'pais': varPaisEdit, 'region': varRegionEdit };
+            var listObjZona = Evoluciona.Ajax(url, parametrosZona, false);
+            var newOptions = "";
+
+
+            $.each(listObjZona, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.codZona + "\">" + v.codZona + "</option>";
+            });
+
+            $('select#vchCodigoZona.FormElement').find('option').remove().end();
+            $('select#vchCodigoZona.FormElement').html(newOptions);
+
+        }
+
+        function funLimpiarZonaSearch() {
+
+            var newOptions = "<option value=\"\">Todos</option>";
+            $('#gs_vchCodigoZona').find('option').remove().end();
+            $('#gs_vchCodigoZona').html(newOptions);
+
+        }
 
     </script>
 </asp:Content>

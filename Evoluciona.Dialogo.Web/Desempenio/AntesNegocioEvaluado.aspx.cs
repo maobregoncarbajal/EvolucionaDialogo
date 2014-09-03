@@ -70,7 +70,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
             if (Session["NombreEvaluado"] == null) return;
 
-            string periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : ObjUsuario.periodoEvaluacion;
+            var periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : ObjUsuario.periodoEvaluacion;
 
             CargarFormulario();
             CargarGerentes();
@@ -93,7 +93,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void ddlVariableCausa1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa1.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa1.SelectedValue, CadenaConexion);
+            var dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa1.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa1.SelectedValue, CadenaConexion);
 
             if (dtCampana != null)
             {
@@ -109,7 +109,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void ddlVariableCausa2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa2.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa2.SelectedValue, CadenaConexion);
+            var dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa2.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa2.SelectedValue, CadenaConexion);
 
             if (dtCampana != null)
             {
@@ -125,7 +125,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void ddlVariableCausa3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa3.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausa(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa3.SelectedValue, CadenaConexion);
+            var dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa3.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausa(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa3.SelectedValue, CadenaConexion);
 
             if (dtCampana != null)
             {
@@ -141,7 +141,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void ddlVariableCausa4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa4.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausa(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa4.SelectedValue, CadenaConexion);
+            var dtCampana = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarDatosVariableCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa4.SelectedValue, CadenaConexion) : _indicadorBl.CargarDatosVariableCausa(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, ddlVariableCausa4.SelectedValue, CadenaConexion);
 
 
             if (dtCampana != null)
@@ -166,7 +166,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            bool esCorrecto = _indicadorBl.InsertarIndicadoresEvaluado(txtIdVariable1.Text, txtIdVariable2.Text,
+            var esCorrecto = _indicadorBl.InsertarIndicadoresEvaluado(txtIdVariable1.Text, txtIdVariable2.Text,
                 ObjResumenBe.idProceso, AnioCampana, 0, CadenaConexion);
 
             if (esCorrecto)
@@ -186,16 +186,16 @@ namespace Evoluciona.Dialogo.Web.Desempenio
         protected void cboVariablesAdicionales1_SelectedIndexChanged(object sender, EventArgs e)
         {
             var cboCombo = (DropDownList)sender;
-            string valorActual = cboCombo.SelectedValue;
+            var valorActual = cboCombo.SelectedValue;
 
-            DataTable dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion).Tables[0] : _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion).Tables[0];
+            var dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion).Tables[0] : _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion).Tables[0];
 
 
-            DataRow[] filas = dsReporte.Select(string.Format("chrCodVariable = '{0}'", valorActual));
+            var filas = dsReporte.Select(string.Format("chrCodVariable = '{0}'", valorActual));
 
             if (filas.Length > 0)
             {
-                DataRow filaActual = filas[0];
+                var filaActual = filas[0];
 
                 if (cboCombo.ID == "cboVariablesAdicionales1")
                 {
@@ -254,7 +254,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarVariablesCausa()
         {
-            DataTable variablesCausa = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarCombosVariablesCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, lblvariable1.Text, lblvariable2.Text, CadenaConexion) : _indicadorBl.CargarCombosVariablesCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, lblvariable1.Text, lblvariable2.Text, CadenaConexion);
+            var variablesCausa = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarCombosVariablesCausaNuevas(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, lblvariable1.Text, lblvariable2.Text, CadenaConexion) : _indicadorBl.CargarCombosVariablesCausaEvaluado(PeriodoCerrado, CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, AnioCampana, lblvariable1.Text, lblvariable2.Text, CadenaConexion);
 
             ddlVariableCausa1.DataSource = variablesCausa;
             ddlVariableCausa1.DataTextField = "vchDesVariable";
@@ -282,8 +282,8 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
             #region Cargar Variables Causa si existieran en la BD
 
-            DataTable variablesCausaIndicador1 = _indicadorBl.ObtenerVariablesCausaPreDialogo(IdProceso, txtIdVariable1.Text);
-            DataTable variablesCausaIndicador2 = _indicadorBl.ObtenerVariablesCausaPreDialogo(IdProceso, txtIdVariable2.Text);
+            var variablesCausaIndicador1 = _indicadorBl.ObtenerVariablesCausaPreDialogo(IdProceso, txtIdVariable1.Text);
+            var variablesCausaIndicador2 = _indicadorBl.ObtenerVariablesCausaPreDialogo(IdProceso, txtIdVariable2.Text);
 
             if (variablesCausaIndicador1.Rows.Count > 0)
             {
@@ -350,7 +350,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarPeriodosFiltro()
         {
-            DataTable periodosDt = _indicadorBl.ObtenerPeriodo(cboPeriodosFiltro.SelectedValue, ObjResumenBe.codigoRolUsuario, ObjResumenBe.prefijoIsoPais, CadenaConexion);
+            var periodosDt = _indicadorBl.ObtenerPeriodo(cboPeriodosFiltro.SelectedValue, ObjResumenBe.codigoRolUsuario, ObjResumenBe.prefijoIsoPais, CadenaConexion);
 
             var periodosList = (from DataRow periodo in periodosDt.Rows select periodo["chrPeriodo"].ToString()).ToList();
             Session["periodosValidos"] = periodosList;
@@ -366,9 +366,9 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void ValidarPeriodoEvaluacion()
         {
-            string periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : ObjUsuario.periodoEvaluacion;
+            var periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : ObjUsuario.periodoEvaluacion;
 
-            DataTable dtPeriodoEvaluacion = _indicadorBl.ValidarPeriodoEvaluacion(periodoEvaluacion, ObjUsuario.prefijoIsoPais, CodigoRolUsuario, CadenaConexion);
+            var dtPeriodoEvaluacion = _indicadorBl.ValidarPeriodoEvaluacion(periodoEvaluacion, ObjUsuario.prefijoIsoPais, CodigoRolUsuario, CadenaConexion);
             if (dtPeriodoEvaluacion != null)
             {
                 AnioCampana = dtPeriodoEvaluacion.Rows[0]["chrAnioCampana"].ToString();
@@ -378,7 +378,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarVariablesAdicionales()
         {
-            DataSet dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion) : _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion);
+            var dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion) : _indicadorBl.CargarindicadoresporperiodoVariablesAdicionalesPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion);
 
             cboVariablesAdicionales1.DataSource = dsReporte;
             cboVariablesAdicionales1.DataTextField = "vchDesVariable";
@@ -393,10 +393,10 @@ namespace Evoluciona.Dialogo.Web.Desempenio
             cboVariablesAdicionales1_SelectedIndexChanged(cboVariablesAdicionales1, new EventArgs());
             cboVariablesAdicionales1_SelectedIndexChanged(cboVariablesAdicionales2, new EventArgs());
 
-            int totalSeleccionados = 0;
+            var totalSeleccionados = 0;
             foreach (DataRow row in dsReporte.Tables[0].Rows)
             {
-                bool seleccionado = bool.Parse(row.ItemArray[6].ToString());
+                var seleccionado = bool.Parse(row.ItemArray[6].ToString());
                 if (seleccionado)
                 {
                     if (totalSeleccionados == 0)
@@ -427,7 +427,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarVariablesSeleccionadas()
         {
-            int cantidadMarcados = 0;
+            var cantidadMarcados = 0;
 
             foreach (GridViewRow row in gvVariables.Rows)
             {
@@ -437,10 +437,10 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 if (ch.Checked)
                 {
                     var celdaIdVariable = (DataControlFieldCell)row.Controls[0];
-                    TableCell celdaNombreVariable = row.Cells[1];
+                    var celdaNombreVariable = row.Cells[1];
 
-                    string id = ((Label)celdaIdVariable.Controls[1]).Text;
-                    string variableSeleccionada = celdaNombreVariable.Text;
+                    var id = ((Label)celdaIdVariable.Controls[1]).Text;
+                    var variableSeleccionada = celdaNombreVariable.Text;
 
                     if (cantidadMarcados == 0)
                     {
@@ -503,7 +503,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarGerentes()
         {
-            string periodo = cboPeriodosFiltro.SelectedValue;
+            var periodo = cboPeriodosFiltro.SelectedValue;
 
             switch (CodigoRolUsuario)
             {
@@ -519,7 +519,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
             ddlGerentes.DataValueField = "Codigo";
             ddlGerentes.DataBind();
 
-            ListItem selectedListItem = ddlGerentes.Items.FindByValue(ObjResumenBe.codigoUsuario);
+            var selectedListItem = ddlGerentes.Items.FindByValue(ObjResumenBe.codigoUsuario);
 
             if (selectedListItem != null)
             {
@@ -538,7 +538,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void RealizarBusqueda()
         {
-            DataSet dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion) : _indicadorBl.CargarindicadoresporperiodoPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion);
+            var dsReporte = String.Equals(NmbrEvld, Constantes.Nueva) ? _indicadorBl.CargarindicadoresporperiodoNuevas(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion) : _indicadorBl.CargarindicadoresporperiodoPreDialogo(cboPeriodosFiltro.SelectedValue.Trim(), CodigoUsuario, IdProceso, CodigoRolUsuario, PrefijoIsoPais, CadenaConexion);
 
 
             gvVariables.DataSource = dsReporte;
@@ -558,7 +558,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void btnAceptarAux_Click(object sender, EventArgs e)
         {
-            string modeloDialogo = String.Empty;
+            var modeloDialogo = String.Empty;
 
             if (rbNormal.Checked)
             {

@@ -1,6 +1,4 @@
 ﻿
-using System.Globalization;
-
 namespace Evoluciona.Dialogo.Web.Desempenio
 {
     using BusinessEntity;
@@ -10,6 +8,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using System.Xml;
@@ -106,14 +105,14 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void imgBtnAprobarDialogo_Click(object sender, EventArgs e)
         {
-            var objResumenBL = new BlResumenProceso();
+            var objResumenBl = new BlResumenProceso();
             var objResumenBe = new BeResumenProceso
             {
                 idProceso = Convert.ToInt32(txtIdProceso.Text),
                 estadoProceso = Constantes.EstadoProcesoCulminado
             };
 
-            if (objResumenBL.ActualizarProceso(objResumenBe))
+            if (objResumenBl.ActualizarProceso(objResumenBe))
             {
                 Response.Redirect("resumenProceso.aspx?verResumen=si");
             }
@@ -391,7 +390,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                     puntoAproba.Visible = true;
                     imgBtnAprobarDialogo.Visible = true;
                     divIniciaDialogo.Visible = false;
-                    lblMensajeDialogo.Text = "Aprueba tu diálogo Aquí";
+                    lblMensajeDialogo.Text = "";
                     break;
                 case Constantes.EstadoProcesoActivo:
                     divMiDialogo.Visible = true;
@@ -437,18 +436,18 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private BeResumenProceso ObtenerDatosResumenEvaluador()
         {
-            var objBLResumen = new BlResumenProceso();
+            var objBlResumen = new BlResumenProceso();
 
             var tipoDialogoDesempenio = Session["tipoDialogoDesempenio"].ToString();
 
 
-            var objResumen = objBLResumen.ObtenerResumenProcesoByUsuario(_objUsuario.codigoUsuario, _objUsuario.idRol,
+            var objResumen = objBlResumen.ObtenerResumenProcesoByUsuario(_objUsuario.codigoUsuario, _objUsuario.idRol,
                 _objUsuario.periodoEvaluacion, _objUsuario.prefijoIsoPais, tipoDialogoDesempenio);
 
             if (tipoDialogoDesempenio != Constantes.PlanDeMejora) return objResumen;
             if (objResumen == null && _objUsuario.codigoRol != Constantes.RolGerenteZona)
             {
-                objResumen = objBLResumen.ObtenerResumenProcesoByUsuario(_objUsuario.codigoUsuario, _objUsuario.idRol, _objUsuario.periodoEvaluacion, _objUsuario.prefijoIsoPais, "NORMAL");
+                objResumen = objBlResumen.ObtenerResumenProcesoByUsuario(_objUsuario.codigoUsuario, _objUsuario.idRol, _objUsuario.periodoEvaluacion, _objUsuario.prefijoIsoPais, "NORMAL");
             }
 
             return objResumen;
@@ -456,8 +455,8 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarPeriodos()
         {
-            var periodoBL = new BlPeriodos();
-            var periodos = periodoBL.ObtenerPeriodos(_objUsuario.prefijoIsoPais);
+            var periodoBl = new BlPeriodos();
+            var periodos = periodoBl.ObtenerPeriodos(_objUsuario.prefijoIsoPais);
             Session["periodosValidos"] = periodos;
 
             cboPeriodos.DataSource = periodos;
@@ -503,24 +502,24 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarProcesosNoActivos(int codigoRolEvaluado, string periodoEvaluacion)
         {
-            var objBLResumen = new BlResumenProceso();
+            var objBlResumen = new BlResumenProceso();
             DataTable dt = null;
 
             if (codigoRolEvaluado == Constantes.RolGerenteRegion && cboTipo.Text == Constantes.Normal)
             {
-                dt = objBLResumen.SeleccionarGRegionParaInicioDialogo(_objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado, _objUsuario.codigoUsuario);
+                dt = objBlResumen.SeleccionarGRegionParaInicioDialogo(_objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado, _objUsuario.codigoUsuario);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteZona && cboTipo.Text == Constantes.Normal)
             {
-                dt = objBLResumen.SeleccionarGZonaParaInicioDialogo(_objUsuario.codigoUsuario, _objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado);
+                dt = objBlResumen.SeleccionarGZonaParaInicioDialogo(_objUsuario.codigoUsuario, _objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteRegion && cboTipo.Text == Constantes.PlanDeMejora)
             {
-                dt = objBLResumen.SeleccionarGRegionParaInicioDialogoPlanDeMejora(_objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado, _objUsuario.codigoUsuario);
+                dt = objBlResumen.SeleccionarGRegionParaInicioDialogoPlanDeMejora(_objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado, _objUsuario.codigoUsuario);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteZona && cboTipo.Text == Constantes.PlanDeMejora)
             {
-                dt = objBLResumen.SeleccionarGZonaParaInicioDialogoPlanDeMejora(_objUsuario.codigoUsuario, _objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado);
+                dt = objBlResumen.SeleccionarGZonaParaInicioDialogoPlanDeMejora(_objUsuario.codigoUsuario, _objUsuario.prefijoIsoPais, periodoEvaluacion, codigoRolEvaluado);
             }
 
 
@@ -556,26 +555,26 @@ namespace Evoluciona.Dialogo.Web.Desempenio
         private DataTable CargarProcesosByEstado(int codigoRolEvaluado, string estadoProceso, string periodoEvaluacion)
         {
             var idRolEvaluado = ObtenerIdrOl(codigoRolEvaluado);
-            var objBLResumen = new BlResumenProceso();
+            var objBlResumen = new BlResumenProceso();
 
 
             DataTable dt = null;
 
             if (codigoRolEvaluado == Constantes.RolGerenteRegion && cboTipo.Text == Constantes.Normal)
             {
-                dt = objBLResumen.SeleccionarResumenProcesoGr(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
+                dt = objBlResumen.SeleccionarResumenProcesoGr(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteZona && cboTipo.Text == Constantes.Normal)
             {
-                dt = objBLResumen.SeleccionarResumenProcesoGz(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
+                dt = objBlResumen.SeleccionarResumenProcesoGz(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteRegion && cboTipo.Text == Constantes.PlanDeMejora)
             {
-                dt = objBLResumen.SeleccionarResumenProcesoGrPlanDeMejora(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
+                dt = objBlResumen.SeleccionarResumenProcesoGrPlanDeMejora(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
             }
             else if (codigoRolEvaluado == Constantes.RolGerenteZona && cboTipo.Text == Constantes.PlanDeMejora)
             {
-                dt = objBLResumen.SeleccionarResumenProcesoGzPlanDeMejora(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
+                dt = objBlResumen.SeleccionarResumenProcesoGzPlanDeMejora(_objUsuario.codigoUsuario, idRolEvaluado, _objUsuario.prefijoIsoPais, periodoEvaluacion, estadoProceso, Constantes.EstadoActivo);
             }
 
             return dt;
@@ -606,18 +605,18 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 idRol = Convert.ToInt32(dtRol.Rows[0]["intIDRol"].ToString());
             }
 
-            var objResumenBL = new BlResumenProceso();
+            var objResumenBl = new BlResumenProceso();
 
             var tipoDialogoDesempenio = Session["tipoDialogoDesempenio"].ToString();
 
-            var objResumen = objResumenBL.ObtenerResumenProcesoByUsuario(docuIdentidad, idRol, _objUsuario.periodoEvaluacion, _objUsuario.prefijoIsoPais, tipoDialogoDesempenio);
+            var objResumen = objResumenBl.ObtenerResumenProcesoByUsuario(docuIdentidad, idRol, _objUsuario.periodoEvaluacion, _objUsuario.prefijoIsoPais, tipoDialogoDesempenio);
             var codigoGRegion = "";
             var codigoGZona = "";
             var email = "";
             switch (codigoRolEvaluado)
             {
                 case Constantes.RolGerenteRegion:
-                    var objDatosGr = objResumenBL.ObtenerUsuarioGRegionEvaluado(docuIdentidad, _objUsuario.prefijoIsoPais, _objUsuario.periodoEvaluacion, Constantes.EstadoActivo);
+                    var objDatosGr = objResumenBl.ObtenerUsuarioGRegionEvaluado(docuIdentidad, _objUsuario.prefijoIsoPais, _objUsuario.periodoEvaluacion, Constantes.EstadoActivo);
                     if (objDatosGr != null)
                     {
                         codigoGRegion = objDatosGr.codigoGRegion;
@@ -626,7 +625,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
                     break;
                 case Constantes.RolGerenteZona:
-                    var objDatosGz = objResumenBL.ObtenerUsuarioGZonaEvaluado(_objUsuario.idUsuario, _objUsuario.codigoUsuario, docuIdentidad, _objUsuario.prefijoIsoPais, _objUsuario.periodoEvaluacion, Constantes.EstadoActivo);
+                    var objDatosGz = objResumenBl.ObtenerUsuarioGZonaEvaluado(_objUsuario.idUsuario, _objUsuario.codigoUsuario, docuIdentidad, _objUsuario.prefijoIsoPais, _objUsuario.periodoEvaluacion, Constantes.EstadoActivo);
                     if (objDatosGz != null)
                     {
                         codigoGZona = objDatosGz.codigoGZona;

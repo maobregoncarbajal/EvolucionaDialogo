@@ -299,7 +299,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
             var list = (List<BeSeguimientoStatusDetalle>)Session["tDinamicaDetalle"];
 
-            var data = Utils.ToDataTable(list);
+            var data = Utils.ConvertToDataTable(list);
             var fileName = string.Format("{0}.{1}", "SeguimientoStatus" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"), "xls");
             var strFilePath = strFolder + id + fileName;
 

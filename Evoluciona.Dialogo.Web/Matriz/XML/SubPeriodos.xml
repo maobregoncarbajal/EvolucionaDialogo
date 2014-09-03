@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<beComuns>
-  <beComun>
+<BeComuns>
+  <BeComun>
     <Codigo>01</Codigo>
     <Descripcion>1</Descripcion>
-  </beComun>
-  <beComun>
+  </BeComun>
+  <BeComun>
     <Codigo>02</Codigo>
     <Descripcion>2</Descripcion>
-  </beComun>
-</beComuns>
+  </BeComun>
+</BeComuns>

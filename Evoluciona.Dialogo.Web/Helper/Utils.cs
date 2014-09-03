@@ -1,17 +1,22 @@
-﻿
-namespace Evoluciona.Dialogo.Web.Helpers
+﻿namespace Evoluciona.Dialogo.Web.Helpers
 {
+    using BusinessLogic;
+    using WsDirectorio;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Data;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.Globalization;
     using System.IO;
+    using System.Net;
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
+    using System.Web.Configuration;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Xml;
@@ -24,19 +29,14 @@ namespace Evoluciona.Dialogo.Web.Helpers
     {
         #region URL handling
 
-        private static string relativeWebRoot;
+        private static string _relativeWebRoot;
 
         /// <summary>
         /// Retorna la ruta relativa al sitio
         /// </summary>
         public static string RelativeWebRoot
         {
-            get
-            {
-                if (relativeWebRoot == null)
-                    relativeWebRoot = VirtualPathUtility.ToAbsolute("~/");
-                return relativeWebRoot;
-            }
+            get { return _relativeWebRoot ?? (_relativeWebRoot = VirtualPathUtility.ToAbsolute("~/")); }
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace Evoluciona.Dialogo.Web.Helpers
         {
             get
             {
-                HttpContext context = HttpContext.Current;
+                var context = HttpContext.Current;
                 if (context == null)
-                    throw new System.Net.WebException("El actual HttpContext es nulo");
+                    throw new WebException("El actual HttpContext es nulo");
 
                 if (context.Items["absoluteurl"] == null)
                     context.Items["absoluteurl"] = new Uri(context.Request.Url.GetLeftPart(UriPartial.Authority) + RelativeWebRoot);
@@ -65,8 +65,8 @@ namespace Evoluciona.Dialogo.Web.Helpers
             if (String.IsNullOrEmpty(relativeUri))
                 throw new ArgumentNullException("relativeUri");
 
-            string absolute = AbsoluteWebRoot.ToString();
-            int index = absolute.LastIndexOf(RelativeWebRoot.ToString());
+            var absolute = AbsoluteWebRoot.ToString();
+            var index = absolute.LastIndexOf(RelativeWebRoot, StringComparison.Ordinal);
 
             return new Uri(absolute.Substring(0, index) + relativeUri);
         }
@@ -79,15 +79,13 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// Muestra un mensaje alert
         /// </summary>
         /// <param name="clienteScript">ClientScript de la pagina</param>
-        /// <param name="Mensaje">Contenido del mensaje</param>
-        public static void mensajeClientScriptAlert(ClientScriptManager clienteScript, string Mensaje)
+        /// <param name="mensaje">Contenido del mensaje</param>
+        public static void MensajeClientScriptAlert(ClientScriptManager clienteScript, string mensaje)
         {
-            string script = "mensaje";
-            if (!clienteScript.IsStartupScriptRegistered(script))
-            {
-                string msg = string.Format("alert('{0}');", Mensaje);
-                clienteScript.RegisterStartupScript(typeof(Page), script, msg, true);
-            }
+            const string script = "mensaje";
+            if (clienteScript.IsStartupScriptRegistered(script)) return;
+            var msg = string.Format("alert('{0}');", mensaje);
+            clienteScript.RegisterStartupScript(typeof(Page), script, msg, true);
         }
 
         #endregion Mensajes
@@ -97,24 +95,24 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <summary>
         /// Ontiene el valor de una query string  por su nombre.
         /// </summary>
-        /// <param name="Name">Nombre</param>
+        /// <param name="name">Nombre</param>
         /// <returns>Valor de la Query string</returns>
-        public static string QueryString(string Name)
+        public static string QueryString(string name)
         {
-            string result = string.Empty;
-            if (HttpContext.Current != null && HttpContext.Current.Request.QueryString[Name] != null)
-                result = HttpContext.Current.Request.QueryString[Name].ToString();
+            var result = string.Empty;
+            if (HttpContext.Current != null && HttpContext.Current.Request.QueryString[name] != null)
+                result = HttpContext.Current.Request.QueryString[name];
             return result;
         }
 
         /// <summary>
         /// Ontiene el valor entero de una query string.
         /// </summary>
-        /// <param name="Name">Nombre</param>
+        /// <param name="name">Nombre</param>
         /// <returns>valor de la query string</returns>
-        public static int QueryStringInt(string Name)
+        public static int QueryStringInt(string name)
         {
-            string resultStr = QueryString(Name).ToUpperInvariant();
+            var resultStr = QueryString(name).ToUpperInvariant();
             int result;
             Int32.TryParse(resultStr, out result);
             return result;
@@ -123,41 +121,37 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <summary>
         /// Ontiene el valor entero de una query string.
         /// </summary>
-        /// <param name="Name">Nombre</param>
-        /// <param name="DefaultValue">Default value</param>
+        /// <param name="name">Nombre</param>
+        /// <param name="defaultValue">Default value</param>
         /// <returns>valor de la query string</returns>
-        public static int QueryStringInt(string Name, int DefaultValue)
+        public static int QueryStringInt(string name, int defaultValue)
         {
-            string resultStr = QueryString(Name).ToUpperInvariant();
-            if (resultStr.Length > 0)
-            {
-                return Int32.Parse(resultStr);
-            }
-            return DefaultValue;
+            var resultStr = QueryString(name).ToUpperInvariant();
+            return resultStr.Length > 0 ? Int32.Parse(resultStr) : defaultValue;
         }
 
         /// <summary>
         /// Retorna la url de la pagina actual.
         /// </summary>
         /// <returns></returns>
-        public static string GetThisPageURL(bool includeQueryString)
+        public static string GetThisPageUrl(bool includeQueryString)
         {
-            string URL = string.Empty;
+            var url = string.Empty;
             if (HttpContext.Current == null)
-                return URL;
+                return url;
 
             if (includeQueryString)
             {
-                string storeHost = AbsoluteWebRoot.ToString();
+                var storeHost = AbsoluteWebRoot.ToString();
                 if (storeHost.EndsWith("/"))
                     storeHost = storeHost.Substring(0, storeHost.Length - 1);
-                URL = storeHost + HttpContext.Current.Request.RawUrl;
+                url = storeHost + HttpContext.Current.Request.RawUrl;
             }
             else
             {
-                URL = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path);
+                url = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path);
             }
-            return URL;
+            return url;
         }
 
         /// <summary>
@@ -181,66 +175,60 @@ namespace Evoluciona.Dialogo.Web.Helpers
                 targetLocationModification = string.Empty;
             targetLocationModification = targetLocationModification.ToLowerInvariant();
 
-            string str = string.Empty;
-            string str2 = string.Empty;
+            var str = string.Empty;
+            var str2 = string.Empty;
             if (url.Contains("#"))
             {
-                str2 = url.Substring(url.IndexOf("#") + 1);
-                url = url.Substring(0, url.IndexOf("#"));
+                str2 = url.Substring(url.IndexOf("#", StringComparison.Ordinal) + 1);
+                url = url.Substring(0, url.IndexOf("#", StringComparison.Ordinal));
             }
             if (url.Contains("?"))
             {
-                str = url.Substring(url.IndexOf("?") + 1);
-                url = url.Substring(0, url.IndexOf("?"));
+                str = url.Substring(url.IndexOf("?", StringComparison.Ordinal) + 1);
+                url = url.Substring(0, url.IndexOf("?", StringComparison.Ordinal));
             }
             if (!string.IsNullOrEmpty(queryStringModification))
             {
                 if (!string.IsNullOrEmpty(str))
                 {
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (string str3 in str.Split(new char[] { '&' }))
+                    var dictionary = new Dictionary<string, string>();
+                    foreach (var str3 in str.Split(new[] { '&' }))
                     {
-                        if (!string.IsNullOrEmpty(str3))
+                        if (string.IsNullOrEmpty(str3)) continue;
+                        var strArray = str3.Split(new[] { '=' });
+                        if (strArray.Length == 2)
                         {
-                            string[] strArray = str3.Split(new char[] { '=' });
-                            if (strArray.Length == 2)
-                            {
-                                dictionary[strArray[0]] = strArray[1];
-                            }
-                            else
-                            {
-                                dictionary[str3] = null;
-                            }
+                            dictionary[strArray[0]] = strArray[1];
+                        }
+                        else
+                        {
+                            dictionary[str3] = null;
                         }
                     }
-                    foreach (string str4 in queryStringModification.Split(new char[] { '&' }))
+                    foreach (var str4 in queryStringModification.Split(new[] { '&' }))
                     {
-                        if (!string.IsNullOrEmpty(str4))
+                        if (string.IsNullOrEmpty(str4)) continue;
+                        var strArray2 = str4.Split(new[] { '=' });
+                        if (strArray2.Length == 2)
                         {
-                            string[] strArray2 = str4.Split(new char[] { '=' });
-                            if (strArray2.Length == 2)
-                            {
-                                dictionary[strArray2[0]] = strArray2[1];
-                            }
-                            else
-                            {
-                                dictionary[str4] = null;
-                            }
+                            dictionary[strArray2[0]] = strArray2[1];
+                        }
+                        else
+                        {
+                            dictionary[str4] = null;
                         }
                     }
-                    StringBuilder builder = new StringBuilder();
-                    foreach (string str5 in dictionary.Keys)
+                    var builder = new StringBuilder();
+                    foreach (var str5 in dictionary.Keys)
                     {
                         if (builder.Length > 0)
                         {
                             builder.Append("&");
                         }
                         builder.Append(str5);
-                        if (dictionary[str5] != null)
-                        {
-                            builder.Append("=");
-                            builder.Append(dictionary[str5]);
-                        }
+                        if (dictionary[str5] == null) continue;
+                        builder.Append("=");
+                        builder.Append(dictionary[str5]);
                     }
                     str = builder.ToString();
                 }
@@ -272,51 +260,43 @@ namespace Evoluciona.Dialogo.Web.Helpers
                 queryString = string.Empty;
             queryString = queryString.ToLowerInvariant();
 
-            string str = string.Empty;
+            var str = string.Empty;
             if (url.Contains("?"))
             {
-                str = url.Substring(url.IndexOf("?") + 1);
-                url = url.Substring(0, url.IndexOf("?"));
+                str = url.Substring(url.IndexOf("?", StringComparison.Ordinal) + 1);
+                url = url.Substring(0, url.IndexOf("?", StringComparison.Ordinal));
             }
-            if (!string.IsNullOrEmpty(queryString))
+            if (string.IsNullOrEmpty(queryString)) return (url + (string.IsNullOrEmpty(str) ? "" : ("?" + str)));
+            if (string.IsNullOrEmpty(str)) return (url + (string.IsNullOrEmpty(str) ? "" : ("?" + str)));
+            var dictionary = new Dictionary<string, string>();
+            foreach (var str3 in str.Split(new[] { '&' }))
             {
-                if (!string.IsNullOrEmpty(str))
+                if (string.IsNullOrEmpty(str3)) continue;
+                var strArray = str3.Split(new[] { '=' });
+                if (strArray.Length == 2)
                 {
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (string str3 in str.Split(new char[] { '&' }))
-                    {
-                        if (!string.IsNullOrEmpty(str3))
-                        {
-                            string[] strArray = str3.Split(new char[] { '=' });
-                            if (strArray.Length == 2)
-                            {
-                                dictionary[strArray[0]] = strArray[1];
-                            }
-                            else
-                            {
-                                dictionary[str3] = null;
-                            }
-                        }
-                    }
-                    dictionary.Remove(queryString);
-
-                    StringBuilder builder = new StringBuilder();
-                    foreach (string str5 in dictionary.Keys)
-                    {
-                        if (builder.Length > 0)
-                        {
-                            builder.Append("&");
-                        }
-                        builder.Append(str5);
-                        if (dictionary[str5] != null)
-                        {
-                            builder.Append("=");
-                            builder.Append(dictionary[str5]);
-                        }
-                    }
-                    str = builder.ToString();
+                    dictionary[strArray[0]] = strArray[1];
+                }
+                else
+                {
+                    dictionary[str3] = null;
                 }
             }
+            dictionary.Remove(queryString);
+
+            var builder = new StringBuilder();
+            foreach (var str5 in dictionary.Keys)
+            {
+                if (builder.Length > 0)
+                {
+                    builder.Append("&");
+                }
+                builder.Append(str5);
+                if (dictionary[str5] == null) continue;
+                builder.Append("=");
+                builder.Append(dictionary[str5]);
+            }
+            str = builder.ToString();
             return (url + (string.IsNullOrEmpty(str) ? "" : ("?" + str)));
         }
 
@@ -330,27 +310,24 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <param name="page">Instancia de la pagina</param>
         /// <param name="name">Nombre de la meta.</param>
         /// <param name="content">Contenido</param>
-        /// <param name="OverwriteExisting">Sobreescribir, si existe.</param>
-        public static void RenderMetaTag(Page page, string name, string content, bool OverwriteExisting)
+        /// <param name="overwriteExisting">Sobreescribir, si existe.</param>
+        public static void RenderMetaTag(Page page, string name, string content, bool overwriteExisting)
         {
             if (page == null || page.Header == null)
                 return;
 
             foreach (Control control in page.Header.Controls)
             {
-                if (control is HtmlMeta)
+                if (!(control is HtmlMeta)) continue;
+                var meta = control as HtmlMeta;
+                if (!meta.Name.Equals(name, StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(content))
+                    continue;
+                if (overwriteExisting)
+                    meta.Content = content;
+                else
                 {
-                    HtmlMeta meta = control as HtmlMeta;
-                    if (meta.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(content))
-                    {
-                        if (OverwriteExisting)
-                            meta.Content = content;
-                        else
-                        {
-                            if (string.IsNullOrEmpty(meta.Content))
-                                meta.Content = content;
-                        }
-                    }
+                    if (string.IsNullOrEmpty(meta.Content))
+                        meta.Content = content;
                 }
             }
         }
@@ -361,19 +338,19 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <returns></returns>
         public static string ExtractTitle()
         {
-            string name = string.Empty;
-            string[] root = GetThisPageURL(false).Split('/');
-            name = (string.IsNullOrEmpty(root[root.GetUpperBound(0)])) ? root[root.GetUpperBound(0) - 1] : root[root.GetUpperBound(0)];
+            var root = GetThisPageUrl(false).Split('/');
+            var name = (string.IsNullOrEmpty(root[root.GetUpperBound(0)])) ? root[root.GetUpperBound(0) - 1] : root[root.GetUpperBound(0)];
             root = name.Split('.');
             name = root[0];
 
-            string title = (name.Substring(0, 1).ToUpperInvariant()) + name.Substring(1, name.Length - 1);
+            var title = (name.Substring(0, 1).ToUpperInvariant()) + name.Substring(1, name.Length - 1);
             return HttpContext.Current.Server.UrlEncode(title);
         }
 
         /// <summary>
         /// Agregamos una referencia del Stylesheet al head de la pagina
         /// </summary>
+        /// <param name="page"></param>
         /// <param name="url">url relativa</param>
         public static void RenderStylesheet(Page page, string url)
         {
@@ -382,15 +359,13 @@ namespace Evoluciona.Dialogo.Web.Helpers
 
             foreach (Control item in page.Controls)
             {
-                if (item is HtmlLink)
-                {
-                    HtmlLink rssLink = item as HtmlLink;
-                    if (rssLink.Href.Equals(url, StringComparison.OrdinalIgnoreCase))
-                        return;
-                }
+                if (!(item is HtmlLink)) continue;
+                var rssLink = item as HtmlLink;
+                if (rssLink.Href.Equals(url, StringComparison.OrdinalIgnoreCase))
+                    return;
             }
 
-            HtmlLink link = new HtmlLink();
+            var link = new HtmlLink();
             link.Attributes["type"] = "text/css";
             link.Attributes["href"] = url;
             link.Attributes["rel"] = "stylesheet";
@@ -400,6 +375,7 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <summary>
         /// Agrega una referencia del script a la pagina
         /// </summary>
+        /// <param name="page"></param>
         /// <param name="url">url relativa</param>
         /// <param name="placeInBottom">insertar el archivo al final</param>
         /// <param name="addDeferAttribute">atributo defer</param>
@@ -410,22 +386,20 @@ namespace Evoluciona.Dialogo.Web.Helpers
 
             if (placeInBottom)
             {
-                string script = "<script type=\"text/javascript\"" + (addDeferAttribute ? " defer=\"defer\"" : string.Empty) + " src=\"" + url + "\"></script>";
-                page.ClientScript.RegisterStartupScript(page.GetType(), url.GetHashCode().ToString(), script);
+                var script = "<script type=\"text/javascript\"" + (addDeferAttribute ? " defer=\"defer\"" : string.Empty) + " src=\"" + url + "\"></script>";
+                page.ClientScript.RegisterStartupScript(page.GetType(), url.GetHashCode().ToString(CultureInfo.InvariantCulture), script);
             }
             else
             {
                 foreach (Control item in page.Controls)
                 {
-                    if (item is HtmlGenericControl)
-                    {
-                        HtmlGenericControl rssLink = item as HtmlGenericControl;
-                        if (rssLink.Attributes["src"].Equals(url, StringComparison.OrdinalIgnoreCase))
-                            return;
-                    }
+                    if (!(item is HtmlGenericControl)) continue;
+                    var rssLink = item as HtmlGenericControl;
+                    if (rssLink.Attributes["src"].Equals(url, StringComparison.OrdinalIgnoreCase))
+                        return;
                 }
 
-                HtmlGenericControl script = new HtmlGenericControl("script");
+                var script = new HtmlGenericControl("script");
                 script.Attributes["type"] = "text/javascript";
                 script.Attributes["src"] = url;
                 if (addDeferAttribute)
@@ -445,9 +419,11 @@ namespace Evoluciona.Dialogo.Web.Helpers
             if (page == null || page.Header == null)
                 return;
 
-            HtmlMeta meta = new HtmlMeta();
-            meta.HttpEquiv = "content-type";
-            meta.Content = page.Response.ContentType + "; charset=" + page.Response.ContentEncoding.HeaderName;
+            var meta = new HtmlMeta
+            {
+                HttpEquiv = "content-type",
+                Content = page.Response.ContentType + "; charset=" + page.Response.ContentEncoding.HeaderName
+            };
             page.Header.Controls.Add(meta);
         }
 
@@ -472,7 +448,7 @@ namespace Evoluciona.Dialogo.Web.Helpers
             if (page == null || page.Header == null)
                 return;
 
-            HtmlLink link = new HtmlLink();
+            var link = new HtmlLink();
             link.Attributes["rel"] = relation;
             link.Attributes["title"] = title;
             link.Attributes["href"] = href;
@@ -487,7 +463,7 @@ namespace Evoluciona.Dialogo.Web.Helpers
             if (page == null || page.Header == null)
                 return;
 
-            HtmlLink link = new HtmlLink();
+            var link = new HtmlLink();
             link.Attributes["type"] = type;
             link.Attributes["rel"] = relation;
             link.Attributes["title"] = title;
@@ -586,13 +562,13 @@ namespace Evoluciona.Dialogo.Web.Helpers
                 if (!Directory.Exists(pathDirectorio))
                     Directory.CreateDirectory(pathDirectorio);
 
-                string pathImagenActual = Path.Combine(pathDirectorio, nombreArchivo);
-                string extension = Path.GetExtension(nombreArchivo).Substring(1);
+                var pathImagenActual = Path.Combine(pathDirectorio, nombreArchivo);
+                var extension = Path.GetExtension(nombreArchivo).Substring(1);
 
-                MemoryStream ms = new MemoryStream(caratula);
+                var ms = new MemoryStream(caratula);
 
-                Bitmap imagensave = new Bitmap(ms);
-                imagensave.Save(pathImagenActual, Utils.GetImageFormat(extension));
+                var imagensave = new Bitmap(ms);
+                imagensave.Save(pathImagenActual, GetImageFormat(extension));
                 imagensave.Dispose();
                 ms.Close();
             }
@@ -611,11 +587,11 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// </summary>
         /// <param name="time">Date a formatear</param>
         /// <returns></returns>
-        public static string formatearFecha(DateTime time)
+        public static string FormatearFecha(DateTime time)
         {
-            string rfc822dt = time.ToString(@"ddd, dd MMM yyyy HH:mm:ss \G\M\T",
-                System.Globalization.DateTimeFormatInfo.InvariantInfo);
-            return rfc822dt;
+            var rfc822Dt = time.ToString(@"ddd, dd MMM yyyy HH:mm:ss \G\M\T",
+                DateTimeFormatInfo.InvariantInfo);
+            return rfc822Dt;
         }
 
         /// <summary>
@@ -628,7 +604,7 @@ namespace Evoluciona.Dialogo.Web.Helpers
             if (string.IsNullOrEmpty(text))
                 return text;
 
-            Regex regex = new Regex(@"(\s|-)+", RegexOptions.Compiled);
+            var regex = new Regex(@"(\s|-)+", RegexOptions.Compiled);
 
             text = text.Replace(":", string.Empty);
             text = text.Replace("/", string.Empty);
@@ -657,17 +633,16 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <returns></returns>
         private static string RemoveCharacters(string text)
         {
-            String normalized = text.Normalize(NormalizationForm.FormD);
-            StringBuilder sb = new StringBuilder();
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
 
-            for (int i = 0; i < normalized.Length; i++)
+            foreach (var c in normalized)
             {
-                Char c = normalized[i];
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
                     sb.Append(c);
             }
 
-            return HttpUtility.UrlEncode(sb.ToString()).Replace("%", string.Empty); ;
+            return HttpUtility.UrlEncode(sb.ToString()).Replace("%", string.Empty);
         }
 
         /// <summary>
@@ -677,11 +652,8 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <returns>un string sin etiquetas html</returns>
         public static string StripHtml(string html)
         {
-            Regex strip_HTML = new Regex(@"<(.|\n)*?>", RegexOptions.Compiled);
-            if (string.IsNullOrEmpty(html))
-                return string.Empty;
-
-            return strip_HTML.Replace(html, string.Empty);
+            var stripHtml = new Regex(@"<(.|\n)*?>", RegexOptions.Compiled);
+            return string.IsNullOrEmpty(html) ? string.Empty : stripHtml.Replace(html, string.Empty);
         }
 
         #endregion formatear la entrada y salida de datos
@@ -690,7 +662,7 @@ namespace Evoluciona.Dialogo.Web.Helpers
 
         public static Control BuscarControl(Page page, string nombreControl)
         {
-            Control ctrl = page.FindControl(nombreControl);
+            var ctrl = page.FindControl(nombreControl);
             return ctrl;
         }
 
@@ -705,29 +677,19 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <returns></returns>
         public static List<HtmlAnchor> LinksMenu(string nodo)
         {
-            List<HtmlAnchor> lstLinks = new List<HtmlAnchor>();
-            SiteMapNode root = SiteMap.Providers["SecuritySiteMap"].RootNode;
-            if (root != null)
+            var lstLinks = new List<HtmlAnchor>();
+            var root = SiteMap.Providers["SecuritySiteMap"].RootNode;
+            if (root == null) return lstLinks;
+            foreach (SiteMapNode adminNode in root.ChildNodes)
             {
-                foreach (SiteMapNode adminNode in root.ChildNodes)
+                if (!adminNode.Title.Equals(nodo)) continue;
+                if (!adminNode.IsAccessibleToUser(HttpContext.Current)) continue;
+                foreach (SiteMapNode item in adminNode.ChildNodes)
                 {
-                    if (adminNode.Title.Equals(nodo))
-                    {
-                        if (adminNode.IsAccessibleToUser(HttpContext.Current))
-                        {
-                            foreach (SiteMapNode item in adminNode.ChildNodes)
-                            {
-                                HtmlAnchor itemNav = new HtmlAnchor();
-                                itemNav.HRef = item.Url;
-                                itemNav.InnerHtml = item.Title;
-                                lstLinks.Add(itemNav);
-                            }
-                            break;
-                        }
-                    }
-                    else
-                        continue;
+                    var itemNav = new HtmlAnchor {HRef = item.Url, InnerHtml = item.Title};
+                    lstLinks.Add(itemNav);
                 }
+                break;
             }
             return lstLinks;
         }
@@ -777,32 +739,52 @@ namespace Evoluciona.Dialogo.Web.Helpers
         /// <summary>
         /// Convert a List{T} to a DataTable.
         /// </summary>
-        public static DataTable ToDataTable<T>(List<T> items)
+        //public static DataTable ToDataTable<T>(List<T> items)
+        //{
+        //    var tb = new DataTable(typeof(T).Name);
+
+        //    var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        //    foreach (var prop in props)
+        //    {
+        //        var t = GetCoreType(prop.PropertyType);
+        //        tb.Columns.Add(prop.Name, t);
+        //    }
+
+        //    foreach (var item in items)
+        //    {
+        //        var values = new object[props.Length];
+
+        //        for (var i = 0; i < props.Length; i++)
+        //        {
+        //            values[i] = props[i].GetValue(item, null);
+        //        }
+
+        //        tb.Rows.Add(values);
+        //    }
+
+        //    return tb;
+        //}
+
+        public static DataTable ConvertToDataTable<T>(IList<T> data)
         {
-            var tb = new DataTable(typeof(T).Name);
-
-            PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (PropertyInfo prop in props)
+            var properties =
+               TypeDescriptor.GetProperties(typeof(T));
+            var table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (var item in data)
             {
-                Type t = GetCoreType(prop.PropertyType);
-                tb.Columns.Add(prop.Name, t);
+                var row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
             }
+            return table;
 
-            foreach (T item in items)
-            {
-                var values = new object[props.Length];
-
-                for (int i = 0; i < props.Length; i++)
-                {
-                    values[i] = props[i].GetValue(item, null);
-                }
-
-                tb.Rows.Add(values);
-            }
-
-            return tb;
         }
+
+
 
         /// <summary>
         /// Determine of specified type is nullable
@@ -819,20 +801,129 @@ namespace Evoluciona.Dialogo.Web.Helpers
         {
             if (t != null && IsNullable(t))
             {
-                if (!t.IsValueType)
-                {
-                    return t;
-                }
-                else
-                {
-                    return Nullable.GetUnderlyingType(t);
-                }
+                return !t.IsValueType ? t : Nullable.GetUnderlyingType(t);
             }
-            else
-            {
-                return t;
-            }
+            return t;
         }
+
+
+
+        public static DataTable GenericListToDataTable(object list)
+        {
+            var listType = list.GetType();
+            if (!listType.IsGenericType) return null;
+            //determine the underlying type the List<> contains
+            var elementType = listType.GetGenericArguments()[0];
+
+            //create empty table -- give it a name in case
+            //it needs to be serialized
+            var dt = new DataTable(elementType.Name + "List");
+
+            //define the table -- add a column for each public
+            //property or field
+            var miArray = elementType.GetMembers(
+                BindingFlags.Public | BindingFlags.Instance);
+            foreach (var mi in miArray)
+            {
+                switch (mi.MemberType)
+                {
+                    case MemberTypes.Property:
+                    {
+                        var pi = mi as PropertyInfo;
+                        dt.Columns.Add(pi.Name, pi.PropertyType);
+                    }
+                        break;
+                    case MemberTypes.Field:
+                    {
+                        var fi = mi as FieldInfo;
+                        dt.Columns.Add(fi.Name, fi.FieldType);
+                    }
+                        break;
+                }
+            }
+
+            //populate the table
+            var il = list as IList;
+            foreach (var record in il)
+            {
+                var i = 0;
+                var fieldValues = new object[dt.Columns.Count];
+                foreach (DataColumn c in dt.Columns)
+                {
+                    var mi = elementType.GetMember(c.ColumnName)[0];
+                    switch (mi.MemberType)
+                    {
+                        case MemberTypes.Property:
+                        {
+                            var pi = mi as PropertyInfo;
+                            fieldValues[i] = pi.GetValue(record, null);
+                        }
+                            break;
+                        case MemberTypes.Field:
+                        {
+                            var fi = mi as FieldInfo;
+                            fieldValues[i] = fi.GetValue(record);
+                        }
+                            break;
+                    }
+                    i++;
+                }
+                dt.Rows.Add(fieldValues);
+            }
+            return dt;
+        }
+
+
+        public static void ConsumirWsObtenerClientesDirectorio(string pais, string region, string zona, string cargo, string periodo, string estadoCargo)
+        {
+
+            var blAlbama = new BlAlbama();
+            var blWsDirectorio = new BlWsDirectorio();
+
+            var oListPaises = blAlbama.ListarPaises(pais);
+            var tablaLimpiada = blWsDirectorio.DeleteClientesDirectorio(pais);
+
+            if (!tablaLimpiada) return;
+            foreach (var oPais in oListPaises)
+            {
+                var wsDirectorio = new ProcesoDIRWebServiceImplService { Url = WebConfigurationManager.AppSettings.Get("WsDirectorio" + oPais.Codigo), Timeout = 180000 };
+                try
+                {
+                    var resultado = wsDirectorio.obtenerClientesDirectorio(oPais.Codigo, region, zona, cargo, periodo, estadoCargo);
+                    switch (resultado.codigo)
+                    {
+                        case "0":
+                            {
+                                var dtClienteDirWebService = ConvertToDataTable(resultado.clienteDIRWebService);
+                                var strInsert = blWsDirectorio.InsertClientesDirectorio(dtClienteDirWebService);
+
+                                if (strInsert == "1")
+                                {
+                                    blWsDirectorio.InsertarLogCargaDirectorio(oPais.Codigo, "Correcto " + resultado.mensaje);
+                                }
+                                else
+                                {
+                                    blWsDirectorio.InsertarLogCargaDirectorio(oPais.Codigo, strInsert);
+                                }
+                            }
+                            break;
+                        default:
+                            blWsDirectorio.InsertarLogCargaDirectorio(oPais.Codigo, resultado.mensaje);
+                            break;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    blWsDirectorio.InsertarLogCargaDirectorio(oPais.Codigo, exception.Message);
+                }
+            }
+
+            var varCarga = blWsDirectorio.DirectorioCargaInClientes();
+            blWsDirectorio.InsertarLogCargaDirectorio("DIC",
+                varCarga == "1" ? "Correcto: Carga ESE_DIRECTORIO_IN_CLIENTES" : varCarga);
+
+        }
+
         #endregion
     }
 }

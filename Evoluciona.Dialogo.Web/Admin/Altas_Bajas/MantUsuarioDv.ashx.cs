@@ -141,7 +141,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             var entidades = ListaDv(context);
 
-            var data = Utils.ToDataTable(entidades);
+            var data = Utils.ConvertToDataTable(entidades);
 
             data.Columns.Remove("intIDDirectoraVenta");
             data.Columns.Remove("bitEstado");

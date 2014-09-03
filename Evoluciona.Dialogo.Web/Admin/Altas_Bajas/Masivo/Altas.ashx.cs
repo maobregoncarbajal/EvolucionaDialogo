@@ -94,7 +94,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas.Masivo
 
             var entidades = ListaAltas(context);
 
-            var data = Utils.ToDataTable(entidades);
+            var data = Utils.ConvertToDataTable(entidades);
 
             data.Columns.Remove("CodigoPaisComercial");
             data.Columns.Remove("DirCodRegion");

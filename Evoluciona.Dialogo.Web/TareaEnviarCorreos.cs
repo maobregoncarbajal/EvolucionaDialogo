@@ -1,14 +1,15 @@
 
-using System.Web;
+using Evoluciona.Dialogo.BusinessLogic.Tareas;
 using Quartz;
 
 namespace Evoluciona.Dialogo.Web
 {
     public class TareaEnviarCorreos : IJob
     {
-        public void Execute(JobExecutionContext context)
+        public void Execute(IJobExecutionContext context)
         {
-            HttpContext.Current.Response.Redirect("~/Admin/Tareas/TareaEnviarCorreos.aspx");
+            var blTareaEnviarCorreos = new BLTareaEnviarCorreos();
+            blTareaEnviarCorreos.IniciarProcesoEnviarCorreos();
         }
     }
 }

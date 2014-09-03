@@ -28,8 +28,5 @@ namespace Evoluciona.Dialogo.BusinessLogic
         {
             return DaWsDirectorio.DirectorioCargaInClientes();
         }
-
-
-
     }
 }

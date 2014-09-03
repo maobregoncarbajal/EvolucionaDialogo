@@ -153,7 +153,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             var entidades = ListaGr(context);
 
-            var data = Utils.ToDataTable(entidades);
+            var data = Utils.ConvertToDataTable(entidades);
 
             data.Columns.Remove("bitEstado");
             data.Columns.Remove("intUsuarioCrea");

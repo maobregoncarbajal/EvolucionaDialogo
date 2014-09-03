@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<beComuns>
-  <beComun>
+<BeComuns>
+  <BeComun>
     <Codigo>01</Codigo>
     <Descripcion>PEQUEÑA</Descripcion>
-  </beComun>
-  <beComun>
+  </BeComun>
+  <BeComun>
     <Codigo>02</Codigo>
     <Descripcion>MEDIANA</Descripcion>
-  </beComun>
-  <beComun>
+  </BeComun>
+  <BeComun>
     <Codigo>03</Codigo>
     <Descripcion>GRANDE</Descripcion>
-  </beComun>
-</beComuns>
+  </BeComun>
+</BeComuns>

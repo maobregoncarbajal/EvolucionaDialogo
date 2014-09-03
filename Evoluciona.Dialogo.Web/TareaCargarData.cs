@@ -1,12 +1,13 @@
-using System.Web;
+using Evoluciona.Dialogo.BusinessLogic.Tareas;
 using Quartz;
 namespace Evoluciona.Dialogo.Web
 {
     public class TareaCargarData : IJob
     {
-        public void Execute(JobExecutionContext context)
+        public void Execute(IJobExecutionContext context)
         {
-            HttpContext.Current.Response.Redirect("~/Admin/Tareas/TareaCargarData.aspx");
+            var blTareaCargaData = new BLTareaCargaData();
+            blTareaCargaData.IniciarProcesoCargaData();
         }
     }
 }

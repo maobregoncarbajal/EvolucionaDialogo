@@ -43,6 +43,10 @@
     <Reference Include="CarlosAg.ExcelXmlWriter">
       <HintPath>..\Library\CarlosAg.ExcelXmlWriter.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\Library\itextsharp.dll</HintPath>
     </Reference>
@@ -59,8 +63,9 @@
     <Reference Include="NPOI">
       <HintPath>..\Library\NPOI.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz">
-      <HintPath>..\Library\Quartz.dll</HintPath>
+    <Reference Include="Quartz, Version=2.2.4.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Quartz.2.2.4\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -1967,6 +1972,9 @@
     <Content Include="Admin\Reportes\RepDialogos.ashx" />
     <Content Include="Admin\Handler\CronogramaPdMHandler.ashx" />
     <Content Include="Handler\HelperHandler.ashx" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\AmbienteDesarrollo.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2857,6 +2865,7 @@
     </Compile>
     <Compile Include="Helper\Impresion.cs" />
     <Compile Include="Helper\ProgresoHelper.cs" />
+    <Compile Include="Helper\QuartzJobCore.cs" />
     <Compile Include="Helper\Utils.cs" />
     <Compile Include="HomeMatriz.aspx.cs">
       <DependentUpon>HomeMatriz.aspx</DependentUpon>
@@ -3148,7 +3157,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="TareaActivaPlanMejora.cs" />
     <Compile Include="TareaAlertas.cs" />
     <Compile Include="TareaCargarData.cs" />
     <Compile Include="TareaCargarDirectorio.cs" />

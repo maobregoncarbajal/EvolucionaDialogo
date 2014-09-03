@@ -11,10 +11,10 @@ namespace Evoluciona.Dialogo.Web.Visita
     using System.Data;
     using System.IO;
     using System.Net.Mail;
-    using System.Reflection;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+    using Helpers;
 
     public partial class ReporteVisitasCampaña : Page
     {
@@ -184,7 +184,7 @@ namespace Evoluciona.Dialogo.Web.Visita
 
             //Nuevas
             DataTable dtNuevas = new DataTable();
-            dtNuevas = GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "NUEVA", codigoRol));
+            dtNuevas = Utils.GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "NUEVA", codigoRol));
             dgNuevas.DataSource = daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "NUEVA", codigoRol);
             if (dtNuevas != null && dtNuevas.Rows.Count > 0)
             {
@@ -194,7 +194,7 @@ namespace Evoluciona.Dialogo.Web.Visita
             //Criticas
             DataTable dtCriticas = new DataTable();
             dtCriticas =
-                GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "CRITICA", codigoRol));
+                Utils.GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "CRITICA", codigoRol));
             dgCriticas.DataSource = daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "CRITICA", codigoRol);
             if (dtCriticas != null && dtCriticas.Rows.Count > 0)
             {
@@ -204,7 +204,7 @@ namespace Evoluciona.Dialogo.Web.Visita
             //Estables
             DataTable dtEstables = new DataTable();
             dtEstables =
-                GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "ESTABLE", codigoRol));
+                Utils.GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "ESTABLE", codigoRol));
             dgEstables.DataSource = daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "ESTABLE", codigoRol);
             if (dtEstables != null && dtEstables.Rows.Count > 0)
             {
@@ -214,7 +214,7 @@ namespace Evoluciona.Dialogo.Web.Visita
             //Productivas
             DataTable dtProductivas = new DataTable();
             dtProductivas =
-                GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "PRODUCTIVA", codigoRol));
+                Utils.GenericListToDataTable(daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "PRODUCTIVA", codigoRol));
             dgProductivas.DataSource = daProceso.ObtenerVisitasDetalle(periodo, prefijoPais, "PRODUCTIVA", codigoRol);
             if (dtProductivas != null && dtProductivas.Rows.Count > 0)
             {
@@ -225,63 +225,7 @@ namespace Evoluciona.Dialogo.Web.Visita
 
         #region Excel
 
-        public static DataTable GenericListToDataTable(object list)
-        {
-            DataTable dt = null;
-            Type listType = list.GetType();
-            if (listType.IsGenericType)
-            {
-                //determine the underlying type the List<> contains
-                Type elementType = listType.GetGenericArguments()[0];
-
-                //create empty table -- give it a name in case
-                //it needs to be serialized
-                dt = new DataTable(elementType.Name + "List");
-
-                //define the table -- add a column for each public
-                //property or field
-                MemberInfo[] miArray = elementType.GetMembers(
-                    BindingFlags.Public | BindingFlags.Instance);
-                foreach (MemberInfo mi in miArray)
-                {
-                    if (mi.MemberType == MemberTypes.Property)
-                    {
-                        PropertyInfo pi = mi as PropertyInfo;
-                        dt.Columns.Add(pi.Name, pi.PropertyType);
-                    }
-                    else if (mi.MemberType == MemberTypes.Field)
-                    {
-                        FieldInfo fi = mi as FieldInfo;
-                        dt.Columns.Add(fi.Name, fi.FieldType);
-                    }
-                }
-
-                //populate the table
-                IList il = list as IList;
-                foreach (object record in il)
-                {
-                    int i = 0;
-                    object[] fieldValues = new object[dt.Columns.Count];
-                    foreach (DataColumn c in dt.Columns)
-                    {
-                        MemberInfo mi = elementType.GetMember(c.ColumnName)[0];
-                        if (mi.MemberType == MemberTypes.Property)
-                        {
-                            PropertyInfo pi = mi as PropertyInfo;
-                            fieldValues[i] = pi.GetValue(record, null);
-                        }
-                        else if (mi.MemberType == MemberTypes.Field)
-                        {
-                            FieldInfo fi = mi as FieldInfo;
-                            fieldValues[i] = fi.GetValue(record);
-                        }
-                        i++;
-                    }
-                    dt.Rows.Add(fieldValues);
-                }
-            }
-            return dt;
-        }
+       
 
         public string CastDataTable(DataGrid dg, DataTable dt, ArrayList alCabecera, string strTitulo, int numItems,
                                     string cultura, int tipo)

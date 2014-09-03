@@ -83,7 +83,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Encuestas
 
             List<BeEncuestaReporte> entidades = ListaEncuestaDialogo(context);
 
-            DataTable data = Utils.ToDataTable(entidades);
+            DataTable data = Utils.ConvertToDataTable(entidades);
             data.Columns.Remove("IdEncuestaRespuestaDialogo");
 
             string fileName = string.Format("{0}.{1}", "Reporte_Encuesta" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s"),
