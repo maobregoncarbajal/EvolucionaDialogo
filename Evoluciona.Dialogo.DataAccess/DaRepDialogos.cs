@@ -16,7 +16,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_NEG", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_NEG", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300 };
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);
@@ -77,7 +77,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_EQU", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_EQU", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300 };
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);
@@ -138,7 +138,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_COM", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_ANT_COM", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300 };
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);
@@ -200,7 +200,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_NEG", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_NEG", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300};
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);
@@ -263,7 +263,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_EQU", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_EQU", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300 };
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);
@@ -325,7 +325,7 @@ namespace Evoluciona.Dialogo.DataAccess
             using (var cn = ObtieneConexionJob())
             {
                 cn.Open();
-                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_COM", cn) { CommandType = CommandType.StoredProcedure };
+                var cmd = new SqlCommand("ESE_REP_DIALOGO_DUR_COM", cn) { CommandType = CommandType.StoredProcedure, CommandTimeout = 300 };
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrPeriodo", SqlDbType.Char, 8);
                 cmd.Parameters.Add("@intIDRol", SqlDbType.Int);

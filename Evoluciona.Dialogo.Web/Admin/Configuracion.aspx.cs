@@ -1,5 +1,4 @@
-﻿
-namespace Evoluciona.Dialogo.Web.Admin
+﻿namespace Evoluciona.Dialogo.Web.Admin
 {
     using BusinessEntity;
     using BusinessLogic;
@@ -8,6 +7,7 @@ namespace Evoluciona.Dialogo.Web.Admin
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
+    using System.Globalization;
     using System.IO;
     using System.Net;
     using System.Net.Mail;
@@ -19,7 +19,7 @@ namespace Evoluciona.Dialogo.Web.Admin
     {
         #region Variables
 
-        private BeAdmin objAdmin;
+        private BeAdmin _objAdmin;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            objAdmin = (BeAdmin)Session[Constantes.ObjUsuarioLogeado];
+            _objAdmin = (BeAdmin)Session[Constantes.ObjUsuarioLogeado];
 
             if (Page.IsPostBack) return;
 
@@ -101,13 +101,13 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         private void CargarPaises()
         {
-            BlPais paisBL = new BlPais();
-            List<BePais> paises = new List<BePais>();
+            var paisBl = new BlPais();
+            var paises = new List<BePais>();
 
-            switch (objAdmin.TipoAdmin)
+            switch (_objAdmin.TipoAdmin)
             {
                 case Constantes.RolAdminCoorporativo:
-                    paises = paisBL.ObtenerPaises();
+                    paises = paisBl.ObtenerPaises();
                     ddlPais.DataTextField = "NombrePais";
                     ddlPais.DataValueField = "prefijoIsoPais";
                     ddlPais.DataSource = paises;
@@ -116,7 +116,7 @@ namespace Evoluciona.Dialogo.Web.Admin
 
                     break;
                 case Constantes.RolAdminPais:
-                    paises.Add(paisBL.ObtenerPais(objAdmin.CodigoPais));
+                    paises.Add(paisBl.ObtenerPais(_objAdmin.CodigoPais));
                     ddlPais.DataTextField = "NombrePais";
                     ddlPais.DataValueField = "prefijoIsoPais";
                     ddlPais.DataSource = paises;
@@ -128,8 +128,7 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         private void CargarPeriodo()
         {
-            string periodo = DateTime.Today.Year + " ";
-            string periodony = DateTime.Today.Year + 1 + " ";
+            var periodo = DateTime.Today.Year + " ";
             ddlPeriodo.Items.Insert(0, new ListItem(periodo + "I", "1"));
             ddlPeriodo.Items.Insert(1, new ListItem(periodo + "II", "2"));
             ddlPeriodo.Items.Insert(2, new ListItem(periodo + "III", "3"));
@@ -138,72 +137,72 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         private void EnviarCorreos(DataTable dtUsuarios, int codigoRol)
         {
-            MailAddress correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"]);
+            var correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"]);
 
-            string servidorSMTP = ConfigurationManager.AppSettings["servidorSMTP"];
+            var servidorSmtp = ConfigurationManager.AppSettings["servidorSMTP"];
             byte enviado = 0;
 
-            if (dtUsuarios.Rows.Count > 0)
+            if (dtUsuarios.Rows.Count <= 0) return;
+            var archivo = Server.MapPath("~/") + "KeyPublicaDDesempenio.xml";
+            var objEncriptar = new Encriptacion();
+            const string estiloTd = "font-family:Arial; font-size:13px; color:#6a288a;";
+
+            for (var x = 0; x < dtUsuarios.Rows.Count; x++)
             {
-                string archivo = Server.MapPath("~/") + "KeyPublicaDDesempenio.xml";
-                Encriptacion objEncriptar = new Encriptacion();
-                string estiloTD = "font-family:Arial; font-size:13px; color:#6a288a;";
+                var strHtml = string.Empty;
+                var paramLogeo = dtUsuarios.Rows[x]["documentoIdentidad"] + "|" + ddlPais.SelectedValue + "|" + ddlPeriodo.SelectedItem.Text + "|" + codigoRol;
+                paramLogeo = objEncriptar.Encriptar(paramLogeo, archivo);
+                paramLogeo = HttpUtility.UrlEncode(paramLogeo);
 
-                for (int x = 0; x < dtUsuarios.Rows.Count; x++)
+                strHtml += "<table align='center' border='0'>";
+                strHtml += "<tr><td style='" + estiloTd + "'>Belcorp es un gran equipo!, y nos sentimos orgullosos porque tú eres parte fundamental de él.</td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td style='" + estiloTd + "'>En esta etapa, estamos iniciando los <span style='" + estiloTd + "'><b> Diálogos Evoluciona,</b></span> un espacio para analizar el desempeño de tu equipo, retroalimentarlo y planificar las acciones que lo lleven al logro de sus metas.</td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td style='" + estiloTd + "'><b>Antes de reunirte con tu equipo: Prepárate</b></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td style='" + estiloTd + "'>Sólo ingresa al sistema a traves de este link y revisa el desempeño de tu equipo e identifica las variables en las que te enfocarás en la reunión</td></tr>";
+                strHtml += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"] + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
+                strHtml += "<tr><td style='" + estiloTd + "'>Una vez que te hayas preparado, da un click en el botón <span style='" + estiloTd + "'><b>«Guardar»</b></span> y estarás lista para el diálogo con tu equipo.</td></tr>";
+                strHtml += "<tr><td style='" + estiloTd + "'>Recuerda, cuando tu equipo crece, tú creces.</td></tr>";
+                strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold;'>¡Contamos contigo!</td></tr>";
+                strHtml += "</table>";
+
+                var enviar = new SmtpClient(servidorSmtp);
+                try
                 {
-                    string strHTML = string.Empty;
-                    string paramLogeo = dtUsuarios.Rows[x]["documentoIdentidad"] + "|" + ddlPais.SelectedValue + "|" + ddlPeriodo.SelectedItem.Text + "|" + codigoRol;
-                    paramLogeo = objEncriptar.Encriptar(paramLogeo, archivo);
-                    paramLogeo = HttpUtility.UrlEncode(paramLogeo);
-
-                    strHTML += "<table align='center' border='0'>";
-                    strHTML += "<tr><td style='" + estiloTD + "'>Belcorp es un gran equipo!, y nos sentimos orgullosos porque tú eres parte fundamental de él.</td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td style='" + estiloTD + "'>En esta etapa, estamos iniciando los <span style='" + estiloTD + "'><b> Diálogos Evoluciona,</b></span> un espacio para analizar el desempeño de tu equipo, retroalimentarlo y planificar las acciones que lo lleven al logro de sus metas.</td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td style='" + estiloTD + "'><b>Antes de reunirte con tu equipo: Prepárate</b></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td style='" + estiloTD + "'>Sólo ingresa al sistema a traves de este link y revisa el desempeño de tu equipo e identifica las variables en las que te enfocarás en la reunión</td></tr>";
-                    strHTML += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"] + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td></td></tr>";
-                    strHTML += "<tr><td style='" + estiloTD + "'>Una vez que te hayas preparado, da un click en el botón <span style='" + estiloTD + "'><b>«Guardar»</b></span> y estarás lista para el diálogo con tu equipo.</td></tr>";
-                    strHTML += "<tr><td style='" + estiloTD + "'>Recuerda, cuando tu equipo crece, tú creces.</td></tr>";
-                    strHTML += "<tr><td style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold;'>¡Contamos contigo!</td></tr>";
-                    strHTML += "</table>";
-
-                    SmtpClient enviar = new SmtpClient(servidorSMTP);
-                    try
+                    var correoTo = new MailAddress(dtUsuarios.Rows[x]["vchCorreoElectronico"].ToString());
+                    var msjEmail = new MailMessage(correoFrom, correoTo)
                     {
-                        MailAddress correoTo = new MailAddress(dtUsuarios.Rows[x]["vchCorreoElectronico"].ToString());
-                        MailMessage msjEmail = new MailMessage(correoFrom, correoTo);
-                        msjEmail.Subject = "Diálogos Evoluciona";
-                        msjEmail.IsBodyHtml = true;
-                        msjEmail.Body = strHTML;
-                        enviar.Port = 25;
-                        enviar.Send(msjEmail);
+                        Subject = "Diálogos Evoluciona",
+                        IsBodyHtml = true,
+                        Body = strHtml
+                    };
+                    enviar.Port = 25;
+                    enviar.Send(msjEmail);
                      
-                        enviado = 1;
+                    enviado = 1;
 
-                    }
-                    catch(SmtpException ex)
-                    {
-                        BlConfiguracion objConfig = new BlConfiguracion();
-                        objConfig.InsertarLogEnvioCorreo("Diálogos Evoluciona", dtUsuarios.Rows[x]["vchCorreoElectronico"].ToString(), ex.Message);
-                        enviado = 0;
+                }
+                catch(SmtpException ex)
+                {
+                    var objConfig = new BlConfiguracion();
+                    objConfig.InsertarLogEnvioCorreo("Diálogos Evoluciona", dtUsuarios.Rows[x]["vchCorreoElectronico"].ToString(), ex.Message);
+                    enviado = 0;
 
 
-                    }
-                    finally
-                    {
-                        BlConfiguracion objConfig = new BlConfiguracion();
-                        objConfig.ActualizarInicioDialogo(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, dtUsuarios.Rows[x]["documentoIdentidad"].ToString(), codigoRol, enviado);
-                    }
+                }
+                finally
+                {
+                    var objConfig = new BlConfiguracion();
+                    objConfig.ActualizarInicioDialogo(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, dtUsuarios.Rows[x]["documentoIdentidad"].ToString(), codigoRol, enviado);
                 }
             }
         }
@@ -212,25 +211,25 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         private void EnviarCorreosEvaluados(DataTable dtUsuariosEvaluados, int codigoRolUsuario, string periodo, string prefijoIsoPais)
         {
-            MailAddress correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"]);
+            var correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"]);
 
-            string servidorSMTP = ConfigurationManager.AppSettings["servidorSMTP"];
+            var servidorSmtp = ConfigurationManager.AppSettings["servidorSMTP"];
 
-            if (dtUsuariosEvaluados.Rows.Count > 0)
+            if (dtUsuariosEvaluados.Rows.Count <= 0) return;
+            //string archivo = Server.MapPath("../configuracion.aspx").Replace("configuracion.aspx", "KeyPublicaDDesempenio.xml");
+            var archivo = Server.MapPath("~/") + "KeyPublicaDDesempenio.xml";
+            var objEncriptar = new Encriptacion();
+
+            for (var x = 0; x < dtUsuariosEvaluados.Rows.Count; x++)
             {
-                //string archivo = Server.MapPath("../configuracion.aspx").Replace("configuracion.aspx", "KeyPublicaDDesempenio.xml");
-                string archivo = Server.MapPath("~/") + "KeyPublicaDDesempenio.xml";
-                Encriptacion objEncriptar = new Encriptacion();
+                var strHtml = string.Empty;
+                var paramLogeo = dtUsuariosEvaluados.Rows[x]["documentoIdentidad"] + "|" + prefijoIsoPais + "|" + periodo + "|" + codigoRolUsuario;
+                paramLogeo = objEncriptar.Encriptar(paramLogeo, archivo);
+                paramLogeo = HttpUtility.UrlEncode(paramLogeo);
 
-                for (int x = 0; x < dtUsuariosEvaluados.Rows.Count; x++)
+                switch (codigoRolUsuario)
                 {
-                    string strHtml = string.Empty;
-                    string paramLogeo = dtUsuariosEvaluados.Rows[x]["documentoIdentidad"] + "|" + prefijoIsoPais + "|" + periodo + "|" + codigoRolUsuario;
-                    paramLogeo = objEncriptar.Encriptar(paramLogeo, archivo);
-                    paramLogeo = HttpUtility.UrlEncode(paramLogeo);
-
-                    if (Constantes.RolGerenteRegion == codigoRolUsuario)
-                    {
+                    case Constantes.RolGerenteRegion:
                         strHtml += "<table align='center' border='0'>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a; height: 26px;'>Belcorp es una gran equipo!, y nos sentimos orgullosos porque tú eres parte fundamental de él.</td></tr>";
                         strHtml += "<tr><td></td></tr>";
@@ -244,12 +243,11 @@ namespace Evoluciona.Dialogo.Web.Admin
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Revisa tu desempeño del período, identifica aquellas variables «causa» que podrías mejorar y las acciones que podrías emprender para ello.</td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Luego de tu preparación, ya estarás lista para tu Diálogo Evoluciona.</td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Sólo ingresa al sistema a traves de este link e identifica las variables en las que te enfocarás en la reunión</td></tr>";
-                        strHtml += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"].ToString() + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
+                        strHtml += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"] + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold;'>¡Contamos contigo!</td></tr>";
                         strHtml += "</table>";
-                    }
-                    else if (Constantes.RolGerenteZona == codigoRolUsuario)
-                    {
+                        break;
+                    case Constantes.RolGerenteZona:
                         strHtml += "<table align='center' border='0'>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a; height: 26px;'>Belcorp es una gran equipo!, y nos sentimos orgullosos porque tú eres parte fundamental de él.</td></tr>";
                         strHtml += "<tr><td></td></tr>";
@@ -263,154 +261,146 @@ namespace Evoluciona.Dialogo.Web.Admin
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Revisa tu desempeño del periodo, identifica aquellas variables «causa» que podrías mejorar y las acciones que podrías emprender para ello.</td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Luego de tu preparación, ya estarás lista para tu Diálogo Evoluciona.</td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#6a288a;'>Sólo ingresa al sistema a traves de este link e identifica las variables en las que te enfocarás en la reunión</td></tr>";
-                        strHtml += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"].ToString() + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
+                        strHtml += "<tr><td><a style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold; text-decoration:none;' href='" + ConfigurationManager.AppSettings["URLdesempenio"] + "validacion.aspx?sson=" + paramLogeo + "' target='_blank'>Haz click aquí, para ingresar</a></td></tr>";
                         strHtml += "<tr><td style='font-family:Arial; font-size:13px; color:#00acee; font-weight:bold;'>¡Contamos contigo!</td></tr>";
                         strHtml += "</table>";
-                    }
+                        break;
+                }
 
-                    SmtpClient enviar = new SmtpClient(servidorSMTP);
-                    try
+                var enviar = new SmtpClient(servidorSmtp);
+                try
+                {
+                    var correoTo = new MailAddress(dtUsuariosEvaluados.Rows[x]["vchCorreoElectronico"].ToString());
+                    var msjEmail = new MailMessage(correoFrom, correoTo)
                     {
-                        MailAddress correoTo = new MailAddress(dtUsuariosEvaluados.Rows[x]["vchCorreoElectronico"].ToString());
-                        MailMessage msjEmail = new MailMessage(correoFrom, correoTo);
-                        msjEmail.Subject = "Inicio de tu Diálogo Evoluciona";
-                        msjEmail.IsBodyHtml = true;
-                        msjEmail.Body = strHtml;
-                        enviar.Send(msjEmail);
-                    }
-                    catch
-                    {
-                    }
+                        Subject = "Inicio de tu Diálogo Evoluciona",
+                        IsBodyHtml = true,
+                        Body = strHtml
+                    };
+                    enviar.Send(msjEmail);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
                 }
             }
         }
 
 
-        private void EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(string correoEvaluador, int codigoRol, int cantDialogosAprobados, List<BeUsuario> lstUsuariosProcesados)
+        private static void EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(string correoEvaluador, int codigoRol, int cantDialogosAprobados, List<BeUsuario> lstUsuariosProcesados)
         {
-            MailAddress correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"].ToString());
-            string descripcionRol = "";
-            if (Constantes.RolGerenteRegion == codigoRol)
+            var correoFrom = new MailAddress(ConfigurationManager.AppSettings["usuarioEnviaMails"]);
+            var descripcionRol = "";
+            switch (codigoRol)
             {
-                descripcionRol = " Gerentes de Región ";
+                case Constantes.RolGerenteRegion:
+                    descripcionRol = " Gerentes de Región ";
+                    break;
+                case Constantes.RolGerenteZona:
+                    descripcionRol = " Gerentes de Zona ";
+                    break;
             }
-            else if (Constantes.RolGerenteZona == codigoRol)
-            {
-                descripcionRol = " Gerentes de Zona ";
-            }
-            string servidorSMTP = ConfigurationManager.AppSettings["servidorSMTP"].ToString();
-            string strHTML = string.Empty;
-            string estiloTD = "font-family:Arial; font-size:13px; color:#6a288a;";
-            strHTML += "<table align='center' border='0'>";
-            strHTML += "<tr><td style='" + estiloTD + "'>Te confirmamos que a la fecha " + cantDialogosAprobados.ToString() + descripcionRol + " de tu equipo han cerrado su Diálogo evoluciona.</td></tr>";
-            strHTML += "<tr><td> </td></tr>";
+            var servidorSmtp = ConfigurationManager.AppSettings["servidorSMTP"];
+            var strHtml = string.Empty;
+            const string estiloTd = "font-family:Arial; font-size:13px; color:#6a288a;";
+            strHtml += "<table align='center' border='0'>";
+            strHtml += "<tr><td style='" + estiloTd + "'>Te confirmamos que a la fecha " + cantDialogosAprobados + descripcionRol + " de tu equipo han cerrado su Diálogo evoluciona.</td></tr>";
+            strHtml += "<tr><td> </td></tr>";
 
             if (lstUsuariosProcesados != null && lstUsuariosProcesados.Count > 0)
             {
-                strHTML += "<tr><td style='" + estiloTD + "'>Quedan pendientes:</td></tr>";
-                int contador = 1;
-                foreach (BeUsuario objUsuario in lstUsuariosProcesados)
+                strHtml += "<tr><td style='" + estiloTd + "'>Quedan pendientes:</td></tr>";
+                var contador = 1;
+                foreach (var objUsuario in lstUsuariosProcesados)
                 {
-                    strHTML += "<tr><td style='" + estiloTD + "'>" + contador.ToString() + ". " + objUsuario.nombreUsuario + "</td></tr>";
+                    strHtml += "<tr><td style='" + estiloTd + "'>" + contador + ". " + objUsuario.nombreUsuario + "</td></tr>";
                     contador = contador + 1;
                 }
-                strHTML += "<tr><td></td></tr>";
+                strHtml += "<tr><td></td></tr>";
             }
-            strHTML += "<tr><td style='" + estiloTD + "'><b>Recuerda realizar el seguimiento a los planes acordados para asegurarte que se <br>lleven a cabo.</b></td></tr>";
+            strHtml += "<tr><td style='" + estiloTd + "'><b>Recuerda realizar el seguimiento a los planes acordados para asegurarte que se <br>lleven a cabo.</b></td></tr>";
 
-            strHTML += "<tr><td style='" + estiloTD + "'>Gracias por participar!</td></tr>";
+            strHtml += "<tr><td style='" + estiloTd + "'>Gracias por participar!</td></tr>";
 
-            strHTML += "</table>";
-            SmtpClient enviar = new SmtpClient(servidorSMTP);
+            strHtml += "</table>";
+            var enviar = new SmtpClient(servidorSmtp);
             try
             {
-                MailAddress correoTo = new MailAddress(correoEvaluador);
+                var correoTo = new MailAddress(correoEvaluador);
                 //MailAddress correoTo = new MailAddress(correoEvaluador);
-                MailMessage msjEmail = new MailMessage(correoFrom, correoTo);
-                msjEmail.Subject = "Aprobación del Diálogo Evoluciona de tu equipo.";
-                msjEmail.IsBodyHtml = true;
-                msjEmail.Body = strHTML;
+                var msjEmail = new MailMessage(correoFrom, correoTo)
+                {
+                    Subject = "Aprobación del Diálogo Evoluciona de tu equipo.",
+                    IsBodyHtml = true,
+                    Body = strHtml
+                };
                 enviar.Send(msjEmail);
             }
-            catch
+            catch (Exception ex) 
             {
-                //modificar
+                throw new Exception(ex.Message);
             }
         }
 
         private void IniciarProcesoNotificacionDirectoraVenta(string prefijoIsoPais, string periodo)
         {
-            BlDataMart objDataMart = new BlDataMart();
-            BlConfiguracion objConfig = new BlConfiguracion();
+            var objDataMart = new BlDataMart();
+            var objConfig = new BlConfiguracion();
 
             objDataMart.InsertarLogCarga("IniciarProcesoNotificacionDirectoraVenta", "Inicio de tarea TareaEnviarCorreos a las DV");
-            DataTable dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
-            int codigoRol = Constantes.RolGerenteRegion;
-            int idRol = ObtenerIDRol(Constantes.RolGerenteRegion);
+            var dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
+            const int codigoRol = Constantes.RolGerenteRegion;
+            var idRol = ObtenerIdRol(Constantes.RolGerenteRegion);
 
-            if (dtDv != null)
+            if (dtDv == null) return;
+            if (dtDv.Rows.Count <= 0) return;
+            for (var x = 0; x < dtDv.Rows.Count; x++)
             {
-                if (dtDv.Rows.Count > 0)
-                {
-                    for (int x = 0; x < dtDv.Rows.Count; x++)
-                    {
-                        List<BeUsuario> lstUsuariosGr = objConfig.SeleccionarGRegionProcesadasPorDv(dtDv.Rows[x]["documentoIdentidad"].ToString(), idRol, prefijoIsoPais, periodo);
+                var lstUsuariosGr = objConfig.SeleccionarGRegionProcesadasPorDv(dtDv.Rows[x]["documentoIdentidad"].ToString(), idRol, prefijoIsoPais, periodo);
 
-                        if (lstUsuariosGr.Count > 0)
-                        {
-                            int cantDialogosAprobados = 0;
-                            List<BeUsuario> lstUsuariosGrProcesados = lstUsuariosGr.FindAll(delegate(BeUsuario objUsuarioGrpFind) { return objUsuarioGrpFind.estadoProceso == Constantes.EstadoProcesoRevision; });
-                            List<BeUsuario> lstUsuariosGrProcesoAprobado = lstUsuariosGr.FindAll(delegate(BeUsuario objUsuarioGrpFind) { return objUsuarioGrpFind.estadoProceso == Constantes.EstadoProcesoCulminado; });
-                            if (lstUsuariosGrProcesoAprobado != null)
-                            {
-                                cantDialogosAprobados = lstUsuariosGrProcesoAprobado.Count;
-                            }
-                            EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(dtDv.Rows[x]["vchCorreoElectronico"].ToString(), codigoRol, cantDialogosAprobados, lstUsuariosGrProcesados);
-                        }
-                    }
-                }
+                if (lstUsuariosGr.Count <= 0) continue;
+                var lstUsuariosGrProcesados = lstUsuariosGr.FindAll(
+                    objUsuarioGrpFind => objUsuarioGrpFind.estadoProceso == Constantes.EstadoProcesoRevision);
+                var lstUsuariosGrProcesoAprobado = lstUsuariosGr.FindAll(
+                    objUsuarioGrpFind =>
+                        objUsuarioGrpFind.estadoProceso == Constantes.EstadoProcesoCulminado);
+                var cantDialogosAprobados = lstUsuariosGrProcesoAprobado.Count;
+                EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(dtDv.Rows[x]["vchCorreoElectronico"].ToString(), codigoRol, cantDialogosAprobados, lstUsuariosGrProcesados);
             }
         }
 
         private void IniciarProcesoNotificacionGerenteRegion(string prefijoIsoPais, string periodo)
         {
-            BlDataMart objDataMart = new BlDataMart();
-            BlConfiguracion objConfig = new BlConfiguracion();
+            var objDataMart = new BlDataMart();
+            var objConfig = new BlConfiguracion();
 
             objDataMart.InsertarLogCarga("IniciarProcesoNotificacionGerenteRegion", "Inicio de tarea TareaEnviarCorreos a las GR");
-            DataTable dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
-            int codigoRol = Constantes.RolGerenteZona;
-            int idRol = ObtenerIDRol(Constantes.RolGerenteZona);
+            var dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
+            const int codigoRol = Constantes.RolGerenteZona;
+            var idRol = ObtenerIdRol(Constantes.RolGerenteZona);
 
-            if (dtGr != null)
+            if (dtGr == null) return;
+            if (dtGr.Rows.Count <= 0) return;
+            for (var x = 0; x < dtGr.Rows.Count; x++)
             {
-                if (dtGr.Rows.Count > 0)
-                {
-                    for (int x = 0; x < dtGr.Rows.Count; x++)
-                    {
-                        List<BeUsuario> lstUsuariosGz = objConfig.SeleccionarGZonaProcesadasPorGr(dtGr.Rows[x]["documentoIdentidad"].ToString(), idRol, prefijoIsoPais, periodo);
+                var lstUsuariosGz = objConfig.SeleccionarGZonaProcesadasPorGr(dtGr.Rows[x]["documentoIdentidad"].ToString(), idRol, prefijoIsoPais, periodo);
 
-                        if (lstUsuariosGz.Count > 0)
-                        {
-                            int cantDialogosAprobados = 0;
-                            List<BeUsuario> lstUsuariosGzProcesados = lstUsuariosGz.FindAll(delegate(BeUsuario objUsuarioGzpFind) { return objUsuarioGzpFind.estadoProceso == Constantes.EstadoProcesoRevision; });
-                            List<BeUsuario> lstUsuariosGzProcesoAprobado = lstUsuariosGz.FindAll(delegate(BeUsuario objUsuarioGzpFind) { return objUsuarioGzpFind.estadoProceso == Constantes.EstadoProcesoCulminado; });
-                            if (lstUsuariosGzProcesoAprobado != null)
-                            {
-                                cantDialogosAprobados = lstUsuariosGzProcesoAprobado.Count;
-                            }
-                            EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(dtGr.Rows[x]["vchCorreoElectronico"].ToString(), codigoRol, cantDialogosAprobados, lstUsuariosGzProcesados);
-                        }
-                    }
-                }
+                if (lstUsuariosGz.Count <= 0) continue;
+                var lstUsuariosGzProcesados = lstUsuariosGz.FindAll(
+                    objUsuarioGzpFind => objUsuarioGzpFind.estadoProceso == Constantes.EstadoProcesoRevision);
+                var lstUsuariosGzProcesoAprobado = lstUsuariosGz.FindAll(
+                    objUsuarioGzpFind =>
+                        objUsuarioGzpFind.estadoProceso == Constantes.EstadoProcesoCulminado);
+                var cantDialogosAprobados = lstUsuariosGzProcesoAprobado.Count;
+                EnviarCorreoAprobacionDialogoEvolucionadeTuEquipo(dtGr.Rows[x]["vchCorreoElectronico"].ToString(), codigoRol, cantDialogosAprobados, lstUsuariosGzProcesados);
             }
         }
 
-        private int ObtenerIDRol(int codigoRolEvaluado)
+        private static int ObtenerIdRol(int codigoRolEvaluado)
         {
-            int idRol = 0;
-            BlUsuario objRol = new BlUsuario();
-            DataTable dtRol = objRol.ObtenerDatosRol(codigoRolEvaluado, Constantes.EstadoActivo);
+            var idRol = 0;
+            var objRol = new BlUsuario();
+            var dtRol = objRol.ObtenerDatosRol(codigoRolEvaluado, Constantes.EstadoActivo);
             if (dtRol.Rows.Count > 0)
             {
                 idRol = Convert.ToInt32(dtRol.Rows[0]["intIDRol"].ToString());
@@ -429,8 +419,8 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
 
             if (codProcesado > 0)
             {
@@ -443,13 +433,13 @@ namespace Evoluciona.Dialogo.Web.Admin
             {
                 lblMensaje.Text = "El inicio del dialogo de desempeño para DV a GR ha sido activado";
 
-                DataTable dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
+                var dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
 
                 if (dtDv != null)
                 {
                     if (dtDv.Rows.Count > 0)
                     {
-                        for (int x = 0; x < dtDv.Rows.Count; x++)
+                        for (var x = 0; x < dtDv.Rows.Count; x++)
                         {
                             objConfig.InsertarInicioDialogo(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, dtDv.Rows[x]["documentoIdentidad"].ToString(), Constantes.RolDirectorVentas, 0);
                         }
@@ -479,8 +469,8 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
             if (codProcesado > 0)
             {
                 lblMensaje.Text = "Ya existe un inicio de dialogo de desempeñio de las GR a GZ para el periodo seleccionado";
@@ -493,13 +483,13 @@ namespace Evoluciona.Dialogo.Web.Admin
             {
                 lblMensaje.Text = "El inicio del dialogo de desempeño para GR a GZ ha sido activado";
 
-                DataTable dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
+                var dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
 
                 if (dtGr != null)
                 {
                     if (dtGr.Rows.Count > 0)
                     {
-                        for (int x = 0; x < dtGr.Rows.Count; x++)
+                        for (var x = 0; x < dtGr.Rows.Count; x++)
                         {
                             objConfig.InsertarInicioDialogo(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, dtGr.Rows[x]["documentoIdentidad"].ToString(), Constantes.RolGerenteRegion, 0);
                         }
@@ -526,12 +516,12 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
 
             if (codProcesado > 0)
             {
-                DataTable dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
+                var dtDv = objConfig.SeleccionarDVentasPorEvaluar(ddlPais.SelectedValue);
 
                 if (dtDv != null)
                 {
@@ -559,12 +549,12 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
 
             if (codProcesado > 0)
             {
-                DataTable dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
+                var dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
 
                 if (dtGr != null)
                 {
@@ -592,12 +582,12 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
 
             if (codProcesado > 0)
             {
-                DataTable dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
+                var dtGr = objConfig.SeleccionarGRegionPorEvaluar(ddlPais.SelectedValue);
 
                 if (dtGr != null)
                 {
@@ -625,11 +615,11 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
             if (codProcesado > 0)
             {
-                DataTable dtGz = objConfig.SeleccionarGZonaPorPais(ddlPais.SelectedValue);
+                var dtGz = objConfig.SeleccionarGZonaPorPais(ddlPais.SelectedValue);
 
                 if (dtGz != null)
                 {
@@ -658,15 +648,15 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoDvGr);
             if (codProcesado > 0)
             {
-                BlDataMart objDataMart = new BlDataMart();
+                var objDataMart = new BlDataMart();
                 objDataMart.InsertarLogCarga("TareaEnviarCorreos-Execute",
                                              "Inicio de tarea TareaEnviarCorreos a las Evaluadoras");
-                string prefijoIsoPais = ddlPais.SelectedValue;
-                string periodo = ddlPeriodo.SelectedItem.Text;
+                var prefijoIsoPais = ddlPais.SelectedValue;
+                var periodo = ddlPeriodo.SelectedItem.Text;
                 IniciarProcesoNotificacionDirectoraVenta(prefijoIsoPais, periodo);
                 lblAdeeDV.Text = "El correo ha sido enviado a la DV evaluadora";
             }
@@ -690,15 +680,15 @@ namespace Evoluciona.Dialogo.Web.Admin
                 return;
             }
 
-            BlConfiguracion objConfig = new BlConfiguracion();
-            int codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
+            var objConfig = new BlConfiguracion();
+            var codProcesado = objConfig.ValidarInicioProceso(ddlPais.SelectedValue, ddlPeriodo.SelectedItem.Text, Constantes.IndicadorEvaluadoGrGz);
             if (codProcesado > 0)
             {
-                BlDataMart objDataMart = new BlDataMart();
+                var objDataMart = new BlDataMart();
                 objDataMart.InsertarLogCarga("IniciarProcesoNotificacionGerenteRegion",
                                              "Inicio de tarea TareaEnviarCorreos a las GR");
-                string prefijoIsoPais = ddlPais.SelectedValue;
-                string periodo = ddlPeriodo.SelectedItem.Text;
+                var prefijoIsoPais = ddlPais.SelectedValue;
+                var periodo = ddlPeriodo.SelectedItem.Text;
                 IniciarProcesoNotificacionGerenteRegion(prefijoIsoPais, periodo);
                 lblAdeeGR.Text = "El correo ha sido enviado a las GR evaluadoras";
             }
@@ -758,16 +748,16 @@ namespace Evoluciona.Dialogo.Web.Admin
 
         private void EnviaCorreoPlanesAcordados(string prefijoIsoPais, string periodo, int idRol, DataTable dtUsuariosPa)
         {
-            string rolEvaluado = String.Empty;
+            var rolEvaluado = String.Empty;
 
             switch (idRol)
             {
                 case Constantes.IdRolGerenteRegion:
-                    rolEvaluado = Constantes.RolGerenteRegion.ToString();
+                    rolEvaluado = Constantes.RolGerenteRegion.ToString(CultureInfo.InvariantCulture);
 
                     break;
                 case Constantes.IdRolGerenteZona:
-                    rolEvaluado = Constantes.RolGerenteZona.ToString();
+                    rolEvaluado = Constantes.RolGerenteZona.ToString(CultureInfo.InvariantCulture);
                     break;
             }
 
@@ -800,9 +790,13 @@ namespace Evoluciona.Dialogo.Web.Admin
             {
                 var objWebRequest = WebRequest.Create(@url);
                 var objWebResponse = objWebRequest.GetResponse();
-                var objStreamReader = new StreamReader(objWebResponse.GetResponseStream());
-                content = objStreamReader.ReadToEnd();
-                objStreamReader.Close();
+                var objWebStream = objWebResponse.GetResponseStream();
+                if (objWebStream != null)
+                {
+                    var objStreamReader = new StreamReader(objWebStream);
+                    content = objStreamReader.ReadToEnd();
+                    objStreamReader.Close();
+                }
             }
             catch
             {
@@ -811,7 +805,7 @@ namespace Evoluciona.Dialogo.Web.Admin
             return content;
         }
 
-        private void EnviarCorreo(string correoPara, string correoDe, string asunto, string cuerpo, string smtp)
+        private static void EnviarCorreo(string correoPara, string correoDe, string asunto, string cuerpo, string smtp)
         {
             var enviar = new SmtpClient(smtp);
             var correoFrom = new MailAddress(correoDe);

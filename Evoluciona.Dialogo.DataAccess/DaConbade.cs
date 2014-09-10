@@ -16,7 +16,7 @@ namespace Evoluciona.Dialogo.DataAccess
                 try
                 {
                     conex.Open();
-                    var cmd = new SqlCommand(stquery, conex) {CommandType = CommandType.Text};
+                    var cmd = new SqlCommand(stquery, conex) { CommandType = CommandType.Text, CommandTimeout = 300 };
 
                     var da = new SqlDataAdapter(cmd);
                     da.Fill(ds);

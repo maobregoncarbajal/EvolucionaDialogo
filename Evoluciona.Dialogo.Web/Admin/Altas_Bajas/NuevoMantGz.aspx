@@ -33,16 +33,78 @@
 
         var paisEdit = "";
         var regionEdit = "";
+        
+        var codGzEdit = "";
+        var cubGzEdit = "";
+        
+
+        var validaNombre = function (value, colname) {
+            if (value.length < 1) {
+                return [false, "Nombre no puede estar vacio"];
+            } else {
+                return [true, ""];
+            }
+        };
+
+        var validaCodGz = function (value, colname) {
+
+            var varPais = $("select#chrPrefijoIsoPais").val();
+            var varRegion = $("select#vchCodigoRegion").val();
+            var varZona = $("select#vchCodigoZona").val();
+
+            if (value != codGzEdit && value != "") {
+
+                var paramValidaCodGz = { accion: 'validaCodGz', 'pais': varPais, 'region': varRegion, 'zona': varZona, 'codGz': value };
+                var cantCodGz = Evoluciona.Ajax(url, paramValidaCodGz, false);
+
+                if (cantCodGz > 0) {
+                    return [false, 'Ya existe el Doc. Identidad'];
+                }
+            } else {
+                if (value == "") {
+                    return [false, 'Doc. Identidad no puede estar vacio'];
+                } else {
+                    return [true, ""];
+                }
+            }
+
+            return [true, '']; // no error
+        };
+
+        var validaCubGz = function (value, colname) {
+
+            var varPais = $("select#chrPrefijoIsoPais").val();
+            var varRegion = $("select#vchCodigoRegion").val();
+            var varZona = $("select#vchCodigoZona").val();
+
+
+            if (value != cubGzEdit) {
+
+                var paramValidaCub = { accion: 'validaCub', 'pais': varPais, 'region': varRegion, 'zona': varZona, 'cub': value };
+                var cantCub = Evoluciona.Ajax(url, paramValidaCub, false);
+
+                if (cantCub > 0) {
+                    return [false, 'Ya existe el CUB'];
+                }
+
+            } else {
+                return [true, ""];
+            }
+
+            return [true, '']; // no error
+        };
+
 
         jQuery(document).ready(function () {
 
 
             var editGridRowOptions = {
-                recreateForm: true,
-                viewPagerButtons: false,
-                onClose: function () {
-
-                }
+                recreateForm: true
+                ,viewPagerButtons: false
+                ,closeOnEscape: true
+                ,reloadAfterSubmit: true
+                ,closeAfterEdit: true
+                ,drag: true
             };
 
             grid.jqGrid({
@@ -91,10 +153,19 @@
                         ],
                     }
                 },
-                    { name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140, editable: true },
-                    { name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true, editable: true },
+                    {
+                        name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140,
+                        editable: true, editrules: {custom: true,custom_func: validaCodGz}
+                    },
+                    {
+                        name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true,
+                        editable: true, editrules: { custom: true, custom_func: validaNombre }
+                    },
                     { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
-                    { name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false, editable: true },
+                    {
+                        name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false,
+                        editable: true, editrules: { custom: true, custom_func: validaCubGz }
+                    },
                     { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
                 {
                     name: 'vchCodigoRegion',
@@ -151,6 +222,9 @@
                 onSelectRow: function (id) {
                     paisEdit = grid.jqGrid('getCell', id, 'chrPrefijoIsoPais');
                     regionEdit = grid.jqGrid('getCell', id, 'vchCodigoRegion');
+                    codGzEdit = grid.jqGrid('getCell', id, 'chrCodigoGerenteZona');
+                    cubGzEdit = grid.jqGrid('getCell', id, 'vchCUBGZ');
+
                 },
                 url: url + '?accion=load&pais=' + pais,
                 datatype: 'json',
@@ -252,7 +326,6 @@
                     }
                 }
             });
-
         }
 
         function funCambiarZonaSearch(varPaisSearch, varRegionSearch) {

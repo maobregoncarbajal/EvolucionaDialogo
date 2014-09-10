@@ -1,6 +1,5 @@
 ﻿using Evoluciona.Dialogo.BusinessLogic;
 using System;
-using System.Data;
 using System.Web.UI.WebControls;
 
 namespace Evoluciona.Dialogo.Web
@@ -14,44 +13,34 @@ namespace Evoluciona.Dialogo.Web
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            LbConbade BLConbade = new LbConbade();
-            string stquery = TextBox1.Text;
+            var blConbade = new LbConbade();
+            var stquery = TextBox1.Text;
 
+            var ds = blConbade.Conbade(stquery);
 
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-            //ds.ReadXml(Server.MapPath("EmployeeDetails.xml"));
-            ds = BLConbade.Conbade(stquery);
-
-            //GridView gvEmployee = new GridView();
-            //gvEmployee.AutoGenerateColumns = false;
-
-            //if (ds != null && ds.HasChanges())
-            if (ds != null)
+            if (ds == null) return;
+            for (var x = 0; x < ds.Tables.Count; x++)
             {
-                for (int x = 0; x < ds.Tables.Count; x++)
+
+                var gvEmployee = new GridView {AutoGenerateColumns = false};
+
+                var dt = ds.Tables[x];
+                for (var i = 0; i < dt.Columns.Count; i++)
                 {
-
-                    GridView gvEmployee = new GridView();
-                    gvEmployee.AutoGenerateColumns = false;
-
-                    dt = ds.Tables[x];
-                    for (int i = 0; i < dt.Columns.Count; i++)
+                    var boundfield = new BoundField
                     {
-                        BoundField boundfield = new BoundField();
-                        boundfield.DataField = dt.Columns[i].ColumnName.ToString();
-                        boundfield.HeaderText = dt.Columns[i].ColumnName.ToString();
-                        gvEmployee.Columns.Add(boundfield);
-                    }
-                    gvEmployee.DataSource = dt;
-                    gvEmployee.DataBind();
-                    gvEmployee.Width = 600;
-                    gvEmployee.HeaderStyle.CssClass = "header";
-                    gvEmployee.RowStyle.CssClass = "rowstyle";
-
-                    Panel1.Controls.Add(gvEmployee);
-
+                        DataField = dt.Columns[i].ColumnName,
+                        HeaderText = dt.Columns[i].ColumnName
+                    };
+                    gvEmployee.Columns.Add(boundfield);
                 }
+                gvEmployee.DataSource = dt;
+                gvEmployee.DataBind();
+                gvEmployee.Width = 600;
+                gvEmployee.HeaderStyle.CssClass = "header";
+                gvEmployee.RowStyle.CssClass = "rowstyle";
+
+                Panel1.Controls.Add(gvEmployee);
 
             }
         }
