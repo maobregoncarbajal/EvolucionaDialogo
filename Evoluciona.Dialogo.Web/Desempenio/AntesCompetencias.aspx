@@ -115,26 +115,21 @@
         Ingrese una Observaci&oacute;n antes de Grabar...
     </div>
     <div id="msgProceso" style="font-size: 10pt; font-family: Arial">
-        Has completado tu Proceso:<br />
-        DIÁLOGO/ANTES/COMPETENCIAS
+        <p>Has completado tu proceso de :</p>
+        <p><strong>DIÁLOGO/ANTES/COMPETENCIAS</strong></p>
         <br />
+        <p>Ya finalizaste tu proceso de preparación.</p>
+        <p>Esta información puede ser modificada durante el proceso de Diálogo.</p>
         <br />
-        Ya finalizaste tu proceso de Preparación Esta información puede ser modificada durante
-        el proceso de Diálogo.
-        <br />
-        Recuerda asistir a tu Diálogo
-        <br />
+        <p>Recuerda asistir a tu Diálogo</p>
         <br />
         <div style="float: left;">
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td style="height: 20px">
-                        <a href="<%=Utils.RelativeWebRoot %>Desempenio/DuranteNegocio.aspx">Cerrar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="height: 20px">
                         <asp:HyperLink ID="hlkResumen" runat="server" CssClass="VerResumen">Ver Resumen</asp:HyperLink>
+                        <span style="margin-left: 72px; margin-right: 72px"></span>
+                        <a href="<%=Utils.RelativeWebRoot %>Desempenio/DuranteNegocio.aspx">Cerrar</a>
                     </td>
                 </tr>
             </table>

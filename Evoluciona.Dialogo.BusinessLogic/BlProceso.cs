@@ -53,6 +53,11 @@ namespace Evoluciona.Dialogo.BusinessLogic
             return DaProceso.ProcesoActualizarEstado(obeProceso);
         }
 
+        public bool SincronizarDialogoConPreparacion(int idProceso)
+        {
+            return DaProceso.SincronizarDialogoConPreparacion(idProceso);
+        }
+        
         #endregion
     }
 }

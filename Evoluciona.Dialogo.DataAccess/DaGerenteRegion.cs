@@ -1046,35 +1046,42 @@ namespace Evoluciona.Dialogo.DataAccess
                                 ChrPrefijoIsoPais =
                                     dr.IsDBNull(dr.GetOrdinal("chrPrefijoIsoPais"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("chrPrefijoIsoPais")),
+                                        : dr.GetString(dr.GetOrdinal("chrPrefijoIsoPais")).Trim(),
                                 VchNombrecompleto =
                                     dr.IsDBNull(dr.GetOrdinal("vchNombreCompleto"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("vchNombreCompleto")),
+                                        : dr.GetString(dr.GetOrdinal("vchNombreCompleto")).Trim(),
                                 VchCorreoElectronico =
                                     dr.IsDBNull(dr.GetOrdinal("vchCorreoElectronico"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("vchCorreoElectronico")),
+                                        : dr.GetString(dr.GetOrdinal("vchCorreoElectronico")).Trim(),
                                 ChrCodDirectorVenta =
                                     dr.IsDBNull(dr.GetOrdinal("chrCodDirectorVenta"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("chrCodDirectorVenta")),
+                                        : dr.GetString(dr.GetOrdinal("chrCodDirectorVenta")).Trim(),
                                 VchCUBGR =
                                     dr.IsDBNull(dr.GetOrdinal("vchCUBGR"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("vchCUBGR")),
+                                        : dr.GetString(dr.GetOrdinal("vchCUBGR")).Trim(),
                                 ChrCodigoPlanilla =
                                     dr.IsDBNull(dr.GetOrdinal("chrCodigoPlanilla"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("chrCodigoPlanilla")),
+                                        : dr.GetString(dr.GetOrdinal("chrCodigoPlanilla")).Trim(),
                                 VchCodigoRegion =
                                     dr.IsDBNull(dr.GetOrdinal("vchCodigoRegion"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("vchCodigoRegion")),
-                                VchObservacion =
+                                        : dr.GetString(dr.GetOrdinal("vchCodigoRegion")).Trim(),
+
+                                obeDirectoraVentas = new BeDirectoraVentas
+                                {
+                                    vchNombreCompleto = dr.IsDBNull(dr.GetOrdinal("NombreDirectoraVenta"))
+                                        ? string.Empty
+                                        : dr.GetString(dr.GetOrdinal("NombreDirectoraVenta")).Trim()
+                                }
+                                ,VchObservacion =
                                     dr.IsDBNull(dr.GetOrdinal("vchObservacion"))
                                         ? string.Empty
-                                        : dr.GetString(dr.GetOrdinal("vchObservacion"))
+                                        : dr.GetString(dr.GetOrdinal("vchObservacion")).Trim()
                             };
                             entidades.Add(entidad);
                         }
@@ -1137,7 +1144,6 @@ namespace Evoluciona.Dialogo.DataAccess
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@vchNombreCompleto", SqlDbType.VarChar, 150);
                 cmd.Parameters.Add("@vchCorreoElectronico", SqlDbType.VarChar, 100);
-                cmd.Parameters.Add("@chrCodDirectorVenta", SqlDbType.Char, 20);
                 cmd.Parameters.Add("@vchCUBGR", SqlDbType.VarChar, 20);
                 cmd.Parameters.Add("@chrCodigoPlanilla", SqlDbType.VarChar, 10);
                 cmd.Parameters.Add("@vchCodigoRegion", SqlDbType.VarChar, 15);
@@ -1147,7 +1153,6 @@ namespace Evoluciona.Dialogo.DataAccess
                 cmd.Parameters["@chrPrefijoIsoPais"].Value = obj.ChrPrefijoIsoPais;
                 cmd.Parameters["@vchNombreCompleto"].Value = obj.VchNombrecompleto;
                 cmd.Parameters["@vchCorreoElectronico"].Value = obj.VchCorreoElectronico;
-                cmd.Parameters["@chrCodDirectorVenta"].Value = obj.ChrCodDirectorVenta;
                 cmd.Parameters["@vchCUBGR"].Value = obj.VchCUBGR;
                 cmd.Parameters["@chrCodigoPlanilla"].Value = obj.ChrCodigoPlanilla;
                 cmd.Parameters["@vchCodigoRegion"].Value = obj.VchCodigoRegion;
@@ -1186,7 +1191,6 @@ namespace Evoluciona.Dialogo.DataAccess
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@vchNombreCompleto", SqlDbType.VarChar, 150);
                 cmd.Parameters.Add("@vchCorreoElectronico", SqlDbType.VarChar, 100);
-                cmd.Parameters.Add("@chrCodDirectorVenta", SqlDbType.Char, 20);
                 cmd.Parameters.Add("@vchCUBGR", SqlDbType.VarChar, 20);
                 cmd.Parameters.Add("@chrCodigoPlanilla", SqlDbType.VarChar, 10);
                 cmd.Parameters.Add("@vchCodigoRegion", SqlDbType.VarChar, 15);
@@ -1197,7 +1201,6 @@ namespace Evoluciona.Dialogo.DataAccess
                 cmd.Parameters["@chrPrefijoIsoPais"].Value = obj.ChrPrefijoIsoPais;
                 cmd.Parameters["@vchNombreCompleto"].Value = obj.VchNombrecompleto;
                 cmd.Parameters["@vchCorreoElectronico"].Value = obj.VchCorreoElectronico;
-                cmd.Parameters["@chrCodDirectorVenta"].Value = obj.ChrCodDirectorVenta;
                 cmd.Parameters["@vchCUBGR"].Value = obj.VchCUBGR;
                 cmd.Parameters["@chrCodigoPlanilla"].Value = obj.ChrCodigoPlanilla;
                 cmd.Parameters["@vchCodigoRegion"].Value = obj.VchCodigoRegion;
@@ -1318,5 +1321,86 @@ namespace Evoluciona.Dialogo.DataAccess
             }
             return entidades;
         }
+
+
+        public int ValidaCodGr(string pais, string region, string codGr)
+        {
+            int cant;
+
+            using (var cn = ObtieneConexionJob())
+            {
+                var cmd = new SqlCommand("ESE_MANT_USU_EXISTE_CODGR", cn) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
+                cmd.Parameters.Add("@vchCodigoRegion", SqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@chrCodigoGerenteRegion", SqlDbType.Char, 20);
+                cmd.Parameters.Add("@intCant", SqlDbType.Int);
+
+                cmd.Parameters["@chrPrefijoIsoPais"].Value = pais.Trim();
+                cmd.Parameters["@vchCodigoRegion"].Value = region.Trim();
+                cmd.Parameters["@chrCodigoGerenteRegion"].Value = codGr.Trim();
+                cmd.Parameters["@intCant"].Direction = ParameterDirection.Output;
+
+                try
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                    cant = Convert.ToInt32(cmd.Parameters["@intCant"].Value);
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+                finally
+                {
+                    if (cn.State == ConnectionState.Open)
+                        cn.Close();
+
+                    cn.Dispose();
+                }
+            }
+            return cant;
+        }
+
+        public int ValidaCubGr(string pais, string region, string cub)
+        {
+            int cant;
+
+            using (var cn = ObtieneConexionJob())
+            {
+                var cmd = new SqlCommand("ESE_MANT_USU_EXISTE_CUBGR", cn) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
+                cmd.Parameters.Add("@vchCodigoRegion", SqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@vchCUBGR", SqlDbType.VarChar, 20);
+                cmd.Parameters.Add("@intCant", SqlDbType.Int);
+
+                cmd.Parameters["@chrPrefijoIsoPais"].Value = pais.Trim();
+                cmd.Parameters["@vchCodigoRegion"].Value = region.Trim();
+                cmd.Parameters["@vchCUBGR"].Value = cub.Trim();
+                cmd.Parameters["@intCant"].Direction = ParameterDirection.Output;
+
+                try
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                    cant = Convert.ToInt32(cmd.Parameters["@intCant"].Value);
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+                finally
+                {
+                    if (cn.State == ConnectionState.Open)
+                        cn.Close();
+
+                    cn.Dispose();
+                }
+            }
+            return cant;
+        }
+
+
     }
 }

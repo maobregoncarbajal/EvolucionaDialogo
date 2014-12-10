@@ -9,6 +9,7 @@ namespace Evoluciona.Dialogo.BusinessLogic
     public class BlGerenteRegion
     {
         private static readonly DaGerenteRegion DaGerenteRegion = new DaGerenteRegion();
+        private static readonly DaRegion DaRegion = new DaRegion();
 
         public List<BeGerenteRegion> ObtenerGr(int intUsuarioCrea, bool bitEstado)
         {
@@ -167,11 +168,11 @@ namespace Evoluciona.Dialogo.BusinessLogic
             }
         }
 
-        public List<BeComun> ListarRegiones(string codPais)
+        public List<BeRegion> ListarRegiones(string codPais)
         {
             try
             {
-                return DaGerenteRegion.ListarRegiones(codPais);
+                return DaRegion.ListarRegionesPorPais(codPais);
             }
             catch (Exception ex)
             {
@@ -190,5 +191,32 @@ namespace Evoluciona.Dialogo.BusinessLogic
                 throw new Exception(ex.Message);
             }
         }
+
+        public int ValidaCodGr(string pais, string region, string codGr)
+        {
+            try
+            {
+                return DaGerenteRegion.ValidaCodGr(pais, region, codGr);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public int ValidaCubGr(string pais, string region,string cub)
+        {
+            try
+            {
+                return DaGerenteRegion.ValidaCubGr(pais, region, cub);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
     }
 }

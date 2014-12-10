@@ -10,6 +10,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
+    using System.Globalization;
     using System.Web.UI;
     using WsPlanDesarrollo;
 
@@ -24,9 +25,9 @@ namespace Evoluciona.Dialogo.Web.Desempenio
         public int porcentaje = 0;
         public int noExisteData = 0;
         public int esCorrecto = 0;
-        private BeResumenProceso objResumen;
-        private BeUsuario objUsuario;
-        public string nmbrEvld;
+        private BeResumenProceso _objResumen;
+        private BeUsuario _objUsuario;
+        public string NmbrEvld;
 
         #endregion Variables
 
@@ -49,10 +50,10 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            objUsuario = (BeUsuario)Session[Constantes.ObjUsuarioLogeado];
-            objResumen = (BeResumenProceso)Session[Constantes.ObjUsuarioProcesado];
-            estadoProceso = int.Parse(objResumen.estadoProceso);
-            nmbrEvld = Session["NombreEvaluado"].ToString().Split('-')[0].ToUpper().Trim().Substring(3, 5);
+            _objUsuario = (BeUsuario)Session[Constantes.ObjUsuarioLogeado];
+            _objResumen = (BeResumenProceso)Session[Constantes.ObjUsuarioProcesado];
+            estadoProceso = int.Parse(_objResumen.estadoProceso);
+            NmbrEvld = Session["NombreEvaluado"].ToString().Split('-')[0].ToUpper().Trim().Substring(3, 5);
 
             CalcularAvanze();
             CrearLinksResumen();
@@ -63,34 +64,27 @@ namespace Evoluciona.Dialogo.Web.Desempenio
             if (IsPostBack) return;
             if (Session["NombreEvaluado"] == null) return;
 
-            string periodoEvaluacion = string.Empty;
-            if (Session["periodoActual"] != null)
-                periodoEvaluacion = Session["periodoActual"].ToString();
-            else
-                periodoEvaluacion = objUsuario.periodoEvaluacion;
+            var periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : _objUsuario.periodoEvaluacion;
 
             hderOperaciones.CargarControles((List<string>)Session["periodosValidos"],
                                             Session["NombreEvaluado"].ToString(), periodoEvaluacion,
                                             "dialogo_antes_competencias.jpg");
 
-            BlPlanAnual daProceso = new BlPlanAnual();
-
-            string codigoPaisAdam = daProceso.ObtenerPaisAdam(CadenaConexion, objResumen.prefijoIsoPais);
-
-            string anio = periodoEvaluacion.Substring(0, 4);
+            var daProceso = new BlPlanAnual();
+            var codigoPaisAdam = daProceso.ObtenerPaisAdam(CadenaConexion, _objResumen.prefijoIsoPais);
+            var anio = periodoEvaluacion.Substring(0, 4);
 
 
-            if (String.Equals(nmbrEvld, Constantes.Nueva))
+            if (String.Equals(NmbrEvld, Constantes.Nueva))
             {
-                ObtenerPlanAnualNuevas(CadenaConexion, Convert.ToInt32(anio), codigoPaisAdam, objResumen.codigoUsuario);
+                ObtenerPlanAnualNuevas(CadenaConexion, Convert.ToInt32(anio), codigoPaisAdam, _objResumen.codigoUsuario);
             }
             else
             {
-                ObtenerPlanAnualAdam(CadenaConexion, Convert.ToInt32(anio), codigoPaisAdam, objResumen.codigoUsuario, objResumen.cub);
+                ObtenerPlanAnualAdam(CadenaConexion, Convert.ToInt32(anio), codigoPaisAdam, _objResumen.codigoUsuario, _objResumen.cub);
             }
-
-
-            DataTable dt = daProceso.ObtenerPlanAnualGrabadas(CadenaConexion, objResumen);
+            
+            var dt = daProceso.ObtenerPlanAnualGrabadas(CadenaConexion, _objResumen);
 
             if (dt.Rows.Count != 0)
             {
@@ -101,9 +95,9 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 CargarGrilla();
             }
 
-            if (String.Equals(nmbrEvld, Constantes.Nueva))
+            if (String.Equals(NmbrEvld, Constantes.Nueva))
             {
-                lblNuevas.Text = nmbrEvld;
+                lblNuevas.Text = NmbrEvld;
             }
         }
 
@@ -111,7 +105,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
         {
             GrabarPlanAnual();
 
-            if (String.Equals(nmbrEvld, Constantes.Nueva))
+            if (String.Equals(NmbrEvld, Constantes.Nueva))
             {
                 lblNuevas.Text = "triggerBtnguardar";
             }
@@ -132,158 +126,106 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CargarGrilla()
         {
-            BlPlanAnual daProceso = new BlPlanAnual();
-            BePlanAnual bePlanAnual = new BePlanAnual();
+            var daProceso = new BlPlanAnual();
+            var bePlanAnual = new BePlanAnual {PrefijoIsoPais = _objResumen.prefijoIsoPais};
 
-            bePlanAnual.PrefijoIsoPais = objResumen.prefijoIsoPais;
+            var periodoEvaluacion = Session["periodoActual"] != null ? Session["periodoActual"].ToString() : _objUsuario.periodoEvaluacion;
 
-            string periodoEvaluacion = string.Empty;
+            bePlanAnual.Anio = periodoEvaluacion.Split(new[] { ' ' })[0];
+            bePlanAnual.CodigoColaborador = _objResumen.codigoUsuario;
 
-            if (Session["periodoActual"] != null)
-                periodoEvaluacion = Session["periodoActual"].ToString();
-            else
-                periodoEvaluacion = objUsuario.periodoEvaluacion;
-
-            bePlanAnual.Anio = periodoEvaluacion.Split(new char[] { ' ' })[0];
-            bePlanAnual.CodigoColaborador = objResumen.codigoUsuario;
-
-            DataTable dt = new DataTable();
-
-            if (String.Equals(nmbrEvld, Constantes.Nueva))
-            {
-                dt = daProceso.ObtenerPlanAnualNuevas(CadenaConexion, bePlanAnual);
-            }
-            else
-            {
-                dt = daProceso.ObtenerPlanAnual(CadenaConexion, bePlanAnual);
-            }
+            var dt = String.Equals(NmbrEvld, Constantes.Nueva) ? daProceso.ObtenerPlanAnualNuevas(CadenaConexion, bePlanAnual) : daProceso.ObtenerPlanAnual(CadenaConexion, bePlanAnual);
 
             gvPlanAnual.DataSource = dt;
             gvPlanAnual.DataBind();
 
             Session["_planAnual"] = dt;
 
-            if (dt.Rows.Count <= 0)
-            {
-                noExisteData = 1;
-                lblObservacion.Visible = false;
-                txtObservacion.Visible = false;
-            }
+            if (dt.Rows.Count > 0) return;
+            noExisteData = 1;
+            lblObservacion.Visible = false;
+            txtObservacion.Visible = false;
         }
 
         private void ObtenerPlanAnualAdam(string connstring, int anio, string codigoPaisAdam, string documentoIdentidad, string cub)
         {
-            BlPlanAnual daProceso = new BlPlanAnual();
+            var daProceso = new BlPlanAnual();
 
-            //if (!daProceso.ObtenerPlanAnualByUsuario(connstring, objResumen.rolUsuario, objResumen.prefijoIsoPais, anio.ToString(), documentoIdentidad, 1))
-            //{
-            WsInterfaceFFVVSoapClient wsPlanAnual = new WsInterfaceFFVVSoapClient();
-            //wsPlanAnual.Timeout = 60000;
+            var wsPlanAnual = new WsInterfaceFFVVSoapClient();
 
-            try
-            {
-                string documentoIdentidadConsulta = codigoPaisAdam == Constantes.CodigoAdamPaisColombia
-                                         ? Convert.ToInt32(documentoIdentidad).ToString()
+                var documentoIdentidadConsulta = codigoPaisAdam == Constantes.CodigoAdamPaisColombia
+                                         ? Convert.ToInt32(documentoIdentidad).ToString(CultureInfo.InvariantCulture)
                                          : documentoIdentidad.Trim();
 
+                var dsPlanAnual = wsPlanAnual.ConsultaPlanDesarrollo(anio, cub);
 
 
-
-                //DataSet dsPlanAnual = wsPlanAnual.ConsultaPlanDesarrollo(anio, codigoPaisAdam, documentoIdentidadConsulta);
-                DataSet dsPlanAnual = wsPlanAnual.ConsultaPlanDesarrollo(anio, cub);
-
-
-                if (dsPlanAnual != null)
-                {
-                    if (dsPlanAnual.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow fls in dsPlanAnual.Tables[0].Rows)
-                        {
-                            daProceso.InsertarPlanAnualAdam(connstring, objResumen.rolUsuario,
-                            objResumen.prefijoIsoPais,
-                            anio.ToString(), documentoIdentidad,
-                            fls["NombresEvaluado"].ToString(),
-                            fls["DescripcionCompetencia"].ToString(),
-                            fls["DescripcionComportamiento"].ToString(),
-                            fls["ActividadesPlanDesarrollo"].ToString(),
-                            fls["DescripcionSugerencia"].ToString(), 1,
-                            Convert.ToInt32(fls["CodigoCompetencia"]));
-                        }
-                    }
-                }
-            }
-            catch (Exception)
+            if (dsPlanAnual == null) return;
+            if (dsPlanAnual.Tables[0].Rows.Count <= 0) return;
+            foreach (DataRow fls in dsPlanAnual.Tables[0].Rows)
             {
-                //lblMensajes.Text = "El servicio no se encuentra disponible, por favor intente luego";
-                //lblObservacion.Visible = false;
-                //txtObservacion.Visible = false;
+                daProceso.InsertarPlanAnualAdam(connstring, _objResumen.rolUsuario,
+                    _objResumen.prefijoIsoPais,
+                    anio.ToString(CultureInfo.InvariantCulture), documentoIdentidad,
+                    fls["NombresEvaluado"].ToString(),
+                    fls["DescripcionCompetencia"].ToString(),
+                    fls["DescripcionComportamiento"].ToString(),
+                    fls["ActividadesPlanDesarrollo"].ToString(),
+                    fls["DescripcionSugerencia"].ToString(), 1,
+                    Convert.ToInt32(fls["CodigoCompetencia"]));
             }
-            //}
         }
 
 
         private void ObtenerPlanAnualNuevas(string connstring, int anio, string codigoPaisAdam, string documentoIdentidad)
         {
-            BlPlanAnual daProceso = new BlPlanAnual();
+            var daProceso = new BlPlanAnual();
 
-            if (!daProceso.ObtenerPlanAnualByUsuario(connstring, objResumen.rolUsuario, objResumen.prefijoIsoPais, anio.ToString(), documentoIdentidad, 1))
-            {
-                try
-                {
-                    string documentoIdentidadConsulta = codigoPaisAdam == Constantes.CodigoAdamPaisColombia
-                                             ? Convert.ToInt32(documentoIdentidad).ToString()
-                                             : documentoIdentidad.Trim();
+            if (daProceso.ObtenerPlanAnualByUsuario(connstring, _objResumen.rolUsuario, _objResumen.prefijoIsoPais,
+                anio.ToString(CultureInfo.InvariantCulture), documentoIdentidad, 1)) return;
+            var documentoIdentidadConsulta = codigoPaisAdam == Constantes.CodigoAdamPaisColombia
+                ? Convert.ToInt32(documentoIdentidad).ToString(CultureInfo.InvariantCulture)
+                : documentoIdentidad.Trim();
 
 
-                    BlPlanAnual planAnualBL = new BlPlanAnual();
+            var planAnualBL = new BlPlanAnual();
 
-                    DataSet dsPlanAnual = planAnualBL.ConsultaPlanDesarrollo(connstring, anio, codigoPaisAdam, documentoIdentidadConsulta, objResumen);
+            var dsPlanAnual = planAnualBL.ConsultaPlanDesarrollo(connstring, anio, codigoPaisAdam, documentoIdentidadConsulta, _objResumen);
 
-                    if (dsPlanAnual != null)
-                    {
-                        if (dsPlanAnual.Tables[0].Rows.Count > 0)
-                        {
-                            DataRow dr = dsPlanAnual.Tables[0].Rows[0];
+            if (dsPlanAnual == null) return;
+            if (dsPlanAnual.Tables[0].Rows.Count <= 0) return;
+            var dr = dsPlanAnual.Tables[0].Rows[0];
 
-                            daProceso.InsertarPlanAnualAdam(connstring, objResumen.rolUsuario,
-                                                            objResumen.prefijoIsoPais,
-                                                            anio.ToString(), documentoIdentidad,
-                                                            dr["NombresEvaluado"].ToString(),
-                                                            dr["DescripcionCompetencia"].ToString(),
-                                                            dr["DescripcionComportamiento"].ToString(),
-                                                            dr["ActividadesPlanDesarrollo"].ToString(),
-                                                            dr["DescripcionSugerencia"].ToString(), 1,
-                                                            Convert.ToInt32(dr["CodigoCompetencia"]));
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    //lblMensajes.Text = "El servicio no se encuentra disponible, por favor intente luego";
-                    //lblObservacion.Visible = false;
-                    //txtObservacion.Visible = false;
-                }
-            }
+            daProceso.InsertarPlanAnualAdam(connstring, _objResumen.rolUsuario,
+                _objResumen.prefijoIsoPais,
+                anio.ToString(CultureInfo.InvariantCulture), documentoIdentidad,
+                dr["NombresEvaluado"].ToString(),
+                dr["DescripcionCompetencia"].ToString(),
+                dr["DescripcionComportamiento"].ToString(),
+                dr["ActividadesPlanDesarrollo"].ToString(),
+                dr["DescripcionSugerencia"].ToString(), 1,
+                Convert.ToInt32(dr["CodigoCompetencia"]));
         }
 
 
 
         private void GrabarPlanAnual()
         {
-            BlPlanAnual planAnualBL = new BlPlanAnual();
+            var planAnualBL = new BlPlanAnual();
 
             try
             {
-                DataTable dt = (DataTable)Session["_planAnual"];
+                var dt = (DataTable)Session["_planAnual"];
 
                 foreach (DataRow var in dt.Rows)
                 {
-                    BePlanAnual bePlanAnual = new BePlanAnual();
-
-                    bePlanAnual.idProceso = objResumen.idProceso;
-                    bePlanAnual.CodigoPlanAnual = int.Parse(var[3].ToString());
-                    bePlanAnual.Observacion = txtObservacion.Text;
-                    bePlanAnual.idUsuario = objUsuario.idUsuario;
+                    var bePlanAnual = new BePlanAnual
+                    {
+                        idProceso = _objResumen.idProceso,
+                        CodigoPlanAnual = int.Parse(var[3].ToString()),
+                        Observacion = txtObservacion.Text,
+                        idUsuario = _objUsuario.idUsuario
+                    };
 
                     planAnualBL.IngresarPlanAnual(CadenaConexion, bePlanAnual);
                 }
@@ -298,7 +240,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
 
         private void CalcularAvanze()
         {
-            porcentaje = ProgresoHelper.CalcularAvanze(objResumen.idProceso, TipoPantalla.Antes);
+            porcentaje = ProgresoHelper.CalcularAvanze(_objResumen.idProceso, TipoPantalla.Antes);
         }
 
         private void CrearLinksResumen()
@@ -306,9 +248,9 @@ namespace Evoluciona.Dialogo.Web.Desempenio
             hlkResumen.NavigateUrl =
                 string.Format(
                     "{0}Admin/ResumenProceso.aspx?nomEvaluado={1}&codEvaluado={2}&idProceso={3}&rolEvaluado={4}&codPais={5}&periodo={6}&codEvaluador={7}&imprimir=NO&soloNegocio=SI",
-                    Utils.RelativeWebRoot, objResumen.nombreEvaluado.Trim(), objResumen.codigoUsuario,
-                    objResumen.idProceso, objResumen.codigoRolUsuario, objResumen.prefijoIsoPais, objUsuario.periodoEvaluacion,
-                    objResumen.codigoUsuarioEvaluador);
+                    Utils.RelativeWebRoot, _objResumen.nombreEvaluado.Trim(), _objResumen.codigoUsuario,
+                    _objResumen.idProceso, _objResumen.codigoRolUsuario, _objResumen.prefijoIsoPais, _objUsuario.periodoEvaluacion,
+                    _objResumen.codigoUsuarioEvaluador);
         }
 
         #endregion Metodos

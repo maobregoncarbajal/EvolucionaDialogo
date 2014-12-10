@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<publishData>
-  <publishProfile publishUrl="C:\Users\usuario\Desktop\Web service Evoluciona Dialogosv4\Release" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Perfil1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="Global.asax" publishTime="12/16/2013 13:38:32" />
-    <file relUrl="bin/WSEvoluciona.dll" publishTime="01/14/2014 18:58:42" />
-    <file relUrl="Web.config" publishTime="01/14/2014 19:00:03" />
-    <file relUrl="bin/WSEvoluciona.pdb" publishTime="01/14/2014 18:58:42" />
-  </publishProfile>
-</publishData>

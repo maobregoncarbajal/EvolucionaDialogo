@@ -1,27 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Altas.aspx.cs" Inherits="Evoluciona.Dialogo.Web.Admin.Altas_Bajas.Masivo.Altas" %>
 <%@ Import Namespace="Evoluciona.Dialogo.Web.Helpers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-        <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery-1.9.0.min.js"
-        type="text/javascript"></script>
 
-    <link href="../../../Jscripts/JQGridReq/Styles/Site.css" rel="stylesheet" type="text/css" />
-    <link href="../../../Jscripts/JQGridReq/jquery-ui-1.10.3.custom.css" rel="stylesheet"
-        type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery.jqGrid.js"
-        type="text/javascript"></script>
-
-    <link href="../../../Jscripts/JQGridReq/ui.jqgrid.css" rel="stylesheet" type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/grid.locale-en.js"
-        type="text/javascript"></script>
-    
-    
-    
-  <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jQuery UI 1.10.4/jquery-ui-1.10.4/ui/jquery-ui.js" type="text/javascript"></script>
-
-
+    <link href="../../../Jscripts/jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery-1.11.0.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>/Jscripts/jquery-ui-1.11.0.custom/jquery-ui.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/jquery.jqGrid.js" type="text/javascript"></script>
+    <link href="../../../Jscripts/jquery.jqGrid-4.6.0/src/css/ui.jqgrid.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/i18n/grid.locale-es.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/Evoluciona.js" type="text/javascript"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -107,8 +94,8 @@
                 edit: false,
                 add: false,
                 del: false,
-                search: true,
-                searchtext: "Search",
+                search: false,
+                refreshtext:'Recargar datos',
                 beforeRefresh: function () {
                     idsOfSelectedRows = [];
                     jQuery("#jQGridDemo").jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
@@ -127,13 +114,14 @@
             }
         );
 
+        $('#jQGridDemo').jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false });
 
         // AGREGANDO BOTON EJECUTAR ALTAS
         $('#jQGridDemo').jqGrid('navButtonAdd', '#jQGridDemoPager',
             {
                 caption: '<span class="ui-pg-button-text">Ejecutar Alta</span>',
                 buttonicon: "ui-icon-extlink",
-                title: "Ejecutar Alta",
+                title: "Ejecutar alta",
                 onClickButton: function () {
                     var list = [];
                        
@@ -191,9 +179,9 @@
         // AGREGANDO BOTON EXPORTAR EXCEL
         $('#jQGridDemo').jqGrid('navButtonAdd', '#jQGridDemoPager',
             {
-                caption: '<span class="ui-pg-button-text">Export</span>',
+                caption: '<span class="ui-pg-button-text">Exportar a Excel</span>',
                 buttonicon: "ui-icon-extlink",
-                title: "Export To Excel",
+                title: "Exportar a Excel",
                 onClickButton: function () {
                     window.location = '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/Masivo/Altas.ashx?accion=export&pais=' + $('#<%=hfPais.ClientID%>').val();
                 }

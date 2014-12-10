@@ -25,11 +25,11 @@ namespace Evoluciona.Dialogo.Web.Reportes
                 if (Page.IsPostBack)
                     return;
                 else
-                    btnPDF.Text = ConfigurationSettings.AppSettings["NombreBotonPDF"];
+                    btnPDF.Text = ConfigurationManager.AppSettings["NombreBotonPDF"];
             }
             catch (Exception)
             {
-                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlertaPagina"]);
+                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAlertaPagina"]);
             }
         }
 
@@ -77,30 +77,30 @@ namespace Evoluciona.Dialogo.Web.Reportes
 
                 //También podemos capturar la pantalla completa y grabarla en un archivo GIF
                 Random oRandom = new Random(DateTime.Now.Millisecond); //Genera numeros aleatorios
-                int Minimo = Convert.ToInt32(ConfigurationSettings.AppSettings["NumeroMinimo"].ToString());
-                int Maximo = Convert.ToInt32(ConfigurationSettings.AppSettings["NumeroMaximo"].ToString());
-                string NombreImagen = ConfigurationSettings.AppSettings["NombreReporteTimeLine"].ToString() +
+                int Minimo = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroMinimo"].ToString());
+                int Maximo = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroMaximo"].ToString());
+                string NombreImagen = ConfigurationManager.AppSettings["NombreReporteTimeLine"].ToString() +
                                       oRandom.Next(Minimo, Maximo).ToString() +
-                                      ConfigurationSettings.AppSettings["ExtensionImagen"].ToString();
+                                      ConfigurationManager.AppSettings["ExtensionImagen"].ToString();
                 string rutaImagen = Server.MapPath("~") +
-                                    ConfigurationSettings.AppSettings["RutaImagenTimeLine"].ToString() +
+                                    ConfigurationManager.AppSettings["RutaImagenTimeLine"].ToString() +
                                     NombreImagen;
                 sc.CaptureScreenToFile(rutaImagen, ImageFormat.Jpeg);
                 GenerarPDF(rutaImagen);
             }
             catch (Exception)
             {
-                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlerta"].ToString());
+                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAlerta"].ToString());
             }
         }
 
         private void GenerarPDF(string rutaImagen)
         {
             MemoryStream m = new MemoryStream();
-            int Left = Convert.ToInt32(ConfigurationSettings.AppSettings["PageSizeMarginLeft"].ToString());
-            int Right = Convert.ToInt32(ConfigurationSettings.AppSettings["PageSizeMarginRight"].ToString());
-            int Top = Convert.ToInt32(ConfigurationSettings.AppSettings["PageSizeMarginTop"].ToString());
-            int Bottom = Convert.ToInt32(ConfigurationSettings.AppSettings["PageSizeMarginBottom"].ToString());
+            int Left = Convert.ToInt32(ConfigurationManager.AppSettings["PageSizeMarginLeft"].ToString());
+            int Right = Convert.ToInt32(ConfigurationManager.AppSettings["PageSizeMarginRight"].ToString());
+            int Top = Convert.ToInt32(ConfigurationManager.AppSettings["PageSizeMarginTop"].ToString());
+            int Bottom = Convert.ToInt32(ConfigurationManager.AppSettings["PageSizeMarginBottom"].ToString());
 
             documentPDF = new Document(PageSize.A4.Rotate(), Left, Right, Top, Bottom);
             PdfWriter writer = PdfWriter.GetInstance(documentPDF, m);
@@ -113,8 +113,8 @@ namespace Evoluciona.Dialogo.Web.Reportes
             oParagraph.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
             //documentPDF.Add(oParagraph);
 
-            string rutaLogo = Server.MapPath("~") + ConfigurationSettings.AppSettings["RutaImagenLogo"].ToString() +
-                              ConfigurationSettings.AppSettings["NombreImagenLogo"].ToString();
+            string rutaLogo = Server.MapPath("~") + ConfigurationManager.AppSettings["RutaImagenLogo"].ToString() +
+                              ConfigurationManager.AppSettings["NombreImagenLogo"].ToString();
 
             iTextSharp.text.Image imgLogo = iTextSharp.text.Image.GetInstance(rutaLogo);
             imgLogo.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
@@ -132,19 +132,19 @@ namespace Evoluciona.Dialogo.Web.Reportes
             int width = desktopSize.Width;
             int height = desktopSize.Height;
 
-            int PercentWidth = Convert.ToInt32(ConfigurationSettings.AppSettings["PercentWidth"].ToString());
-            int PercentHeight = Convert.ToInt32(ConfigurationSettings.AppSettings["PercentHeight"].ToString());
-            int PercentCien = Convert.ToInt32(ConfigurationSettings.AppSettings["PercentCien"].ToString());
+            int PercentWidth = Convert.ToInt32(ConfigurationManager.AppSettings["PercentWidth"].ToString());
+            int PercentHeight = Convert.ToInt32(ConfigurationManager.AppSettings["PercentHeight"].ToString());
+            int PercentCien = Convert.ToInt32(ConfigurationManager.AppSettings["PercentCien"].ToString());
 
             width = ((width * PercentWidth) / PercentCien);
             height = ((height * PercentHeight) / PercentCien);
             imgTimeLine.ScaleToFit(width, height);
 
             imgTimeLine.BorderColor = iTextSharp.text.BaseColor.WHITE;
-            int BorderWidthLeft = Convert.ToInt32(ConfigurationSettings.AppSettings["BorderWidthLeft"].ToString());
-            int BorderWidthRight = Convert.ToInt32(ConfigurationSettings.AppSettings["BorderWidthRight"].ToString());
-            int BorderWidthTop = Convert.ToInt32(ConfigurationSettings.AppSettings["BorderWidthTop"].ToString());
-            int BorderWidthBottom = Convert.ToInt32(ConfigurationSettings.AppSettings["BorderWidthBottom"].ToString());
+            int BorderWidthLeft = Convert.ToInt32(ConfigurationManager.AppSettings["BorderWidthLeft"].ToString());
+            int BorderWidthRight = Convert.ToInt32(ConfigurationManager.AppSettings["BorderWidthRight"].ToString());
+            int BorderWidthTop = Convert.ToInt32(ConfigurationManager.AppSettings["BorderWidthTop"].ToString());
+            int BorderWidthBottom = Convert.ToInt32(ConfigurationManager.AppSettings["BorderWidthBottom"].ToString());
 
             imgTimeLine.BorderWidthLeft = BorderWidthLeft;
             imgTimeLine.BorderWidthRight = BorderWidthRight;

@@ -71,7 +71,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             }
             catch (Exception)
             {
-                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlertaPagina"].ToString());
+                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAlertaPagina"].ToString());
             }
         }
 

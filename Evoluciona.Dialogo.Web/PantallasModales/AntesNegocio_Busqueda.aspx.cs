@@ -88,7 +88,7 @@ namespace Evoluciona.Dialogo.Web.PantallasModales
         {
             if (Convert.ToInt32(ddlCampanadesde.SelectedItem.Text) > Convert.ToInt32(ddlCampanahasta.SelectedItem.Text))
             {
-                Page.RegisterStartupScript("script", "<script language=javascript>alert('La campaña de inicio no puede ser mayor a la campaña final')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "PopupScript", "alert('La campaña de inicio no puede ser mayor a la campaña final')", true);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace Evoluciona.Dialogo.Web.PantallasModales
         {
             if (Convert.ToInt32(ddlCampanadesde.SelectedItem.Text) > Convert.ToInt32(ddlCampanahasta.SelectedItem.Text))
             {
-                Page.RegisterStartupScript("script", "<script language=javascript>alert('La campaña de inicio no puede ser mayor a la campaña final')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "PopupScript", "alert('La campaña de inicio no puede ser mayor a la campaña final')", true);
             }
             else
             {

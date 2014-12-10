@@ -103,6 +103,11 @@ namespace Evoluciona.Dialogo.BusinessLogic
             DaCritica.EliminarCritica(documentoIdentidad, idProceso, connstring);
         }
 
+        public void EliminarCriticaPreDialogo(string documentoIdentidad, int idProceso, string connstring)
+        {
+            DaCritica.EliminarCriticaPreDialogo(documentoIdentidad, idProceso, connstring);
+        }
+
         #endregion SeleccionarCriticas
 
         public DataTable ObtenerHistoricoPeriodosCriticidad(string codigoUsuarioEvaluador, string codigoUsuarioRequerido, TipoHistorial tipo)

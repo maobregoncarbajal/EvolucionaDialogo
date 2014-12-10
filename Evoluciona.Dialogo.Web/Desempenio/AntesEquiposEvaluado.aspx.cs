@@ -166,7 +166,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 var seTieneEliminar = mnuSelecccionados.Items.Cast<MenuItem>().All(item => item.NavigateUrl.Trim() != critica.documentoIdentidad.Trim());
 
                 if (seTieneEliminar)
-                    criticaBl.EliminarCritica(critica.documentoIdentidad, ObjResumenBe.idProceso, CadenaConexion);
+                    criticaBl.EliminarCriticaPreDialogo(critica.documentoIdentidad, ObjResumenBe.idProceso, CadenaConexion);
             }
 
             var esCorrecto = mnuSelecccionados.Items.Cast<MenuItem>().Aggregate(true, (current, item) => current & criticaBl.InsertarCriticas(item.NavigateUrl, IdProceso, item.ToolTip, CodigoRolUsuario, CadenaConexion));
@@ -201,7 +201,7 @@ namespace Evoluciona.Dialogo.Web.Desempenio
                 var seTieneEliminar = mnuSelecccionados.Items.Cast<MenuItem>().All(item => item.NavigateUrl.Trim() != critica.documentoIdentidad.Trim());
 
                 if (seTieneEliminar)
-                    criticaBl.EliminarCritica(critica.documentoIdentidad, ObjResumenBe.idProceso, CadenaConexion);
+                    criticaBl.EliminarCriticaPreDialogo(critica.documentoIdentidad, ObjResumenBe.idProceso, CadenaConexion);
             }
 
             var esCorrecto = mnuSelecccionados.Items.Cast<MenuItem>().Aggregate(true, (current, item) => current & criticaBl.InsertarCriticasPreDialogo(item.NavigateUrl, IdProceso, item.ToolTip, CodigoRolUsuario, CadenaConexion));

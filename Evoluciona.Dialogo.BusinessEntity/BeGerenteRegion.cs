@@ -26,7 +26,21 @@ namespace Evoluciona.Dialogo.BusinessEntity
         /// Fecha:          17/11/2012
         /// </summary>
         ///
-        public BeDirectoraVentas obeDirectoraVentas { get; set; }
+        /// 
+        //public BeDirectoraVentas obeDirectoraVentas { get; set; }
+        private BeDirectoraVentas _obeDirectoraVentas = new BeDirectoraVentas();
+
+        public BeDirectoraVentas obeDirectoraVentas {
+            get { return _obeDirectoraVentas; }
+            set { _obeDirectoraVentas = value; }
+        }
+
+        public string NombreDirectoraVentas
+        {
+            get { return obeDirectoraVentas.vchNombreCompleto; }
+            set { obeDirectoraVentas.vchNombreCompleto = value; }
+        }
+
         public string chrCampaniaRegistro { get; set; }
         public string chrIndicadorMigrado { get; set; }
         public string chrCampaniaBaja { get; set; }

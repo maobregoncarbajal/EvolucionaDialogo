@@ -37,7 +37,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Matriz
             }
             catch (Exception)
             {
-                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlertaPagina"].ToString());
+                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAlertaPagina"].ToString());
             }
 
         }

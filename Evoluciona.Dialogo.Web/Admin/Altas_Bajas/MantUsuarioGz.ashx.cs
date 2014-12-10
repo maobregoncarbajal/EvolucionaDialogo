@@ -22,6 +22,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
         #region Variables
 
         private readonly BlGerenteZona _oBlGz = new BlGerenteZona();
+        private readonly BlAltas _oBlAltas = new BlAltas();
 
         #endregion
 
@@ -157,6 +158,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             var intId = context.Request["IntID"];
             var estado = _oBlGz.DeleteGz(Int32.Parse(intId));
             var respuesta = estado ? "Registro retirado con éxito" : "";
+
+            _oBlAltas.ActualizarEstandarizacionCodigo();
+
             context.Response.Write(respuesta);
         }
 
@@ -177,6 +181,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             var estado = _oBlGz.AddGr(obj);
             var respuesta = estado ? "Registro ingresado correctamente" : "";
+
+            _oBlAltas.ActualizarEstandarizacionCodigo();
+
             context.Response.Write(respuesta);
 
 
@@ -187,12 +194,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             var obj = new BeGerenteZona
             {
                 intIDGerenteZona = Int32.Parse(context.Request["intIDGerenteZona"]),
-                intIDGerenteRegion = Int32.Parse(context.Request["intIDGerenteRegion"]),
                 chrPrefijoIsoPais = context.Request["chrPrefijoIsoPais"].Trim(),
                 chrCodigoGerenteZona = context.Request["chrCodigoGerenteZona"].Trim(),
                 vchNombreCompleto = context.Request["vchNombreCompleto"].Trim(),
                 vchCorreoElectronico = context.Request["vchCorreoElectronico"].Trim(),
-                vchCUBGR = String.Empty,
                 vchCUBGZ = context.Request["vchCUBGZ"].Trim(),
                 chrCodigoPlanilla = context.Request["chrCodigoPlanilla"].Trim(),
                 vchCodigoRegion = context.Request["vchCodigoRegion"].Trim(),
@@ -202,6 +207,8 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             var estado = _oBlGz.EditGz(obj);
             var respuesta = estado ? "Registro actualizado correctamente" : "";
+
+            _oBlAltas.ActualizarEstandarizacionCodigo();
 
             context.Response.Write(respuesta);
 

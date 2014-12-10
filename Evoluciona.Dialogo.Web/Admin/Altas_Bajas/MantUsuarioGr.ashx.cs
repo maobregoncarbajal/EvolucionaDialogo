@@ -22,6 +22,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
         #region Variables
 
         private readonly BlGerenteRegion _oBlGr = new BlGerenteRegion();
+        private readonly BlAltas _oBlAltas = new BlAltas();
 
         #endregion
 
@@ -35,11 +36,17 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
                 case "export":
                     ExportJqGrid(context);
                     break;
-                case "loadPais":
-                    LoadPais(context);
+                case "loadPaises":
+                    LoadPaises(context);
                     break;
-                case "loadRegion":
-                    LoadRegion(context);
+                case "loadRegiones":
+                    LoadRegiones(context);
+                    break;
+                case "validaCodGr":
+                    ValidaCodGr(context);
+                    break;
+                case "validaCub":
+                    ValidaCubGr(context);
                     break;
             }
 
@@ -93,12 +100,12 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
         private void DelJqGrid(HttpContext context)
         {
             var intId = context.Request["IntID"];
-            var ids = intId.Split(',');
-            var idsNoDel = (from id in ids let estado = _oBlGr.DeleteGr(Int32.Parse(id)) where !estado select id).Aggregate("", (current, id) => current + id + ",");
+            var estado = _oBlGr.DeleteGr(Int32.Parse(intId));
+            var respuesta = estado ? "Registro retirado con éxito" : "";
 
-            context.Response.Write(!String.IsNullOrEmpty(idsNoDel)
-                ? JsonConvert.SerializeObject("No se pudo eliminar las filas" + idsNoDel)
-                : JsonConvert.SerializeObject(""));
+            _oBlAltas.ActualizarEstandarizacionCodigo();
+
+            context.Response.Write(respuesta);
         }
 
         private void AddJqGrid(HttpContext context)
@@ -109,7 +116,6 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
                 ChrPrefijoIsoPais = context.Request["ChrPrefijoIsoPais"],
                 VchNombrecompleto = context.Request["VchNombrecompleto"],
                 VchCorreoElectronico = context.Request["VchCorreoElectronico"],
-                ChrCodDirectorVenta = context.Request["ChrCodDirectorVenta"],
                 VchCUBGR = context.Request["VchCUBGR"],
                 ChrCodigoPlanilla = context.Request["ChrCodigoPlanilla"],
                 VchCodigoRegion = context.Request["VchCodigoRegion"],
@@ -117,8 +123,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             };
 
             var estado = _oBlGr.AddGr(obj);
+            var respuesta = estado ? "Registro ingresado correctamente" : "";
+            _oBlAltas.ActualizarEstandarizacionCodigo();
 
-            context.Response.Write(JsonConvert.SerializeObject(estado));
+            context.Response.Write(respuesta);
 
         }
 
@@ -126,12 +134,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
         {
             var obj = new BeGerenteRegion
             {
-                IntIDGerenteRegion = Int32.Parse(context.Request["IntID"]),
+                IntIDGerenteRegion = Int32.Parse(context.Request["IntIDGerenteRegion"]),
                 ChrCodigoGerenteRegion = context.Request["ChrCodigoGerenteRegion"],
                 ChrPrefijoIsoPais = context.Request["ChrPrefijoIsoPais"],
                 VchNombrecompleto = context.Request["VchNombrecompleto"],
                 VchCorreoElectronico = context.Request["VchCorreoElectronico"],
-                ChrCodDirectorVenta = context.Request["ChrCodDirectorVenta"],
                 VchCUBGR = context.Request["VchCUBGR"],
                 ChrCodigoPlanilla = context.Request["ChrCodigoPlanilla"],
                 VchCodigoRegion = context.Request["VchCodigoRegion"],
@@ -139,8 +146,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             };
 
             var estado = _oBlGr.EditGr(obj);
+            var respuesta = estado ? "Registro actualizado correctamente" : "";
 
-            context.Response.Write(JsonConvert.SerializeObject(estado));
+            _oBlAltas.ActualizarEstandarizacionCodigo();
+
+            context.Response.Write(respuesta);
 
         }
 
@@ -157,7 +167,6 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
             data.Columns.Remove("bitEstado");
             data.Columns.Remove("intUsuarioCrea");
-            data.Columns.Remove("obeDirectoraVentas");
             data.Columns.Remove("chrCampaniaRegistro");
             data.Columns.Remove("chrIndicadorMigrado");
             data.Columns.Remove("chrCampaniaBaja");
@@ -188,16 +197,17 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             data.Columns.Remove("ChrCodigoDataMart");
             data.Columns.Remove("ChrNombreCodDirectorVenta");
             data.Columns.Remove("IntIDGerenteRegion");
-
-
-            data.Columns["ChrCodigoGerenteRegion"].SetOrdinal(0);
-            data.Columns["ChrPrefijoIsoPais"].SetOrdinal(1);
+            data.Columns.Remove("obeDirectoraVentas");
+            data.Columns.Remove("ChrCodDirectorVenta");
+            
+            data.Columns["ChrPrefijoIsoPais"].SetOrdinal(0);
+            data.Columns["ChrCodigoGerenteRegion"].SetOrdinal(1);
             data.Columns["VchNombrecompleto"].SetOrdinal(2);
             data.Columns["VchCorreoElectronico"].SetOrdinal(3);
-            data.Columns["ChrCodDirectorVenta"].SetOrdinal(4);
-            data.Columns["VchCUBGR"].SetOrdinal(5);
-            data.Columns["ChrCodigoPlanilla"].SetOrdinal(6);
-            data.Columns["VchCodigoRegion"].SetOrdinal(7);
+            data.Columns["VchCUBGR"].SetOrdinal(4);
+            data.Columns["ChrCodigoPlanilla"].SetOrdinal(5);
+            data.Columns["VchCodigoRegion"].SetOrdinal(6);
+            data.Columns["NombreDirectoraVentas"].SetOrdinal(7);
             data.Columns["VchObservacion"].SetOrdinal(8);
 
 
@@ -212,15 +222,15 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             data.Namespace = ""; // texto filtros
 
             //Crear Titulos
-            headerTitles.Add("C. G. Region ");
-            headerTitles.Add("Pais ");
+            headerTitles.Add("País ");
+            headerTitles.Add("Doc. Identidad ");
             headerTitles.Add("Nombre Completo ");
-            headerTitles.Add("Correo Electronico ");
-            headerTitles.Add("C. Director Venta ");
+            headerTitles.Add("Correo Electrónico ");
             headerTitles.Add("CUB ");
             headerTitles.Add("C. Planilla ");
             headerTitles.Add("C. Region ");
-            headerTitles.Add("Observacion ");
+            headerTitles.Add("Directora Venta ");
+            headerTitles.Add("Observación ");
 
             HeaderTitle(headerTitles, ref data);
 
@@ -254,76 +264,75 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
 
 
 
-        private void LoadRegion(HttpContext context)
+        private void LoadRegiones(HttpContext context)
         {
-            var cadena = string.Empty; //"<select>";
-            const string puntoComa = ","; //"</select>";
-            var cont = 0;
-
             try
             {
-                var oListReg = ListaRegion(context);
-                var countList = oListReg.Count;
-                var pais = context.Request["pais"];
-
-                foreach (var reg in oListReg)
-                {
-                    cont++;
-
-                    var cod = reg.Codigo;
-                    var des = reg.Descripcion;
-                    cadena = cadena + pais + cod + ":" + des;
-
-                    if (cont != countList)
-                    {
-                        cadena = cadena + puntoComa;
-                    }
-                }
-                context.Response.Write(JsonConvert.SerializeObject(cadena));
+                var oListReg = ListaRegiones(context);
+                context.Response.Write(JsonConvert.SerializeObject(oListReg));
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
 
 
-        private List<BeComun> ListaRegion(HttpContext context)
+        private List<BeRegion> ListaRegiones(HttpContext context)
         {
             var pais = context.Request["pais"];
-
             var oListRegion = _oBlGr.ListarRegiones(pais);
 
             return oListRegion;
         }
 
 
-        private void LoadPais(HttpContext context)
+        private void LoadPaises(HttpContext context)
         {
             try
             {
-                var oListPais = ListaPais(context);
+                var oListPais = ListaPaises(context);
                 context.Response.Write(JsonConvert.SerializeObject(oListPais));
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
 
 
-        private List<BeComun> ListaPais(HttpContext context)
+        private List<BeComun> ListaPaises(HttpContext context)
         {
             var pais = context.Request["pais"];
-
             var oListPais = _oBlGr.ListarPaises(pais);
 
             return oListPais;
         }
 
+        private void ValidaCodGr(HttpContext context)
+        {
+            var pais = context.Request["pais"];
+            var region = context.Request["region"];
+            var codGz = context.Request["codGr"];
 
+            var cantCodGz = _oBlGr.ValidaCodGr(pais, region, codGz);
+
+
+            context.Response.Write(JsonConvert.SerializeObject(cantCodGz));
+        }
+
+
+        private void ValidaCubGr(HttpContext context)
+        {
+            var pais = context.Request["pais"];
+            var region = context.Request["region"];
+            var cub = context.Request["cub"];
+
+            var cantCub = _oBlGr.ValidaCubGr(pais, region, cub);
+
+
+            context.Response.Write(JsonConvert.SerializeObject(cantCub));
+        }
 
 
 

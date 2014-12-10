@@ -102,7 +102,6 @@
     <Content Include="Admin\Altas_Bajas\MantGr.aspx" />
     <Content Include="Admin\Altas_Bajas\MantGz.aspx" />
     <Content Include="Admin\Altas_Bajas\Masivo\Altas.aspx" />
-    <Content Include="Admin\Altas_Bajas\NuevoMantGz.aspx" />
     <Content Include="Admin\Altas_Bajas\Reasignaciones.aspx" />
     <Content Include="Admin\Altas_Bajas\Reportes.aspx" />
     <Content Include="Admin\Altas_Bajas\ReportesHistoricos.aspx" />
@@ -2058,13 +2057,6 @@
     </Compile>
     <Compile Include="Admin\Altas_Bajas\Masivo\Altas.aspx.designer.cs">
       <DependentUpon>Altas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Altas_Bajas\NuevoMantGz.aspx.cs">
-      <DependentUpon>NuevoMantGz.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Altas_Bajas\NuevoMantGz.aspx.designer.cs">
-      <DependentUpon>NuevoMantGz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Altas_Bajas\Reasignaciones.aspx.cs">
       <DependentUpon>Reasignaciones.aspx</DependentUpon>

@@ -31,7 +31,8 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
             }
             catch (Exception)
             {
-                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlertaPagina"]);
+                //AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAlertaPagina"]);
+                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAlertaPagina"]);
             }
         }
 
@@ -199,10 +200,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
         {
             hdenCodigoPais.Value = string.Empty;
             hdenCodigoUsuario.Value = string.Empty;
-            hdenAnioAuxMinimo.Value = ConfigurationSettings.AppSettings["AnioAuxMinimo"].ToString();
-            hdenAnioAuxMaximo.Value = ConfigurationSettings.AppSettings["AnioAuxMaximo"].ToString();
-            hdenCampaniaAuxMinimo.Value = ConfigurationSettings.AppSettings["campaniaAuxMinimo"].ToString();
-            hdenCampaniaAuxMaximo.Value = ConfigurationSettings.AppSettings["campaniaAuxMaximo"].ToString();
+            hdenAnioAuxMinimo.Value = ConfigurationManager.AppSettings["AnioAuxMinimo"].ToString();
+            hdenAnioAuxMaximo.Value = ConfigurationManager.AppSettings["AnioAuxMaximo"].ToString();
+            hdenCampaniaAuxMinimo.Value = ConfigurationManager.AppSettings["campaniaAuxMinimo"].ToString();
+            hdenCampaniaAuxMaximo.Value = ConfigurationManager.AppSettings["campaniaAuxMaximo"].ToString();
         }
 
         #endregion "Metodos Comunes"
@@ -300,7 +301,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
                                 ListarGerenteRegionAlta(ddlPais.SelectedValue, txtAnioCampania.Text, ddlRegion.SelectedValue, txtColaborador.Text, ddlPeriodos.SelectedValue);
                             }
                             else
-                                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAnioCampania"].ToString());
+                                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAnioCampania"].ToString());
                         }
                         else
                         {
@@ -310,7 +311,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas
                                 ListarGerenteZonaAlta(ddlPais.SelectedValue, txtAnioCampania.Text, ddlRegion.SelectedValue, ddlZona.SelectedValue, txtColaborador.Text, ddlPeriodos.SelectedValue);
                             }
                             else
-                                AlertaMensaje(ConfigurationSettings.AppSettings["MensajeAnioCampania"].ToString());
+                                AlertaMensaje(ConfigurationManager.AppSettings["MensajeAnioCampania"].ToString());
                         }
                     }
                 }

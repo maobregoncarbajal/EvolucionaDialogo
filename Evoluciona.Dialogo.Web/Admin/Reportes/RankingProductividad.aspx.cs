@@ -1,4 +1,7 @@
 ﻿
+using System.Globalization;
+using System.Linq;
+
 namespace Evoluciona.Dialogo.Web.Admin.Reportes
 {
     using BusinessEntity;
@@ -19,11 +22,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
     {
         #region Variables
 
-        private readonly BlReporte reporteBL = new BlReporte();
+        private readonly BlReporte _reporteBL = new BlReporte();
 
-        private BeAdmin objAdmin;
+        private BeAdmin _objAdmin;
 
-        private static int numCompetencia;
 
         #endregion Variables
 
@@ -47,7 +49,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) { return; }
-            objAdmin = (BeAdmin)Session[Constantes.ObjUsuarioLogeado];
+            _objAdmin = (BeAdmin)Session[Constantes.ObjUsuarioLogeado];
 
             CargarPaises();
             CargarRolesValidos();
@@ -65,7 +67,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             // Eliminar Archivos Anteriores de Reportes
             foreach (string file in Directory.GetFiles(Server.MapPath(@"~/Charts/")))
             {
-                FileInfo theFile = new FileInfo(file);
+                var theFile = new FileInfo(file);
 
                 if (DateTime.Parse(theFile.CreationTime.ToShortDateString()) < DateTime.Parse(DateTime.Now.ToShortDateString()))
                 {
@@ -111,11 +113,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             gvResumen.Columns[4].HeaderText = estado2;
             gvResumen.Columns[5].HeaderText = estado3;
 
-            List<BeAnalisisStatusRanking> entidades = reporteBL.ListarAnalisisStatusRanking(pais, nivel, periodo, campanha, estado1, estado2, estado3);
+            List<BeAnalisisStatusRanking> entidades = _reporteBL.ListarAnalisisStatusRanking(pais, nivel, periodo, campanha, estado1, estado2, estado3);
 
             if (entidades.Count != 0)
             {
-                List<BeChartCampanha> charts = reporteBL.ListarChartCampanha(pais, nivel, periodo, campanha, estado1, estado2, estado3);
+                List<BeChartCampanha> charts = _reporteBL.ListarChartCampanha(pais, nivel, periodo, campanha, estado1, estado2, estado3);
 
                 ChartPeriodo.Visible = true;
 
@@ -146,7 +148,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
                 CargarChartPeriodo(estado1, estado2, estado3, totalEstado1, totalEstado2, totalEstado3);
 
                 gvResumen.Columns[0].FooterText = "Belcorp";
-                gvResumen.Columns[2].FooterText = cantidad.ToString();
+                gvResumen.Columns[2].FooterText = cantidad.ToString(CultureInfo.InvariantCulture);
                 gvResumen.DataSource = entidades;
                 gvResumen.DataBind();
 
@@ -174,11 +176,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         {
             if (e.Row.RowType != DataControlRowType.Header) return;
 
-            GridView objGridView = (GridView)sender;
+            var objGridView = (GridView)sender;
 
-            GridViewRow objgridviewrow = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
+            var objgridviewrow = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
 
-            TableCell objtablecell = new TableCell();
+            var objtablecell = new TableCell();
 
             #region Merge cells
 
@@ -213,7 +215,6 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             gvDetalle.DataBind();
 
             string periodo = cboPeriodosD.SelectedValue;
-            string anhio = periodo.Substring(0, 4);
             string nombreColaborador = txtNombreColaboradorD.Text;
             string nivel = GetRolByCodigoRol(Convert.ToInt32(cboRolesD.SelectedValue));
             string codPais = cboPaisesD.SelectedValue;
@@ -221,9 +222,9 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             string estado = cboCuadranteD.Text;
             string zona = string.IsNullOrEmpty(cboZonaD.SelectedValue) ? "0" : cboZonaD.SelectedValue.Trim();
             string region = string.IsNullOrEmpty(cboRegionD.SelectedValue) ? "0" : cboRegionD.SelectedValue.Trim();
-            int intIDRol = GetintIDRolByCodigoRol(Convert.ToInt32(cboRolesD.SelectedValue));
+            int intIdRol = GetintIDRolByCodigoRol(Convert.ToInt32(cboRolesD.SelectedValue));
 
-            DataTable dt = reporteBL.ObtenerVariablesNegocio(CadenaConexion, periodo, nombreColaborador, nivel, zona, codPais, nombreJefe, estado, region);
+            DataTable dt = _reporteBL.ObtenerVariablesNegocio(CadenaConexion, periodo, nombreColaborador, nivel, zona, codPais, nombreJefe, estado, region);
 
             // obtenemos los nombres de las columnas para las competencias a partir del 1 elemento
             if (dt.Rows.Count != 0)
@@ -235,10 +236,10 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    string codUsuario = (string)row["codigoColaborador"];
+                    var codUsuario = (string)row["codigoColaborador"];
 
-                    BlReporte blRepo = new BlReporte();
-                    DataTable dtCompetencia = blRepo.ObtenerCompetencia(codUsuario, "2012", codPais, intIDRol);
+                    var blRepo = new BlReporte();
+                    DataTable dtCompetencia = blRepo.ObtenerCompetencia(codUsuario, "2012", codPais, intIdRol);
 
                     if (dtCompetencia.Rows.Count > 0)
                     {
@@ -268,7 +269,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             cboZonaD.Items.Clear();
             cboZonaD.DataTextField = "Descripcion";
             cboZonaD.DataValueField = "Codigo";
-            cboZonaD.DataSource = reporteBL.ListarZonas(cboRegionD.SelectedValue);
+            cboZonaD.DataSource = _reporteBL.ListarZonas(cboRegionD.SelectedValue);
             cboZonaD.DataBind();
             cboZonaD.Items.Insert(0, new ListItem("Todos", "0"));
             Page.ClientScript.RegisterStartupScript(GetType(), "PostWindows", "PosicionarVentana(2);", true);
@@ -307,11 +308,11 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         {
             if (e.Row.RowType != DataControlRowType.Header) return;
 
-            GridView objGridView = (GridView)sender;
+            var objGridView = (GridView)sender;
 
-            GridViewRow objgridviewrow = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
+            var objgridviewrow = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
 
-            TableCell objtablecell = new TableCell();
+            var objtablecell = new TableCell();
 
             #region Merge cells
 
@@ -320,7 +321,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             const int colsEnfoques = 5;
             const int colsCompetenciaAdd = 1;
 
-            int colsVariableNegocio = objGridView.Columns.Count - (colsDato + colsOcultos + numCompetencia + colsEnfoques + colsCompetenciaAdd);
+            int colsVariableNegocio = objGridView.Columns.Count - (colsDato + colsOcultos + colsEnfoques + colsCompetenciaAdd);
 
             AddMergedCells(objgridviewrow, objtablecell, colsDato, string.Empty, System.Drawing.Color.White.Name);
 
@@ -328,9 +329,6 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
                 AddMergedCells(objgridviewrow, objtablecell, colsVariableNegocio, "Resultado por variable <br/>de Negocio(%logro)", "#60497B");
 
             AddMergedCells(objgridviewrow, objtablecell, colsEnfoques, string.Empty, System.Drawing.Color.White.Name);
-
-            if (numCompetencia > 0)
-                AddMergedCells(objgridviewrow, objtablecell, numCompetencia, "Resultado por Competencias <br/>(% de Desarrollo)", "#60497B");
 
             objGridView.Controls[0].Controls.AddAt(0, objgridviewrow);
 
@@ -389,7 +387,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             ChartPeriodo.Series["Estado1"].Points[0].AxisLabel = cboPeriodos.SelectedValue;
         }
 
-        private void CargarChartCampanha(List<BeChartCampanha> charts)
+        private void CargarChartCampanha(IEnumerable<BeChartCampanha> charts)
         {
             int index = 0;
 
@@ -423,7 +421,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         private void CargarPeriodos()
         {
             cboPeriodos.Items.Clear();
-            List<string> periodos = reporteBL.ObtenerPeriodos(cboPaises.SelectedValue, Convert.ToInt32(cboRoles.SelectedValue));
+            List<string> periodos = _reporteBL.ObtenerPeriodos(cboPaises.SelectedValue, Convert.ToInt32(cboRoles.SelectedValue));
 
             cboPeriodos.DataSource = periodos;
             cboPeriodos.DataBind();
@@ -432,7 +430,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         private void CargarPeriodosDetalle()
         {
             cboPeriodosD.Items.Clear();
-            List<string> periodos = reporteBL.ObtenerPeriodos(cboPaisesD.SelectedValue, Convert.ToInt32(cboRolesD.SelectedValue));
+            List<string> periodos = _reporteBL.ObtenerPeriodos(cboPaisesD.SelectedValue, Convert.ToInt32(cboRolesD.SelectedValue));
 
             cboPeriodosD.DataSource = periodos;
             cboPeriodosD.DataBind();
@@ -459,21 +457,21 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
         private int GetintIDRolByCodigoRol(int codigoRol)
         {
-            int intIDRol = codigoRol;
+            int intIdRol = codigoRol;
 
             switch (codigoRol)
             {
                 case Constantes.RolDirectorVentas:
-                    intIDRol = Constantes.IdRolDirectorVentas;
+                    intIdRol = Constantes.IdRolDirectorVentas;
                     break;
                 case Constantes.RolGerenteRegion:
-                    intIDRol = Constantes.IdRolGerenteRegion;
+                    intIdRol = Constantes.IdRolGerenteRegion;
                     break;
                 case Constantes.RolGerenteZona:
-                    intIDRol = Constantes.IdRolGerenteZona;
+                    intIdRol = Constantes.IdRolGerenteZona;
                     break;
             }
-            return intIDRol;
+            return intIdRol;
         }
 
         private void CargarCampañasFiltro()
@@ -487,7 +485,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             }
 
             cboCampanhasFiltro.Items.Clear();
-            cboCampanhasFiltro.DataSource = reporteBL.ObtenerListaCampana(string.Empty, Convert.ToInt32(cboRoles.SelectedValue),
+            cboCampanhasFiltro.DataSource = _reporteBL.ObtenerListaCampana(string.Empty, Convert.ToInt32(cboRoles.SelectedValue),
             cboPaises.SelectedValue, cboPeriodos.SelectedValue, CadenaConexion);
 
             cboCampanhasFiltro.DataTextField = "chrAnioCampana";
@@ -499,8 +497,8 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
         private void CargarPaises()
         {
-            BlPais paisBL = new BlPais();
-            List<BePais> paises = new List<BePais>();
+            var paisBL = new BlPais();
+            var paises = new List<BePais>();
 
             cboPaises.DataTextField = "NombrePais";
             cboPaises.DataValueField = "prefijoIsoPais";
@@ -508,7 +506,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             cboPaisesD.DataTextField = "NombrePais";
             cboPaisesD.DataValueField = "prefijoIsoPais";
 
-            switch (objAdmin.TipoAdmin)
+            switch (_objAdmin.TipoAdmin)
             {
                 case Constantes.RolAdminCoorporativo:
                     paises = paisBL.ObtenerPaises();
@@ -517,13 +515,13 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
                     cboPaises.DataBind();
                     break;
                 case Constantes.RolAdminPais:
-                    paises.Add(paisBL.ObtenerPais(objAdmin.CodigoPais));
+                    paises.Add(paisBL.ObtenerPais(_objAdmin.CodigoPais));
                     cboPaises.DataSource = paises;
                     cboPaises.DataBind();
                     cboPaisesD.DataSource = paises;
                     break;
                 case Constantes.RolAdminEvaluciona:
-                    paises.Add(paisBL.ObtenerPais(objAdmin.CodigoPais));
+                    paises.Add(paisBL.ObtenerPais(_objAdmin.CodigoPais));
                     cboPaises.DataSource = paises;
                     cboPaises.DataBind();
                     cboPaisesD.DataSource = paises;
@@ -537,22 +535,17 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
         {
             cboRegionD.DataTextField = "Descripcion";
             cboRegionD.DataValueField = "Codigo";
-            cboRegionD.DataSource = reporteBL.ListarRegiones();
+            cboRegionD.DataSource = _reporteBL.ListarRegiones();
             cboRegionD.DataBind();
             cboRegionD.Items.Insert(0, new ListItem("Todos", "0"));
         }
 
         private void CargarRolesValidos()
         {
-            BlRol rolBL = new BlRol();
+            var rolBL = new BlRol();
             var roles = rolBL.ObtenerRolesSubordinados(1);
-            var subRoles = new List<BeRol>();
+            var subRoles = roles.Where(beRol => beRol.CodigoRol != 4).ToList();
 
-            foreach (var beRol in roles)
-            {
-                if (beRol.CodigoRol != 4)
-                    subRoles.Add(beRol);
-            }
             cboRoles.DataSource = subRoles;
             cboRoles.DataTextField = "Descripcion";
             cboRoles.DataValueField = "CodigoRol";
@@ -566,6 +559,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
         protected void AddMergedCells(GridViewRow objgridviewrow, TableCell objtablecell, int colspan, string celltext, string backcolor)
         {
+            if (objtablecell == null) throw new ArgumentNullException("objtablecell");
             objtablecell = new TableCell { Text = celltext, ColumnSpan = colspan };
             objtablecell.Style.Add("background-color", backcolor);
             objtablecell.Style.Add("border-color", backcolor);
@@ -576,7 +570,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
         private void CargarCuadrante()
         {
-            List<BeComun> cuadrantes = new List<BeComun>
+            var cuadrantes = new List<BeComun>
                                            {
                                                new BeComun {Codigo = "0", Descripcion = "Todos"},
                                                new BeComun {Codigo = "Critica", Descripcion = "Critica"},
@@ -591,7 +585,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             cboCuadranteD.DataBind();
         }
 
-        private void GenerarControlReport(List<BeAnalisisStatusRanking> entidades)
+        private void GenerarControlReport(IEnumerable<BeAnalisisStatusRanking> entidades)
         {
             string strPeridoFilePath = string.Empty;
             string strCampanhaFilePath = string.Empty;
@@ -613,7 +607,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
             if (entidades == null)
             {
-                List<BeAnalisisStatusRanking> byDefault = new List<BeAnalisisStatusRanking>();
+                var byDefault = new List<BeAnalisisStatusRanking>();
                 source = new ReportDataSource("beAnalisisStatusRanking", byDefault);
             }
             else
@@ -632,7 +626,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
             const string estado2 = "Estable";
             const string estado3 = "Productiva";
 
-            List<ReportParameter> parametros = new List<ReportParameter>();
+            var parametros = new List<ReportParameter>();
             string rutaPeriodo = "file:///" + Server.MapPath(@"~/" + strPeridoFilePath);
             string rutaCampanha = "file:///" + Server.MapPath(@"~/" + strCampanhaFilePath);
 
@@ -664,7 +658,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
         private void CrearColumnas(DataColumnCollection columColection)
         {
-            List<BeGridColumns> columnas = new List<BeGridColumns>();
+            var columnas = new List<BeGridColumns>();
 
             foreach (DataColumn col in columColection)
             {
@@ -794,7 +788,7 @@ namespace Evoluciona.Dialogo.Web.Admin.Reportes
 
             foreach (BeGridColumns columna in columnas)
             {
-                BoundField columnBound = new BoundField
+                var columnBound = new BoundField
                 {
                     DataField = columna.DataField,
                     HeaderText = columna.HederText,

@@ -662,6 +662,38 @@ namespace Evoluciona.Dialogo.DataAccess
             }
         }
 
+
+        public void EliminarCriticaPreDialogo(string documentoIdentidad, int idProceso, string connstring)
+        {
+            using (var conn = new SqlConnection(connstring))
+            {
+                conn.Open();
+                var cmd = new SqlCommand("ESE_Eliminar_TRX_CRITICIDADPreDialogo", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add("@DNI", SqlDbType.Char, 20);
+                cmd.Parameters.Add("@intIDProceso", SqlDbType.Int);
+
+                cmd.Parameters["@DNI"].Value = documentoIdentidad;
+                cmd.Parameters["@intIDProceso"].Value = idProceso;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         #endregion SeleccionarCriticas
 
         public DataTable ObtenerHistoricoPeriodosCriticidad(string codigoUsuarioEvaluador, string codigoUsuarioRequerido, TipoHistorial tipo)

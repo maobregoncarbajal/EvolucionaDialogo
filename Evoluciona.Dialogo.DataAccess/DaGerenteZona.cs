@@ -767,7 +767,7 @@ namespace Evoluciona.Dialogo.DataAccess
                                     VchNombrecompleto =
                                        dr.IsDBNull(dr.GetOrdinal("NombreGerenteRegion"))
                                            ? string.Empty
-                                           : dr.GetString(dr.GetOrdinal("NombreGerenteRegion"))
+                                           : dr.GetString(dr.GetOrdinal("NombreGerenteRegion")),
                                 }
                             };
 
@@ -1199,12 +1199,10 @@ namespace Evoluciona.Dialogo.DataAccess
                 var cmd = new SqlCommand("ESE_MANT_USU_ACTUALIZAR_GZ", conn) {CommandType = CommandType.StoredProcedure};
 
                 cmd.Parameters.Add("@intIDGerenteZona", SqlDbType.Int);
-                cmd.Parameters.Add("@intIDGerenteRegion", SqlDbType.Int);
                 cmd.Parameters.Add("@chrPrefijoIsoPais", SqlDbType.Char, 2);
                 cmd.Parameters.Add("@chrCodigoGerenteZona", SqlDbType.Char, 20);
                 cmd.Parameters.Add("@vchNombreCompleto", SqlDbType.VarChar, 150);
                 cmd.Parameters.Add("@vchCorreoElectronico", SqlDbType.VarChar, 100);
-                cmd.Parameters.Add("@vchCUBGR", SqlDbType.VarChar, 20);
                 cmd.Parameters.Add("@vchCUBGZ", SqlDbType.VarChar, 20);
                 cmd.Parameters.Add("@chrCodigoPlanilla", SqlDbType.VarChar, 10);
                 cmd.Parameters.Add("@vchCodigoRegion", SqlDbType.VarChar, 15);
@@ -1212,12 +1210,10 @@ namespace Evoluciona.Dialogo.DataAccess
                 cmd.Parameters.Add("@vchObservacion", SqlDbType.VarChar, 200);
 
                 cmd.Parameters["@intIDGerenteZona"].Value = obj.intIDGerenteZona;
-                cmd.Parameters["@intIDGerenteRegion"].Value = obj.intIDGerenteRegion;
                 cmd.Parameters["@chrPrefijoIsoPais"].Value = obj.chrPrefijoIsoPais;
                 cmd.Parameters["@chrCodigoGerenteZona"].Value = obj.chrCodigoGerenteZona;
                 cmd.Parameters["@vchNombreCompleto"].Value = obj.vchNombreCompleto;
                 cmd.Parameters["@vchCorreoElectronico"].Value = obj.vchCorreoElectronico;
-                cmd.Parameters["@vchCUBGR"].Value = obj.vchCUBGR;
                 cmd.Parameters["@vchCUBGZ"].Value = obj.vchCUBGZ;
                 cmd.Parameters["@chrCodigoPlanilla"].Value = obj.chrCodigoPlanilla;
                 cmd.Parameters["@vchCodigoRegion"].Value = obj.vchCodigoRegion;

@@ -389,5 +389,34 @@ namespace Evoluciona.Dialogo.DataAccess
         }
 
         #endregion "Mantenimiento BELCORP - DATAMART"
+
+        public bool SincronizarDialogoConPreparacion(int idProceso)
+        {
+            using (var conn = ObtieneConexion())
+            {
+                conn.Open();
+                var cmd = new SqlCommand("ESE_SP_SINCRO_DIALOGO_CON_PREPARACION", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add("@intIDProceso", SqlDbType.Int).Value = idProceso;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return true;
+        }
+
     }
 }

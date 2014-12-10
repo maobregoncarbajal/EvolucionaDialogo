@@ -5,259 +5,425 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery-1.9.0.min.js"
-        type="text/javascript"></script>
-
-    <link href="../../Jscripts/JQGridReq/Styles/Site.css" rel="stylesheet" type="text/css" />
-    <link href="../../Jscripts/JQGridReq/jquery-ui-1.10.3.custom.css" rel="stylesheet"
-        type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery.jqGrid.js"
-        type="text/javascript"></script>
-
-    <link href="../../Jscripts/JQGridReq/ui.jqgrid.css" rel="stylesheet" type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/grid.locale-en.js"
-        type="text/javascript"></script>
+    <link href="../../Jscripts/jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery-1.11.0.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>/Jscripts/jquery-ui-1.11.0.custom/jquery-ui.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/jquery.jqGrid.js" type="text/javascript"></script>
+    <link href="../../Jscripts/jquery.jqGrid-4.6.0/src/css/ui.jqgrid.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/i18n/grid.locale-es.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/Evoluciona.js" type="text/javascript"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table id="jQGridDemo">
+    <br />
+    <table id="list">
+        <tr>
+            <td></td>
+        </tr>
     </table>
-    <div id="jQGridDemoPager">
-    </div>
+    <div id="pager"></div>
     <asp:HiddenField ID="hfPais" runat="server" />
-    <asp:HiddenField ID="hfValComboPais" runat="server" />
-    <asp:HiddenField ID="hfValComboRegion" runat="server" />
-    <asp:HiddenField ID="hfRol" runat="server" />
+    <asp:HiddenField ID="hfUsuario" runat="server" />
 
-    <script type="text/javascript">
+    <script id="MantGr" type="text/javascript">
 
-        var countries = $('#<%=hfValComboPais.ClientID%>').val();
+        var url = '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGr.ashx';
+        var grid = $("#list");
+        var inEdit;
+        var pais = $("#<%=hfPais.ClientID %>").val();
+        var paisSearch = "";
+        var regionSearch = "";//fff
+        var listPaises = funPaises();
+        var lastSel = -1;
 
-        jQuery("#jQGridDemo").jqGrid({
-            url: '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGr.ashx?accion=load&pais=' + $('#<%=hfPais.ClientID%>').val(),
-            datatype: "json",
-            colNames: ['IntIDGerenteRegion', 'C. G. Region', 'Pais', 'Nombre Completo', 'Correo Electronico', 'C. DirectorVenta', 'CUB', 'C. Planilla', 'C. Region', 'Observacion'],
-            colModel: [
-                { name: 'IntIDGerenteRegion', index: 'IntIDGerenteRegion', stype: 'text', editable: false, sorttype: 'int', hidden: true },
-                { name: 'ChrCodigoGerenteRegion', index: 'ChrCodigoGerenteRegion', width: 100, align: "right", editable: true },
-                { name: 'ChrPrefijoIsoPais', index: 'ChrPrefijoIsoPais', width: 100, align: "right", editable: true, edittype: "select" },
-                { name: 'VchNombrecompleto', index: 'VchNombrecompleto', width: 220, editable: true },
-                { name: 'VchCorreoElectronico', index: 'VchCorreoElectronico', width: 160, align: "left", sortable: false, editable: true },
-                { name: 'ChrCodDirectorVenta', index: 'ChrCodDirectorVenta', width: 100, align: "right", editable: true },
-                { name: 'VchCUBGR', index: 'VchCUBGR', width: 120, align: "right", editable: true },
-                { name: 'ChrCodigoPlanilla', index: 'ChrCodigoPlanilla', width: 100, align: "right", sortable: false, editable: true },
-                { name: 'VchCodigoRegion', index: 'VchCodigoRegion', width: 100, align: "right", editable: true },
-                { name: 'VchObservacion', index: 'vchObservacion', width: 120, align: "right", sortable: false, editable: true }
-            ],
-            rowNum: 10,
-            mtype: 'GET',
-            loadonce: true,
-            ignoreCase: true,
-            rowList: [10, 20, 30],
-            pager: '#jQGridDemoPager',
-            sortname: 'IntIDGerenteRegion',
-            viewrecords: true,
-            sortorder: "desc",
-            caption: "Gerente Region",
-            editurl: '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGr.ashx',
-            height: '100%',
-            multiselect: true,
-            onSelectRow: function (id) {
-                var selRows = $(this).jqGrid('getGridParam', 'selarrrow');
-                if (selRows.length === 1) {
-                    //alert("no rows are selected now");
-                    // you can disable the button
-                    $("#edit_" + this.id).removeClass('ui-state-disabled');
-                    //cargarRegiones('3');
-                } else {
-                    //alert("a row is selected now");
-                    // you can disable the button
-                    $("#edit_" + this.id).addClass('ui-state-disabled');
-                    //cargarRegiones('4');
-                }
-            },
-            onSelectAll: function (id) {
-                var selRows = $(this).jqGrid('getGridParam', 'selarrrow');
-                if (selRows.length === 1) {
-                    //alert("no rows are selected now");
-                    // you can disable the button
-                    $("#edit_" + this.id).removeClass('ui-state-disabled');
-                } else {
-                    //alert("a row is selected now");
-                    // you can disable the button
-                    $("#edit_" + this.id).addClass('ui-state-disabled');
-                }
-            },
-            loadComplete: function () {
-                $("#edit_" + this.id).addClass('ui-state-disabled');
-                $('#jQGridDemo').setColProp('ChrPrefijoIsoPais', { editoptions: { value: $('#<%=hfValComboPais.ClientID%>').val() } });
+        var paisEdit = "";
+        var regionEdit = "";
+
+        var codGrEdit = "";
+        var cubGrEdit = "";
+
+
+        var validaNombre = function (value, colname) {
+            if (value.length < 1) {
+                return [false, "Nombre no puede estar vacio"];
+            } else {
+                return [true, ""];
             }
-        });
+        };
 
-        $('#jQGridDemo').jqGrid('navGrid', '#jQGridDemoPager',
-            {
-                edit: true,
-                add: true,
-                del: true,
-                search: true,
-                searchtext: "Search",
-                addtext: "Add",
-                edittext: "Edit",
-                deltext: "Delete"
-            },
-            {//EDIT EVENTS AND PROPERTIES GOES HERE
-                //EDIT
-                //                       height: 300,
-                //                       width: 400,
-                //                       top: 50,
-                //                       left: 100,
-                //                       dataheight: 280,
-                closeOnEscape: true, //Closes the popup on pressing escape key
-                reloadAfterSubmit: true,
-                drag: true,
-                afterSubmit: function (response, postdata) {
+        var validaCodGr = function (value, colname) {
+
+            var varPais = $("select#ChrPrefijoIsoPais").val();
+            var varRegion = $("select#VchCodigoRegion").val();
+
+
+            if (value != codGrEdit && value != "") {
+
+                var paramValidaCodGr = { accion: 'validaCodGr', 'pais': varPais, 'region': varRegion, 'codGr': value };
+                var cantCodGr = Evoluciona.Ajax(url, paramValidaCodGr, false);
+
+                if (cantCodGr > 0) {
+                    return [false, 'Ya existe el Doc. Identidad'];
+                }
+            } else {
+                if (value == "") {
+                    return [false, 'Doc. Identidad no puede estar vacio'];
+                } else {
+                    return [true, ""];
+                }
+            }
+
+            return [true, '']; // no error
+        };
+
+        var validaCubGr = function (value, colname) {
+
+            var varPais = $("select#ChrPrefijoIsoPais").val();
+            var varRegion = $("select#VchCodigoRegion").val();
+
+
+            if (value != cubGrEdit) {
+
+                var paramValidaCub = { accion: 'validaCub', 'pais': varPais, 'region': varRegion, 'cub': value };
+                var cantCub = Evoluciona.Ajax(url, paramValidaCub, false);
+
+                if (cantCub > 0) {
+                    return [false, 'Ya existe el CUB'];
+                }
+
+            } else {
+                return [true, ""];
+            }
+
+            return [true, '']; // no error
+        };
+
+
+        jQuery(document).ready(function () {
+
+
+            var editGridRowOptions = {
+                recreateForm: true
+                , beforeInitData: function () { inEdit = true; }
+                , viewPagerButtons: false
+                , closeOnEscape: true
+                , reloadAfterSubmit: true
+                , closeAfterEdit: true
+                , drag: true
+                , onClose: function () {
+                    //paisEdit = "";
+                    //regionEdit = "";
+                    //codGzEdit = "";
+                    //cubGzEdit = "";
+                }
+                , afterSubmit: function (response, postdata) {
                     if (response.responseText == "") {
+                        grid.trigger("reloadGrid", [{ current: true }]);
+                        return [false, response.responseText];
+                    }
+                    else {
+                        grid.jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                        return [true, response.responseText];
+                    }
+                }
+            };
 
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid'); //Reloads the grid after edit
+
+            var addGridRowOptions = {
+                recreateForm: true,
+                beforeInitData: function () { inEdit = false; },
+                afterSubmit: function (response) {
+                    if (response.responseText == "") {
+                        grid.jqGrid('setGridParam',
+                          { datatype: 'json' }).trigger('reloadGrid');//Reloads the grid after edit
                         return [true, ''];
                     }
                     else {
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid'); //Reloads the grid after edit
-                        return [false, response.responseText]//Captures and displays the response text on th Edit window
+                        grid.jqGrid('setGridParam',
+                          { datatype: 'json' }).trigger('reloadGrid'); //Reloads the grid after edit
+                        return [false, response.responseText];
+                        //Captures and displays the response text on th Edit window
                     }
                 },
-                editData: {
-                    IntID: function () {
-                        var sel_id = $('#jQGridDemo').jqGrid('getGridParam', 'selrow');
-                        var value = $('#jQGridDemo').jqGrid('getCell', sel_id, 'IntIDGerenteRegion');
-                        return value;
-                    }
-                },
-                beforeSubmit: function (postdata, formid) {
-                    //more validations
-                    if ($('#Nombres').val() == "") {
-                        $('#Nombres').addClass("ui-state-highlight");
+                closeOnEscape: true,
+                reloadAfterSubmit: true,
+                closeAfterAdd: true,
+                drag: true,
+                beforeSubmit: function () {
+                    //validations
+                    var _pai = $('#ChrPrefijoIsoPais');
+                    var _reg = $('#VchCodigoRegion');
+                    var _nom = $('#VchNombrecompleto');
+                    var _cgr = $('#ChrCodigoGerenteRegion');
+                    var _cub = $('#VchCUBGR');
+
+                    if (_nom.val() == "") {
+                        _nom.addClass("ui-state-highlight");
                         return [false, 'Nombre no puede estar vacio']; //error
                     }
-                    return [true, '']; // no error
-                },
-                viewPagerButtons: false
-            },
-            {//ADD EVENTS AND PROPERTIES GOES HERE
-                closeAfterAdd: true, //Closes the add window after add
-                afterSubmit: function (response, postdata) {
-                    if (response.responseText == "") {
 
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')//Reloads the grid after Add
-                        return [true, ''];
+                    if (_cgr.val() == "") {
+                        _cgr.addClass("ui-state-highlight");
+                        return [false, 'Doc. Identidad no puede estar vacio']; //error
+                    } else {
+                        var paramValidaCodGr = { accion: 'validaCodGr', 'pais': _pai.val(), 'region': _reg.val(), 'codGr': _cgr.val() };
+                        var cantCodGr = Evoluciona.Ajax(url, paramValidaCodGr, false);
+
+                        if (cantCodGr > 0) {
+                            return [false, 'Ya existe el Doc. Identidad'];
+                        }
                     }
-                    else {
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')//Reloads the grid after Add
-                        return [false, response.responseText];
+
+                    if (_cub.val() == "") {
+                        _cub.addClass("ui-state-highlight");
+                        return [false, 'CUB no puede estar vacio']; //error
+                    } else {
+                        var paramValidaCub = { accion: 'validaCub', 'pais': _pai.val(), 'region': _reg.val(), 'cub': _cub.val() };
+                        var cantCub = Evoluciona.Ajax(url, paramValidaCub, false);
+
+                        if (cantCub > 0) {
+                            return [false, 'Ya existe el CUB'];
+                        }
                     }
+
+                    return [true, '']; // no error
                 }
-            },
-            {//DELETE EVENTS AND PROPERTIES GOES HERE
-                //DELETE
-                closeOnEscape: true,
+                , onClose: function () {
+                    //paisEdit = "";
+                    //regionEdit = "";
+                    //codGzEdit = "";
+                    //cubGzEdit = "";
+                }
+            };
+
+
+            var delGridRowOptions = {
                 closeAfterDelete: true,
                 reloadAfterSubmit: true,
+                closeOnEscape: true,
                 drag: true,
                 afterSubmit: function (response, postdata) {
                     if (response.responseText == "") {
-
-                        $("#jQGridDemo").trigger("reloadGrid", [{ current: true }]);
+                        grid.trigger("reloadGrid", [{ current: true }]);
                         return [false, response.responseText];
                     }
                     else {
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                        grid.jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
                         return [true, response.responseText];
                     }
                 },
                 delData: {
                     IntID: function () {
-                        var value = new Array();
-                        var cadena = '';
-                        var sel_id = $('#jQGridDemo').jqGrid('getGridParam', 'selarrrow');
-                        if (sel_id.length) {
-                            for (var i = 0; i < sel_id.length; i++) {
-                                value[i] = $('#jQGridDemo').jqGrid('getCell', sel_id[i], 'IntIDGerenteRegion');
-                                var cliente = jQuery('#jQGridDemo').jqGrid('getRowData', sel_id[i]);
-                                cadena = cadena + cliente.VchObservacion;
-                            }
-                            if (cadena.trim() == '') {
-                                alert('Debe completar por lo menos un campo Observacion con motivo de la eliminacion');
-                                value = 0;
-                                return value;
-                            }
-                        }
+                        var selId = grid.jqGrid('getGridParam', 'selrow');
+                        var value = grid.jqGrid('getCell', selId, 'IntIDGerenteRegion');
                         return value;
                     }
                 }
-
-            },
-            {//SEARCH EVENTS AND PROPERTIES GOES HERE
-                closeOnEscape: true
-            }
-        );
-
-
-        // AGREGANDO BOTON EXPORTAR EXCEL
-        $('#jQGridDemo').jqGrid('navButtonAdd', '#jQGridDemoPager',
-            {
-                caption: '<span class="ui-pg-button-text">Export</span>',
-                buttonicon: "ui-icon-extlink",
-                title: "Export To Excel",
-                onClickButton: function () {
-                    window.location = '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGr.ashx?accion=export&pais=' + $('#<%=hfPais.ClientID%>').val();
-            }
-        }
-        );
+            };
 
 
 
-        function obtenerRegiones(codPais) {
-            var url = '<%=Utils.RelativeWebRoot%>Admin/Altas_Bajas/MantUsuarioGr.ashx';
-                var codPaisRegionporPeriodo = Ajax(url, { accion: 'loadRegion', 'pais': codPais }, false);
-                //            $('#<%=hfValComboRegion.ClientID%>').val('');
-                $('#<%=hfValComboRegion.ClientID%>').val(codPaisRegionporPeriodo);
-                return codPaisRegionporPeriodo;
-            }
 
-            function cargarRegiones(mensaje) {
-                alert(mensaje);
-                $('#jQGridDemo').jqGrid('setColProp', 'VchCodigoRegion', { editoptions: { value: mensaje + ':' + mensaje } });
-                //$('#jQGridDemo').jqGrid('setColProp', 'VchCodigoRegion', { editoptions: { value: $('#<%=hfValComboRegion.ClientID%>').val()} });
-        }
-
-
-        function Ajax(url, parameters, async) {
-            var rsp = '';
-            $.ajax({
-                url: url,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                async: async,
-                cache: false,
-                responseType: "json",
-                data: parameters,
-                success: function (response) {
-
-                    rsp = response;
+            grid.jqGrid({
+                colNames: [
+                    'IntIDGerenteRegion'
+                    , 'País'
+                    , 'Doc. Identidad'
+                    , 'Nombre Completo'
+                    , 'Correo Electrónico'
+                    , 'CUB'
+                    , 'C. Planilla'
+                    , 'C. Region'
+                    , 'Directora Venta'
+                    , 'Observación'
+                ],
+                colModel: [
+                    { name: 'IntIDGerenteRegion', index: 'IntIDGerenteRegion', stype: 'text', editable: true, sorttype: 'int', hidden: true },
+                {
+                    name: 'ChrPrefijoIsoPais',
+                    index: 'ChrPrefijoIsoPais',
+                    width: 60,
+                    align: "center",
+                    sortable: true,
+                    editable: true,
+                    edittype: 'select',
+                    stype: 'select',
+                    editoptions: {
+                        value: listPaises,
+                        dataInit: function (elem) {
+                            paisEdit = $(elem).val();
+                            funRegiones(paisEdit);
+                        },
+                        dataEvents: [
+                            {
+                                type: 'change',
+                                fn: function (e) {
+                                    paisEdit = $(e.target).val();
+                                    funCambiarRegionEdit(paisEdit);
+                                }
+                            }
+                        ],
+                    },
+                    searchoptions: {
+                        value: $.extend({ "": "Todos" }, listPaises),
+                        dataEvents: [
+                            {
+                                type: 'change',
+                                fn: function (e) {
+                                    paisSearch = $(e.target).val();
+                                    funCambiarRegionSearch(paisSearch);
+                                }
+                            }
+                        ],
+                    }
                 },
-                failure: function (msg) {
+                    {
+                        name: 'ChrCodigoGerenteRegion', index: 'ChrCodigoGerenteRegion', align: "right", sortable: false, width: 140,
+                        editable: true, editrules: { custom: true, custom_func: validaCodGr }
+                    },
+                    {
+                        name: 'VchNombrecompleto', index: 'VchNombrecompleto', align: "left", width: 165, sortable: true,
+                        editable: true, editrules: { custom: true, custom_func: validaNombre }
+                    },
+                    { name: 'VchCorreoElectronico', index: 'VchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
+                    {
+                        name: 'VchCUBGR', index: 'VchCUBGR', width: 140, align: "right", sortable: false,
+                        editable: true, editrules: { custom: true, custom_func: validaCubGr }
+                    },
+                    { name: 'ChrCodigoPlanilla', index: 'ChrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
+                    {
+                        name: 'VchCodigoRegion',
+                        index: 'VchCodigoRegion',
+                        width: 60,
+                        align: "right",
+                        sortable: true,
+                        editable: true,
+                        edittype: 'select',
+                        stype: 'select',
+                        searchoptions: {
+                            value: { "": "Todos" }
+                        }
+                    },
+                    { name: 'obeDirectoraVentas.vchNombreCompleto', index: 'obeDirectoraVentas.vchNombreCompleto', width: 165, align: "left", sortable: true, editable: false },
+                    { name: 'VchObservacion', index: 'VchObservacion', width: 90, align: "right", sortable: false, editable: true }
+                ],
+                onSelectRow: function (id) {
+                    paisEdit = grid.jqGrid('getCell', id, 'ChrPrefijoIsoPais');
+                    regionEdit = grid.jqGrid('getCell', id, 'VchCodigoRegion');
+                    codGrEdit = grid.jqGrid('getCell', id, 'ChrCodigoGerenteRegion');
+                    cubGrEdit = grid.jqGrid('getCell', id, 'VchCUBGR');
 
-                    rsp = -1;
                 },
-                error: function (request, status, error) {
-                    alert(jQuery.parseJSON(request.responseText).Message);
+                url: url + '?accion=load&pais=' + pais,
+                datatype: 'json',
+                mtype: 'GET',
+                loadonce: true,
+                editurl: url,
+                rowNum: 15,
+                ignoreCase: true,
+                rowList: [15, 30, 45],
+                pager: '#pager',
+                viewrecords: true,
+                sortorder: "desc",
+                caption: "Mantenimiento de Gerentes de Región",
+                height: '100%',
+                width: 1100,
+                forceFit: false,
+                shrinkToFit: false,
+                autowidth: false,
+                fixed: false,
+                rownumbers: true
+            });
+
+            grid.jqGrid('navGrid', '#pager', { edit: true, add: true, del: true, search: false }, editGridRowOptions, addGridRowOptions, delGridRowOptions);
+            grid.jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false });
+
+            // AGREGANDO BOTON EXPORTAR EXCEL
+            grid.jqGrid('navButtonAdd', '#pager',
+                {
+                    caption: '<span class="ui-pg-button-text"></span>',
+                    buttonicon: "ui-icon-extlink",
+                    title: "Exportar a Excel",
+                    onClickButton: function () {
+                        window.location = url + '?accion=export&pais=' + pais;
+                    }
+                }
+            );
+
+        });
+
+
+
+        function funPaises() {
+            var parametrosPais = { accion: 'loadPaises', 'pais': pais };
+            var listObjPais = Evoluciona.Ajax(url, parametrosPais, false);
+            var paises = {};
+
+            $.each(listObjPais, function (i, v) {
+                paises[v.Codigo] = v.Codigo;
+            });
+
+            return paises;
+        }
+
+        function funRegiones(varPaisEdit) {
+            grid.jqGrid('setColProp', 'VchCodigoRegion', {
+                editoptions: {
+                    dataUrl: url + '?accion=loadRegiones&pais=' + varPaisEdit,
+                    buildSelect: function (data) {
+                        var s = '<select id="VchCodigoRegion">';
+                        var listData = JSON.parse(data);
+                        $.each(listData, function (index, value) {
+                            s += "<option value='" + value.CodRegion + "'>" + value.CodRegion + "</option>";
+                        });
+
+                        return s + "</select>";
+                    }
                 }
             });
-            return rsp;
+        }
+
+        function funCambiarRegionSearch(varPaisSearch) {
+            var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisSearch };
+            var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
+            var newOptions = "<option value=\"\">Todos</option>";
+
+
+            $.each(listObjRegion, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.CodRegion + "\">" + v.CodRegion + "</option>";
+            });
+
+            $('#gs_VchCodigoRegion').find('option').remove().end();
+            $('#gs_VchCodigoRegion').html(newOptions);
+
+        }
+
+        function funCambiarRegionEdit(varPaisEdit) {
+            var parametrosRegion = { accion: 'loadRegiones', 'pais': varPaisEdit };
+            var listObjRegion = Evoluciona.Ajax(url, parametrosRegion, false);
+            var newOptions = "";
+
+
+            $.each(listObjRegion, function (i, v) {
+                newOptions += "<option role=\"option\" value=\"" + v.CodRegion + "\">" + v.CodRegion + "</option>";
+            });
+
+            $('select#VchCodigoRegion.FormElement').find('option').remove().end();
+            $('select#VchCodigoRegion.FormElement').html(newOptions);
+
+
+            regionEdit = $('select#VchCodigoRegion.FormElement').val();
+
+        }
+
+
+        function funLimpiarRegionSearch() {
+
+            var newOptions = "<option value=\"\">Todos</option>";
+            $('#gs_VchCodigoRegion').find('option').remove().end();
+            $('#gs_VchCodigoRegion').html(newOptions);
+
         }
 
     </script>
-
 </asp:Content>

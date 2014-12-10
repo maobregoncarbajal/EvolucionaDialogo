@@ -22,30 +22,12 @@ namespace Evoluciona.Dialogo.Web.Admin.Altas_Bajas {
         protected global::System.Web.UI.WebControls.HiddenField hfPais;
         
         /// <summary>
-        /// Control hfValComboPais.
+        /// Control hfUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfValComboPais;
-        
-        /// <summary>
-        /// Control hfValComboRegion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfValComboRegion;
-        
-        /// <summary>
-        /// Control hfRol.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfRol;
+        protected global::System.Web.UI.WebControls.HiddenField hfUsuario;
     }
 }

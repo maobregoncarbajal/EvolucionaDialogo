@@ -22,6 +22,15 @@ namespace Evoluciona.Dialogo.Web.Desempenio {
         protected global::Evoluciona.Dialogo.Web.Controls.HeaderPaginasOperacionEvaluado hderOperaciones;
         
         /// <summary>
+        /// Control lSincronizaDialogo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lSincronizaDialogo;
+        
+        /// <summary>
         /// Control hlkResumen.
         /// </summary>
         /// <remarks>
