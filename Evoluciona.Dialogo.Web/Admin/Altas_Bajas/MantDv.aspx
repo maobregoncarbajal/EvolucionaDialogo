@@ -5,20 +5,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery-1.9.0.min.js"
-        type="text/javascript"></script>
-
-    <link href="../../Jscripts/JQGridReq/Styles/Site.css" rel="stylesheet" type="text/css" />
-    <link href="../../Jscripts/JQGridReq/jquery-ui-1.10.3.custom.css" rel="stylesheet"
-        type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/jquery.jqGrid.js"
-        type="text/javascript"></script>
-
-    <link href="../../Jscripts/JQGridReq/ui.jqgrid.css" rel="stylesheet" type="text/css" />
-
-    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/JQGridReq/grid.locale-en.js"
-        type="text/javascript"></script>
+    <link href="../../Jscripts/jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery-1.11.0.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>/Jscripts/jquery-ui-1.11.0.custom/jquery-ui.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/jquery.jqGrid.js" type="text/javascript"></script>
+    <link href="../../Jscripts/jquery.jqGrid-4.6.0/src/css/ui.jqgrid.css" rel="stylesheet" />
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/jquery.jqGrid-4.6.0/src/i18n/grid.locale-es.js" type="text/javascript"></script>
+    <script src="<%=Utils.AbsoluteWebRoot%>Jscripts/Evoluciona.js" type="text/javascript"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -36,13 +29,13 @@
             colNames: ['intIDDirectoraVenta', 'Pais', 'C. Directora Ventas', 'Nombre Completo', 'Correo Electronico', 'CUB', 'C. Planilla', 'Observacion'],
             colModel: [
             { name: 'intIDDirectoraVenta', index: 'intIDDirectoraVenta', width: 100, stype: 'text', editable: false, sorttype: 'int', hidden: true },
-            { name: 'chrPrefijoIsoPais', index: 'chrPrefijoIsoPais', width: 40, editable: true, edittype: "select" },
-            { name: 'chrCodigoDirectoraVentas', index: 'chrCodigoDirectoraVentas', width: 120, align: "right", editable: true },
-            { name: 'vchNombreCompleto', index: 'vchNombreCompleto', width: 220, editable: true },
-            { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 220, align: "left", sortable: false, editable: true },
-            { name: 'vchCUBDV', index: 'vchCUBDV', width: 120, align: "right", editable: true },
-            { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 120, align: "right", sortable: false, editable: true },
-            { name: 'vchObservacion', index: 'vchObservacion', width: 120, align: "right", sortable: false, editable: true }
+            { name: 'chrPrefijoIsoPais', index: 'chrPrefijoIsoPais', width: 40, editable: true, edittype: "select", searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'chrCodigoDirectoraVentas', index: 'chrCodigoDirectoraVentas', width: 120, align: "right", editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'vchNombreCompleto', index: 'vchNombreCompleto', width: 220, editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 220, align: "left", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'vchCUBDV', index: 'vchCUBDV', width: 120, align: "right", editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 120, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
+            { name: 'vchObservacion', index: 'vchObservacion', width: 120, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } }
             ],
             rowNum: 10,
             mtype: 'GET',
@@ -197,6 +190,8 @@
                 closeOnEscape: true
             }
      );
+        
+    $('#jQGridDemo').jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false });
 
         // AGREGANDO BOTON EXPORTAR EXCEL
         $('#jQGridDemo').jqGrid('navButtonAdd', '#jQGridDemoPager',

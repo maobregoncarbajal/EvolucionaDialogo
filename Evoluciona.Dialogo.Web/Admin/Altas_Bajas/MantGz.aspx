@@ -281,19 +281,22 @@
                     }
                 },
                     {
-                        name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140,
-                        editable: true, editrules: { custom: true, custom_func: validaCodGz }
+                        name: 'chrCodigoGerenteZona', index: 'chrCodigoGerenteZona', align: "right", sortable: false, width: 140
+                        , editable: true, editrules: { custom: true, custom_func: validaCodGz }
+                        , searchoptions: { sopt: ['cn', 'bw'] }
                     },
                     {
-                        name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true,
-                        editable: true, editrules: { custom: true, custom_func: validaNombre }
+                        name: 'vchNombreCompleto', index: 'vchNombreCompleto', align: "left", width: 165, sortable: true
+                        , editable: true, editrules: { custom: true, custom_func: validaNombre }
+                        , searchoptions: { sopt: ['cn', 'bw'] }
                     },
-                    { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
+                    { name: 'vchCorreoElectronico', index: 'vchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
                     {
-                        name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false,
-                        editable: true, editrules: { custom: true, custom_func: validaCubGz }
+                        name: 'vchCUBGZ', index: 'vchCUBGZ', width: 140, align: "right", sortable: false
+                        , editable: true, editrules: { custom: true, custom_func: validaCubGz }
+                        , searchoptions: { sopt: ['cn', 'bw'] }
                     },
-                    { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
+                    { name: 'chrCodigoPlanilla', index: 'chrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } },
                 {
                     name: 'vchCodigoRegion',
                     index: 'vchCodigoRegion',
@@ -343,8 +346,8 @@
                         value: { "": "Todos" }
                     }
                 },
-                { name: 'NombreGerenteRegion', index: 'NombreGerenteRegion', width: 165, align: "left", sortable: true, editable: false },
-                { name: 'vchObservacion', index: 'vchObservacion', width: 90, align: "right", sortable: false, editable: true }
+                { name: 'NombreGerenteRegion', index: 'NombreGerenteRegion', width: 165, align: "left", sortable: true, editable: false, searchoptions: { sopt: ['cn', 'bw'] } },
+                { name: 'vchObservacion', index: 'vchObservacion', width: 90, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } }
                 ],
                 onSelectRow: function (id) {
                     paisEdit = grid.jqGrid('getCell', id, 'chrPrefijoIsoPais');

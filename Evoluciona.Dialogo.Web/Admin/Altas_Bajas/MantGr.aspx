@@ -238,8 +238,8 @@
                     , 'Observación'
                 ],
                 colModel: [
-                    { name: 'IntIDGerenteRegion', index: 'IntIDGerenteRegion', stype: 'text', editable: true, sorttype: 'int', hidden: true },
-                {
+                { name: 'IntIDGerenteRegion', index: 'IntIDGerenteRegion', stype: 'text', editable: true, sorttype: 'int', hidden: true }
+                ,{
                     name: 'ChrPrefijoIsoPais',
                     index: 'ChrPrefijoIsoPais',
                     width: 60,
@@ -276,36 +276,39 @@
                             }
                         ],
                     }
-                },
-                    {
-                        name: 'ChrCodigoGerenteRegion', index: 'ChrCodigoGerenteRegion', align: "right", sortable: false, width: 140,
-                        editable: true, editrules: { custom: true, custom_func: validaCodGr }
-                    },
-                    {
-                        name: 'VchNombrecompleto', index: 'VchNombrecompleto', align: "left", width: 165, sortable: true,
-                        editable: true, editrules: { custom: true, custom_func: validaNombre }
-                    },
-                    { name: 'VchCorreoElectronico', index: 'VchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true },
-                    {
-                        name: 'VchCUBGR', index: 'VchCUBGR', width: 140, align: "right", sortable: false,
-                        editable: true, editrules: { custom: true, custom_func: validaCubGr }
-                    },
-                    { name: 'ChrCodigoPlanilla', index: 'ChrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true },
-                    {
-                        name: 'VchCodigoRegion',
-                        index: 'VchCodigoRegion',
-                        width: 60,
-                        align: "right",
-                        sortable: true,
-                        editable: true,
-                        edittype: 'select',
-                        stype: 'select',
-                        searchoptions: {
-                            value: { "": "Todos" }
-                        }
-                    },
-                    { name: 'obeDirectoraVentas.vchNombreCompleto', index: 'obeDirectoraVentas.vchNombreCompleto', width: 165, align: "left", sortable: true, editable: false },
-                    { name: 'VchObservacion', index: 'VchObservacion', width: 90, align: "right", sortable: false, editable: true }
+                }
+                ,{
+                    name: 'ChrCodigoGerenteRegion', index: 'ChrCodigoGerenteRegion', align: "right", sortable: false, width: 140
+                    , editable: true, editrules: { custom: true, custom_func: validaCodGr }
+                    , searchoptions: { sopt: ['cn', 'bw'] }
+                }
+                ,{
+                    name: 'VchNombrecompleto', index: 'VchNombrecompleto', align: "left", width: 165, sortable: true
+                    , editable: true, editrules: { custom: true, custom_func: validaNombre }
+                    , searchoptions: { sopt: ['cn', 'bw'] }
+                }
+                ,{ name: 'VchCorreoElectronico', index: 'VchCorreoElectronico', width: 120, align: "left", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } }
+                ,{
+                    name: 'VchCUBGR', index: 'VchCUBGR', width: 140, align: "right", sortable: false
+                    , editable: true, editrules: { custom: true, custom_func: validaCubGr }
+                    , searchoptions: { sopt: ['cn', 'bw'] }
+                }
+                ,{ name: 'ChrCodigoPlanilla', index: 'ChrCodigoPlanilla', width: 80, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } }
+                ,{
+                    name: 'VchCodigoRegion',
+                    index: 'VchCodigoRegion',
+                    width: 60,
+                    align: "right",
+                    sortable: true,
+                    editable: true,
+                    edittype: 'select',
+                    stype: 'select',
+                    searchoptions: {
+                        value: { "": "Todos" }
+                    }
+                }
+                ,{ name: 'obeDirectoraVentas.vchNombreCompleto', index: 'obeDirectoraVentas.vchNombreCompleto', width: 165, align: "left", sortable: true, editable: false, searchoptions: { sopt: ['cn', 'bw'] } }
+                ,{ name: 'VchObservacion', index: 'VchObservacion', width: 90, align: "right", sortable: false, editable: true, searchoptions: { sopt: ['cn', 'bw'] } }
                 ],
                 onSelectRow: function (id) {
                     paisEdit = grid.jqGrid('getCell', id, 'ChrPrefijoIsoPais');
@@ -313,26 +316,26 @@
                     codGrEdit = grid.jqGrid('getCell', id, 'ChrCodigoGerenteRegion');
                     cubGrEdit = grid.jqGrid('getCell', id, 'VchCUBGR');
 
-                },
-                url: url + '?accion=load&pais=' + pais,
-                datatype: 'json',
-                mtype: 'GET',
-                loadonce: true,
-                editurl: url,
-                rowNum: 15,
-                ignoreCase: true,
-                rowList: [15, 30, 45],
-                pager: '#pager',
-                viewrecords: true,
-                sortorder: "desc",
-                caption: "Mantenimiento de Gerentes de Región",
-                height: '100%',
-                width: 1100,
-                forceFit: false,
-                shrinkToFit: false,
-                autowidth: false,
-                fixed: false,
-                rownumbers: true
+                }
+                ,url: url + '?accion=load&pais=' + pais
+                ,datatype: 'json'
+                ,mtype: 'GET'
+                ,loadonce: true
+                ,editurl: url
+                ,rowNum: 15
+                ,ignoreCase: true
+                ,rowList: [15, 30, 45]
+                ,pager: '#pager'
+                ,viewrecords: true
+                ,sortorder: "desc"
+                ,caption: "Mantenimiento de Gerentes de Región"
+                ,height: '100%'
+                ,width: 1100
+                ,forceFit: false
+                ,shrinkToFit: false
+                ,autowidth: false
+                ,fixed: false
+                ,rownumbers: true
             });
 
             grid.jqGrid('navGrid', '#pager', { edit: true, add: true, del: true, search: false }, editGridRowOptions, addGridRowOptions, delGridRowOptions);
